@@ -27,12 +27,8 @@ read correo
 sudo certbot --nginx -d $dominio -m $correo --agree-tos --redirect
 
 # editar el archivo de configuracion de nginx
-
-sudo nano /etc/nginx/sites-available/cloud-dev.xfiv.chat
-
-# copiar el siguiente codigo
-
-server {
+echo " "
+echo "server {
     listen 80;
     listen [::]:80;
     server_name $dominio;
@@ -58,20 +54,46 @@ server {
         proxy_set_header X-Forwarded-Ssl on;
         proxy_redirect off;
     }
+}"
+echo " "
+echo "Por favor, copia el codigo anterior y pegalo en el archivo de configuracion de nginx"
+echo "Si nececita editar agalo bajo su responsabilidad"
+echo "Cuando termie de copiar o editar presionar ctrl +d para finalizar la edicion del archivo."
+
+
+
+if [ -f /etc/nginx/sites-enabled/$dominio ]; then
+    echo "El archivo de configuracion ya existe"
+    sleed 5
+else
+    sudo cat > /etc/nginx/sites-available/$dominio
+    crearEnslaSimbolico
+fi
+sleep 5s
+
+
+
+function crearEnslaSimbolico(){
+  if [ -f /etc/nginx/sites-enabled/$dominio ]; then
+      echo "El enlace simbolico ya existe"
+      End
+  else
+      sudo ln -s /etc/nginx/sites-available/$dominio /etc/nginx/sites-enabled/
+  fi
 }
 
-# guardar y salir
-
-
-
-# activar el archivo de configuracion de nginx
-
-sudo ln -s /etc/nginx/sites-available/cloud-dev.xfiv.chat /etc/nginx/sites-enabled/
 
 
 # reiniciar nginx
-sudo systemctl status certbot.timer
+function reiniciarNginx(){
+  # sudo systemctl status certbot.timer
+  sudo systemctl restart nginx
+}
 
-sudo systemctl restart nginx
-
+function End(){
+  echo "proceso finalizado:"
+  echo "reiniciando nginx"
+  reiniciarNginx
+  exit 0
+}
 
