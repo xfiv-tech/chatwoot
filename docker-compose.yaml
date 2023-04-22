@@ -83,7 +83,7 @@ services:
     command: bin/webpack-dev-server
 
   postgres:
-    image: postgres:12
+    image: postgres:leatest
     restart: always
     ports:
       - '5432:5432'
