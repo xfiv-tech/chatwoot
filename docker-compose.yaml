@@ -93,7 +93,6 @@ services:
       - POSTGRES_DB=chatwoot
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    command: postgres -c 'max_connections=500'
 
   redis:
     image: redis:alpine
