@@ -13,13 +13,13 @@ services:
     tty: true
     stdin_open: true
     image: chatwoot:development
-    env_file: .env
+    env_file: ../.env
 
   rails:
     <<: *base
     build:
       context: .
-      dockerfile: ./docker/dockerfiles/rails.Dockerfile
+      dockerfile: ../docker/dockerfiles/rails.Dockerfile
     image: chatwoot-rails:development
     volumes:
       - ./:/app:delegated
@@ -35,7 +35,7 @@ services:
       - sidekiq
     ports:
       - 3000:3000
-    env_file: .env
+    env_file: ../.env
     environment:
       - WEBPACKER_DEV_SERVER_HOST=webpack
       - NODE_ENV=development
@@ -65,7 +65,7 @@ services:
     <<: *base
     build:
       context: .
-      dockerfile: ./docker/dockerfiles/webpack.Dockerfile
+      dockerfile: ../docker/dockerfiles/webpack.Dockerfile
     image: chatwoot-webpack:development
     volumes:
       - ./:/app:delegated
@@ -82,23 +82,23 @@ services:
     entrypoint: docker/entrypoints/webpack.sh
     command: bin/webpack-dev-server
 
-  # postgres:
-  #   image: postgres:latest
-  #   restart: always
-  #   ports:
-  #     - '5432:5432'
-  #   volumes:
-  #     - postgres:/data/postgres
-  #   environment:
-  #     - POSTGRES_DB=chatwoot
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=postgres
+  postgres:
+    image: postgres:12
+    restart: always
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres:/data/postgres
+    environment:
+      - POSTGRES_DB=chatwoot
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 
   redis:
     image: redis:alpine
     restart: always
     command: ["sh", "-c", "redis-server --requirepass \"$REDIS_PASSWORD\""]
-    env_file: .env
+    env_file: ../.env
     volumes:
       - redis:/data/redis
     ports:
@@ -111,7 +111,7 @@ services:
       - 8025:8025
 
 volumes:
-  # postgres:
+  postgres:
   redis:
   packs:
   node_modules:
