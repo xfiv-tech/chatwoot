@@ -45,8 +45,7 @@
               :disabled="
                 $v.credentials.email.$invalid ||
                   $v.credentials.password.$invalid ||
-                  loginApi.showLoading
-              "
+                  loginApi.showLoading"
               :button-text="$t('LOGIN.SUBMIT')"
               :loading="loginApi.showLoading"
               button-class="large expanded"

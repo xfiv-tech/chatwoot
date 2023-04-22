@@ -28,7 +28,7 @@ services:
       - cache:/app/tmp/cache
       - bundle:/usr/local/bundle
     depends_on:
-      - postgres
+      # - postgres
       - redis
       - webpack
       - mailhog
@@ -53,7 +53,7 @@ services:
       - cache:/app/tmp/cache
       - bundle:/usr/local/bundle
     depends_on:
-      - postgres
+      # - postgres
       - redis
       - mailhog
     environment:
