@@ -79,6 +79,7 @@ function crearEnslaSimbolico(){
       End
   else
       sudo ln -s /etc/nginx/sites-available/$dominio /etc/nginx/sites-enabled/
+      End
   fi
 }
 
