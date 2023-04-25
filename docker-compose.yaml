@@ -29,11 +29,11 @@ services:
     networks:
       - xfiv-dev
     volumes:
-      - /home/chatwoot_volumen/:delegated
-      - /home/chatwoot_volumen/node_modules:/app/node_modules
-      - /home/chatwoot_volumen/packs:/app/public/packs
-      - /home/chatwoot_volumen/cache:/app/tmp/cache
-      - /home/chatwoot_volumen/bundle:/usr/local/bundle
+      - ./app:/:delegated
+      - node_modules:/app/node_modules
+      - packs:/app/public/packs
+      - cache:/app/tmp/cache
+      - bundle:/usr/local/bundle
     depends_on:
       # - postgres
       - redis
@@ -55,11 +55,11 @@ services:
     networks:
       - xfiv-dev
     volumes:
-      - /home/chatwoot_volumen/app:delegated
-      - /home/chatwoot_volumen/node_modules:/app/node_modules
-      - /home/chatwoot_volumen/packs:/app/public/packs
-      - /home/chatwoot_volumen/cache:/app/tmp/cache
-      - /home/chatwoot_volumen/bundle:/usr/local/bundle
+      - ./app:/:delegated
+      - node_modules:/app/node_modules
+      - packs:/app/public/packs
+      - cache:/app/tmp/cache
+      - bundle:/usr/local/bundle
     depends_on:
       # - postgres
       - redis
@@ -77,11 +77,11 @@ services:
     networks:
       - xfiv-dev
     volumes:
-      - /home/chatwoot_volumen/app:delegated
-      - /home/chatwoot_volumen/node_modules:/app/node_modules # Node modules shared across containers
-      - /home/chatwoot_volumen/packs:/app/public/packs
-      - /home/chatwoot_volumen/cache:/app/tmp/cache
-      - /home/chatwoot_volumen/bundle:/usr/local/bundle
+      - ./app:/:delegated
+      - node_modules:/app/node_modules # Node modules shared across containers
+      - packs:/app/public/packs
+      - cache:/app/tmp/cache
+      - bundle:/usr/local/bundle
     ports:
       - "3035" # Webpack dev server
     environment:
@@ -99,7 +99,7 @@ services:
     command: ["sh", "-c", "redis-server --requirepass \"$REDIS_PASSWORD\""]
     env_file: .env
     volumes:
-      - /home/chatwoot_volumen/redis:/data/redis
+      - redis:/data/redis
     ports:
       - '6379:6379'
 
