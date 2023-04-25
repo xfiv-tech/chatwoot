@@ -5,7 +5,7 @@
 
 sudo apt update
 
-sudo apt install nginx
+sudo apt install nginx -y
 
 # Instalar certbot
 
@@ -54,6 +54,7 @@ server {
         proxy_set_header X-Forwarded-Ssl on;
         proxy_redirect off;
     }
+
 }"
 echo " "
 echo "Por favor, copia el codigo anterior y pegalo en el archivo de configuracion de nginx"
