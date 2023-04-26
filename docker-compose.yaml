@@ -474,3 +474,9 @@ services:
       - MSG_USER=user
       - MSG_AGENT=agent
 
+volumes:
+  redis:
+  packs:
+  node_modules:
+  cache:
+  bundle:
