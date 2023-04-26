@@ -12,7 +12,7 @@ services:
     networks:
       - xfiv-dev
     ports:
-      - 3002:80
+      - 3011:80
 
   mongoose:
     image: mongo:latest
