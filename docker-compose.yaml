@@ -36,7 +36,6 @@ services:
       - cache:/app/tmp/cache
       - bundle:/usr/local/bundle
     depends_on:
-      # - postgres
       - redis
       - webpack
       - mailhog
