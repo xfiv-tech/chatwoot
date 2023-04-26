@@ -5,7 +5,7 @@ networks:
     driver: bridge
 
 services:
-  base:
+  base: &base
     build:
       context: .
       dockerfile: ./docker/Dockerfile
@@ -22,6 +22,7 @@ services:
       - xfiv-dev
 
   rails:
+    <<: *base
     build:
       context: .
       dockerfile: ./docker/dockerfiles/rails.Dockerfile
@@ -70,6 +71,7 @@ services:
     command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq.yml"]
 
   webpack:
+    <<: *base
     build:
       context: .
       dockerfile: ./docker/dockerfiles/webpack.Dockerfile
@@ -92,6 +94,7 @@ services:
     command: bin/webpack-dev-server
 
   redis:
+    <<: *base
     image: redis:alpine
     networks:
       - xfiv-dev
@@ -104,6 +107,7 @@ services:
       - '6379:6379'
 
   mailhog:
+    <<: *base
     image: mailhog/mailhog
     networks:
       - xfiv-dev
