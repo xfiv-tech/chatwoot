@@ -139,7 +139,7 @@ services:
     environment:
       - PORT=8093
       - MONGO_HOST=mongodb://mongoose:27017/
-      - CHATWOOT=http://177.234.209.98:3000/api/v1/accounts/
+      - CHATWOOT=https://cloud-dev.xfiv.chat/api/v1/accounts/
       - ACCESSCONFIG=http://accessconfig:3002/info/
       - TRANSFERIDO=Ha sido transferido con un agente
       - WARNNING_24=Lo siento el usuario no esta activo en el chat despues de 24 horas sin actividad
