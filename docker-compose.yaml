@@ -28,7 +28,7 @@ services:
       - cache:/app/tmp/cache
       - bundle:/usr/local/bundle
     depends_on:
-      # - postgres
+      - postgres
       - redis
       - webpack
       - mailhog
@@ -53,7 +53,7 @@ services:
       - cache:/app/tmp/cache
       - bundle:/usr/local/bundle
     depends_on:
-      # - postgres
+      - postgres
       - redis
       - mailhog
     environment:
@@ -82,17 +82,17 @@ services:
     entrypoint: docker/entrypoints/webpack.sh
     command: bin/webpack-dev-server
 
-  # postgres:
-  #   image: postgres:12
-  #   restart: always
-  #   ports:
-  #     - '5432:5432'
-  #   volumes:
-  #     - postgres:/data/postgres
-  #   environment:
-  #     - POSTGRES_DB=chatwoot
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=
+  postgres:
+    image: postgres:12
+    restart: always
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres:/data/postgres
+    environment:
+      - POSTGRES_DB=chatwoot
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=
 
   redis:
     image: redis:alpine
@@ -111,7 +111,7 @@ services:
       - 8025:8025
 
 volumes:
-  # postgres:
+  postgres:
   redis:
   packs:
   node_modules:
