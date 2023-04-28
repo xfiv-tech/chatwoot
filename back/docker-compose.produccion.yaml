@@ -1,0 +1,396 @@
+version: '3.7'
+
+networks:
+  xfiv-dev:
+    driver: bridge
+
+services:
+  admin-config:
+    image: intelnexoec/xfiv-admin-config:latest
+    depends_on:
+      - mongoose
+    networks:
+      - xfiv-dev
+    ports:
+      - 3011:80
+
+  mongoose:
+    image: mongo:latest
+    networks:
+      - xfiv-dev
+    ports:
+      - 27017:27017
+    volumes:
+      - mongoose:/data/db
+
+  redis:
+    image: redis/redis-stack:latest
+    networks:
+      - xfiv-dev
+    ports:
+      - 6000:6379
+    volumes:
+      - redis:/data/redis
+
+  xfivmskeys:
+    image: intelnexoec/xfiv-ms-keys:dev_5ffe001c
+    depends_on:
+      - mongoose
+    networks:
+      - xfiv-dev
+    ports:
+      - 1010:1010
+    environment:
+      - PORT=1010
+      - HOST=0.0.0.0
+      - MONGO_HOST=mongodb://mongoose:27017/
+      - TABLE=token
+      - TOKEN=Izhqu4s71UlevpCwemkfYxak7xfxCHY49zcc3Jo8QPLbHubW1BDd6IPMlUnjha5uhG70qrLiukEl49rlgGQ2D0H1oSEQlLNB3W6FH5nH1TQdvWEsZMh1dnFUDJXVcmzw
+
+  accessconfig:
+    image: intelnexoec/accessconfig:dev_3e7bcac1
+    depends_on:
+      - mongoose
+    networks:
+      - xfiv-dev
+    ports:
+      - 3002:3002
+    environment:
+      - DEV=PRO
+      - HOST_MONGO=mongodb://mongoose:27017/xfiv-accesConfig
+      - HOST_REDIS=redis
+      - PORT_REDIS=6379
+      - ADMIN_USER=Xfiv@xfiv.com
+      - ADMIN_PASS=Xfiv*123.
+      - SECRET=wUSXZzhziFqoKMdTOiKivTOSzTDcJzlxBTAXVmHSHySLSgExfLBAFadXnOjjawvmtKdlAHZUADfiVOPVPCaPlLsDjOlZLXAotIRDdWmSSmWdYeVwCjAODCAJWDAblPkN
+      - TOKEN_EXTENAL=LgmhSWvQAcBPVrh4mRnjnvyLsdc6ILiLF4ndd7MCalpuo4NJ9JrRG1Bl4YMhBPtYmfdEh6cksCAwPbm6T1DdPrprxchJ41gAmM2bHMxhXIFtzw0mz0BQMcbVaGzYAFWE7FjVvxdKwOYnUX5wwY5RkIFYujsXTyp7iRBVisXOOMgH1b6dmZXOEStSsRldm1XcgyrVA2tQEF1LgktB3DvWD5O5Upzl0FMBIMRjlzwjP7AJP8rjxUvJVxKEBI1iMUxubtgkbBNAX4yjKZtELxHTvZbtkErfA2ghdKzsB7JQytWxFQoUVReNqVTdFbKGRaVSnXr0lVtoBuYdIQMekMEGkXuMVt1sFts4o8iB1N65yGpMTdR9zBF7b7aVIFkAOXdVNfai8iBdpbj0f8srzWd9S9RIpsMd5B7b7F1JH8eQ9WA7ErtvMsBs7Ibr4BWxl1KCa2UM0yqylJU77vyqH00VVekOhvfdTpq00GKF9XGJcXbgo2wborYDnTRHyTstRINyGzaY2X7qQDTzE903vi0Anjlgl73ZnbbRhlVg7UrzIXmkvy00WelFuzUWnZ0qcp5srPKLpt4MvFi1CFoYCPR9xmu93LXPyM0uwag3tCiIl0sdd31XgE8XQoSJt0YIt4HvcGkCTT0Uc55AWGysavP1sMtyCGHMp2pdadIIIp8SOIMXm5pNMLII
+      - BASE_HOST=https://cloud-dev.xfiv.chat/incoming/api/v1/webhook
+      - BASE_URL_360=https://waba.360dialog.io/v1/
+      - BASE_URL_CLOUD=
+      - BASE_URL_INSTAGRAM=
+
+
+  incoming:
+    image: intelnexoec/incoming:dev_540fe016
+    depends_on:
+      - mongoose
+    networks:
+      - xfiv-dev
+    ports:
+      - 3005:3005
+    environment:
+      - DEV=DEV
+      - HOST_MONGO=mongodb://mongoose:27017/xfiv-accesConfig
+      - HOST_MONGO_LOCAL=mongodb://mongoose:27017/xfiv-accesConfig
+      - SECRET=wUSXZzhziFqoKMdTOiKivTOSzTDcJzlxBTAXVmHSHySLSgExfLBAFadXnOjjawvmtKdlAHZUADfiVOPVPCaPlLsDjOlZLXAotIRDdWmSSmWdYeVwCjAODCAJWDAblPkN
+      - TOKEN_EXTENAL=LgmhSWvQAcBPVrh4mRnjnvyLsdc6ILiLF4ndd7MCalpuo4NJ9JrRG1Bl4YMhBPtYmfdEh6cksCAwPbm6T1DdPrprxchJ41gAmM2bHMxhXIFtzw0mz0BQMcbVaGzYAFWE7FjVvxdKwOYnUX5wwY5RkIFYujsXTyp7iRBVisXOOMgH1b6dmZXOEStSsRldm1XcgyrVA2tQEF1LgktB3DvWD5O5Upzl0FMBIMRjlzwjP7AJP8rjxUvJVxKEBI1iMUxubtgkbBNAX4yjKZtELxHTvZbtkErfA2ghdKzsB7JQytWxFQoUVReNqVTdFbKGRaVSnXr0lVtoBuYdIQMekMEGkXuMVt1sFts4o8iB1N65yGpMTdR9zBF7b7aVIFkAOXdVNfai8iBdpbj0f8srzWd9S9RIpsMd5B7b7F1JH8eQ9WA7ErtvMsBs7Ibr4BWxl1KCa2UM0yqylJU77vyqH00VVekOhvfdTpq00GKF9XGJcXbgo2wborYDnTRHyTstRINyGzaY2X7qQDTzE903vi0Anjlgl73ZnbbRhlVg7UrzIXmkvy00WelFuzUWnZ0qcp5srPKLpt4MvFi1CFoYCPR9xmu93LXPyM0uwag3tCiIl0sdd31XgE8XQoSJt0YIt4HvcGkCTT0Uc55AWGysavP1sMtyCGHMp2pdadIIIp8SOIMXm5pNMLII
+      - TOKEN_VERIFICACION=tes-xfiv-webhook
+
+  consumer:
+    image: intelnexoec/xfiv-consumer-kafka:dev_054b3c8f
+    depends_on:
+      - kafka
+    networks:
+      - xfiv-dev
+    ports:
+      - 8094:8094
+    environment:
+      - PORT=8094
+      - TOPIC=automatic
+      - HOST_MONGO=mongodb://mongoose:27017/
+      - HOST_KAFKA=kafka:29092
+      - TOPIC_KAFKA=historial-messages
+      - XFIV_GROUP=historial
+      - EXCHANGE_AUTOMATIC=http://exchangeMessages:8093/api/v1/automatic/
+      - XFIV_USERNAME=user1
+      - XFIV_PASSWORD=pass1
+
+  sensor:
+    image: intelnexoec/xfiv-sensor_sesion:dev_e6fdb920
+    depends_on:
+      - mongoose
+    networks:
+      - xfiv-dev
+    ports:
+      - 8088:4000
+    environment:
+      - PORT=4000
+      - HOST=0.0.0.0
+      - MONGO_HOST=mongodb://mongoose:27017/
+      - DOCUMENTO=SENSOR
+      - TABLE=SESION
+      - TABLE_USER=USER
+      - TABLE_TEMPLATE=SESION_TEMPLATE
+      - ESTADO_D=default
+      - ESTADO_C=close
+      - ESTADO_U=unboarding
+      - ESTADO_T=template
+      - SALIR=salir
+      - TITLE_QUESTION=Esta seguro de salir del agente
+      - TITLE_QUESTION_1=por favor digite una de la siguiente opcione
+      - TITLE_TEXTO=Recuerda que puedes volver cuando gustes
+      - XFIV=http://exchangeMessages:8093/api/v1/actions/handle/ #confirmar si esta apuntando al exchangeMessages nada mas
+      - EXIT=conversation-exit
+      - TOKEN_INTERNAL=LgmhSWvQAcBPVrh4mRnjnvyLsdc6ILiLF4ndd7MCalpuo4NJ9JrRG1Bl4YMhBPtYmfdEh6cksCAwPbm6T1DdPrprxchJ41gAmM2bHMxhXIFtzw0mz0BQMcbVaGzYAFWE7FjVvxdKwOYnUX5wwY5RkIFYujsXTyp7iRBVisXOOMgH1b6dmZXOEStSsRldm1XcgyrVA2tQEF1LgktB3DvWD5O5Upzl0FMBIMRjlzwjP7AJP8rjxUvJVxKEBI1iMUxubtgkbBNAX4yjKZtELxHTvZbtkErfA2ghdKzsB7JQytWxFQoUVReNqVTdFbKGRaVSnXr0lVtoBuYdIQMekMEGkXuMVt1sFts4o8iB1N65yGpMTdR9zBF7b7aVIFkAOXdVNfai8iBdpbj0f8srzWd9S9RIpsMd5B7b7F1JH8eQ9WA7ErtvMsBs7Ibr4BWxl1KCa2UM0yqylJU77vyqH00VVekOhvfdTpq00GKF9XGJcXbgo2wborYDnTRHyTstRINyGzaY2X7qQDTzE903vi0Anjlgl73ZnbbRhlVg7UrzIXmkvy00WelFuzUWnZ0qcp5srPKLpt4MvFi1CFoYCPR9xmu93LXPyM0uwag3tCiIl0sdd31XgE8XQoSJt0YIt4HvcGkCTT0Uc55AWGysavP1sMtyCGHMp2pdadIIIp8SOIMXm5pNMLII
+
+  exchangeMessages:
+    image: intelnexoec/xfiv-core-exchange:dev_00c3f501
+    depends_on:
+      - mongoose
+    networks:
+      - xfiv-dev
+    ports:
+      - 8093:8093
+    environment:
+      - PORT=8093
+      - MONGO_HOST=mongodb://mongoose:27017/
+      - CHATWOOT=https://cloud-dev.xfiv.chat/api/v1/accounts/
+      - ACCESSCONFIG=http://accessconfig:3002/info/
+      - TRANSFERIDO=Ha sido transferido con un agente
+      - WARNNING_24=Lo siento el usuario no esta activo en el chat despues de 24 horas sin actividad
+      - PLATAFORMA=PROD
+      - SENSOR_TEMPLATE=http://sensor:8088/template
+      - Xfiv_token=Izhqu4s71UlevpCwemkfYxak7xfxCHY49zcc3Jo8QPLbHubW1BDd6IPMlUnjha5uhG70qrLiukEl49rlgGQ2D0H1oSEQlLNB3W6FH5nH1TQdvWEsZMh1dnFUDJXVcmzw
+      - TOKEN_EXTENAL=LgmhSWvQAcBPVrh4mRnjnvyLsdc6ILiLF4ndd7MCalpuo4NJ9JrRG1Bl4YMhBPtYmfdEh6cksCAwPbm6T1DdPrprxchJ41gAmM2bHMxhXIFtzw0mz0BQMcbVaGzYAFWE7FjVvxdKwOYnUX5wwY5RkIFYujsXTyp7iRBVisXOOMgH1b6dmZXOEStSsRldm1XcgyrVA2tQEF1LgktB3DvWD5O5Upzl0FMBIMRjlzwjP7AJP8rjxUvJVxKEBI1iMUxubtgkbBNAX4yjKZtELxHTvZbtkErfA2ghdKzsB7JQytWxFQoUVReNqVTdFbKGRaVSnXr0lVtoBuYdIQMekMEGkXuMVt1sFts4o8iB1N65yGpMTdR9zBF7b7aVIFkAOXdVNfai8iBdpbj0f8srzWd9S9RIpsMd5B7b7F1JH8eQ9WA7ErtvMsBs7Ibr4BWxl1KCa2UM0yqylJU77vyqH00VVekOhvfdTpq00GKF9XGJcXbgo2wborYDnTRHyTstRINyGzaY2X7qQDTzE903vi0Anjlgl73ZnbbRhlVg7UrzIXmkvy00WelFuzUWnZ0qcp5srPKLpt4MvFi1CFoYCPR9xmu93LXPyM0uwag3tCiIl0sdd31XgE8XQoSJt0YIt4HvcGkCTT0Uc55AWGysavP1sMtyCGHMp2pdadIIIp8SOIMXm5pNMLII
+      - HOST_KEY=http://xfivmskeys:1010/api/keys/validation
+
+  crontime:
+    image: intelnexoec/xfiv-cron-time:dev_ba4cf231
+    depends_on:
+      - mongoose
+    networks:
+      - xfiv-dev
+    environment:
+      - MONGO_HOST=mongodb://mongoose:27017/
+      - DOCUMENTO=SENSOR
+      - TABLE=SESION
+      - TABLE_USER=USER
+      - POST_BOT=https://clients.csml.dev/v1/api/
+      - EXCHANGE=http://exchangeMessages:8093/api/v1//api/v1/actions/handle/ #confirmar que este apuntando al exchangeMessages
+      - ACCESSCONFIG=http://accessconfig:3002/
+      - ESTADO_D=default
+      - ESTADO_C=close
+      - ESTADO_U=unboarding
+      - MINUTOONE=2
+      - MINUTOONE_=4
+      - HORA=23
+      - TOKEN_INTERNAL=LgmhSWvQAcBPVrh4mRnjnvyLsdc6ILiLF4ndd7MCalpuo4NJ9JrRG1Bl4YMhBPtYmfdEh6cksCAwPbm6T1DdPrprxchJ41gAmM2bHMxhXIFtzw0mz0BQMcbVaGzYAFWE7FjVvxdKwOYnUX5wwY5RkIFYujsXTyp7iRBVisXOOMgH1b6dmZXOEStSsRldm1XcgyrVA2tQEF1LgktB3DvWD5O5Upzl0FMBIMRjlzwjP7AJP8rjxUvJVxKEBI1iMUxubtgkbBNAX4yjKZtELxHTvZbtkErfA2ghdKzsB7JQytWxFQoUVReNqVTdFbKGRaVSnXr0lVtoBuYdIQMekMEGkXuMVt1sFts4o8iB1N65yGpMTdR9zBF7b7aVIFkAOXdVNfai8iBdpbj0f8srzWd9S9RIpsMd5B7b7F1JH8eQ9WA7ErtvMsBs7Ibr4BWxl1KCa2UM0yqylJU77vyqH00VVekOhvfdTpq00GKF9XGJcXbgo2wborYDnTRHyTstRINyGzaY2X7qQDTzE903vi0Anjlgl73ZnbbRhlVg7UrzIXmkvy00WelFuzUWnZ0qcp5srPKLpt4MvFi1CFoYCPR9xmu93LXPyM0uwag3tCiIl0sdd31XgE8XQoSJt0YIt4HvcGkCTT0Uc55AWGysavP1sMtyCGHMp2pdadIIIp8SOIMXm5pNMLII
+      - CONTENT=La sesión está a punto de finalizar por falta de interacción. Esperamos poderte atender nuevamente pronto.
+      - CONTENT_=Nos vemos pronto, Escribeme cuando gustes, te estaré esperando!😉 👋
+      - SCHEDULE=*/1 * * * *
+      - TYPE_EXPIRA=conversation-expired
+      - TYPE_WARNING=conversation-warning
+      - TYPE_EXTI=conversation-exit
+      - PATH_ACCESS=http://accessconfig:3002/api/v1/ #confirmar que este apuntando al accessConfig
+
+  s3_Upload:
+    image: intelnexoec/xfiv-bucket-s3-media:dev_0dd81e5e
+    networks:
+      - xfiv-dev
+    ports:
+      - 4030:3030
+    volumes:
+      - storage:/home/images
+    environment:
+      - PORT=3030
+      - TOKEN_INTERNAL=LgmhSWvQAcBPVrh4mRnjnvyLsdc6ILiLF4ndd7MCalpuo4NJ9JrRG1Bl4YMhBPtYmfdEh6cksCAwPbm6T1DdPrprxchJ41gAmM2bHMxhXIFtzw0mz0BQMcbVaGzYAFWE7FjVvxdKwOYnUX5wwY5RkIFYujsXTyp7iRBVisXOOMgH1b6dmZXOEStSsRldm1XcgyrVA2tQEF1LgktB3DvWD5O5Upzl0FMBIMRjlzwjP7AJP8rjxUvJVxKEBI1iMUxubtgkbBNAX4yjKZtELxHTvZbtkErfA2ghdKzsB7JQytWxFQoUVReNqVTdFbKGRaVSnXr0lVtoBuYdIQMekMEGkXuMVt1sFts4o8iB1N65yGpMTdR9zBF7b7aVIFkAOXdVNfai8iBdpbj0f8srzWd9S9RIpsMd5B7b7F1JH8eQ9WA7ErtvMsBs7Ibr4BWxl1KCa2UM0yqylJU77vyqH00VVekOhvfdTpq00GKF9XGJcXbgo2wborYDnTRHyTstRINyGzaY2X7qQDTzE903vi0Anjlgl73ZnbbRhlVg7UrzIXmkvy00WelFuzUWnZ0qcp5srPKLpt4MvFi1CFoYCPR9xmu93LXPyM0uwag3tCiIl0sdd31XgE8XQoSJt0YIt4HvcGkCTT0Uc55AWGysavP1sMtyCGHMp2pdadIIIp8SOIMXm5pNMLII
+      - BUCKET=xfiv-content
+      - API_KEY=AKIA2I3TAMZRPR67EFMK
+      - API_SECRET=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
+      - REGION=us-east-1
+      - PATH_STORAGE=xfiv-content/external-images/share_dir/
+      - NODE_ENV=develop
+      - SHARE_DIR=./uploads
+      - CORS_HOST=*
+      - MY_HOST=https://cloud-dev.xfiv.chat/s3_upload
+
+  whatsappCloudApi:
+    image: intelnexoec/xfiv-connector-whatsapp-cloud-api:dev_2a498da4
+    networks:
+      - xfiv-dev
+    ports:
+      - 3030:5050
+    environment:
+      - PORT=5050
+      - HOST=0.0.0.0
+      - BASIC_USERNAME=user1
+      - BASIC_PASSWORD=pass1
+      - POST_BOT=https://clients.csml.dev/v1/api/
+      - PATH_EXPIRA=http://whatsappCloudApi:5050/connect/expira
+      - SCAPE_PATH=http://whatsappCloudApi:5050/connect/scape
+      - USER_PATH=http://sensor:4000/channel/user_id
+      - SENSOR_TEMPLATE=http://sensor:4000/template
+      - SENSOR_PATH=http://sensor:4000/channel/sesion
+      - XFIV_EXCHANGE=http://exchangeMessages:8093/api/v1/webhook/connectors/messages
+      - XFIV_EXCHANGE_SEND=http://exchangeMessages:8093/api/v1/webhook/connectors/send
+      - PATH_FB=https://graph.facebook.com/v15.0/
+      - PATH_S3=http://s3_Upload:3030/s3/carga_archivos
+      - XFIV=http://exchangeMessages:8093/api/v1/actions/handle/ #confirmar que este apuntando al exchangeMessages
+      - HOST_KAFKA=http://producerKafka:8881/api/v1/kafka
+      - PATH_ACCESS=http://accessconfig:3002/api/v1/
+      - PATH_CONECTOR=http://whatsappCloudApi:5050/api/v1/send/message
+      - PATH_KEYS=http://xfivmskeys:1010/api/keys/validation
+      - ESTADO_D=default
+      - ESTADO_C=close
+      - ESTADO_U=unboarding
+      - ESTADO_T=template
+      - ESTADO_R=reunboarding
+      - EVENT_N=new-message
+      - EVENT_RC=resolve-conversation
+      - EVENT_RU=reunbording-conversation
+      - TYPE=cmd
+      - TYPE_C=catalogs
+      - CHANNEL=whatsapp-cloud
+      - MSG_BOT=bot
+      - MSG_USER=user
+      - MSG_AGENT=agent
+
+  xfivConnector360:
+    image: intelnexoec/xfiv-connector-whatsapp-360dialog-nodejs:dev_98fb9da3
+    networks:
+      - xfiv-dev
+    ports:
+      - 5080:5080
+    environment:
+      - PORT=5080
+      - HOST=0.0.0.0
+      - TOKEN_INTERNAL=LgmhSWvQAcBPVrh4mRnjnvyLsdc6ILiLF4ndd7MCalpuo4NJ9JrRG1Bl4YMhBPtYmfdEh6cksCAwPbm6T1DdPrprxchJ41gAmM2bHMxhXIFtzw0mz0BQMcbVaGzYAFWE7FjVvxdKwOYnUX5wwY5RkIFYujsXTyp7iRBVisXOOMgH1b6dmZXOEStSsRldm1XcgyrVA2tQEF1LgktB3DvWD5O5Upzl0FMBIMRjlzwjP7AJP8rjxUvJVxKEBI1iMUxubtgkbBNAX4yjKZtELxHTvZbtkErfA2ghdKzsB7JQytWxFQoUVReNqVTdFbKGRaVSnXr0lVtoBuYdIQMekMEGkXuMVt1sFts4o8iB1N65yGpMTdR9zBF7b7aVIFkAOXdVNfai8iBdpbj0f8srzWd9S9RIpsMd5B7b7F1JH8eQ9WA7ErtvMsBs7Ibr4BWxl1KCa2UM0yqylJU77vyqH00VVekOhvfdTpq00GKF9XGJcXbgo2wborYDnTRHyTstRINyGzaY2X7qQDTzE903vi0Anjlgl73ZnbbRhlVg7UrzIXmkvy00WelFuzUWnZ0qcp5srPKLpt4MvFi1CFoYCPR9xmu93LXPyM0uwag3tCiIl0sdd31XgE8XQoSJt0YIt4HvcGkCTT0Uc55AWGysavP1sMtyCGHMp2pdadIIIp8SOIMXm5pNMLII
+      - POST_BOT=https://clients.csml.dev/v1/api/
+      - PATH_EXPIRA=http://xfivConnector360:5080/connect/expira
+      - SCAPE_PATH=http://xfivConnector360:5080/connect/scape
+      - USER_PATH=http://sensor:4000/channel/user_id
+      - SENSOR_PATH=http://sensor:4000/channel/sesion
+      - EXCHANGE=http://exchangeMessages:8093/api/v1/
+      - PATH_DIALOG=https://waba.360dialog.io/v1/
+      - PATH_S3=http://s3_Upload:3030/s3/carga_archivos
+      - HOST_KAFKA=http://producerKafka:8881/api/v1/kafka
+      - PATH_ACCESS=http://accessconfig:3002/info/
+      - PATH_CONECTOR=http://xfivConnector360:5080/api/v1/send/message
+      - PATH_KEYS=http://xfivmskeys:1010/api/keys/validation
+      - ESTADO_D=default
+      - ESTADO_C=close
+      - ESTADO_U=unboarding
+      - ESTADO_R=reunboarding
+      - ESTADO_T=template
+      - EVENT_N=new-message
+      - EVENT_RC=resolve-conversation
+      - EVENT_RU=reunbording-conversation
+      - TYPE=cmd
+      - TYPE_C=catalogs
+      - CHANNEL=whatsapp-360
+      - MSG_BOT=bot
+      - MSG_USER=user
+      - MSG_AGENT=agent
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    user: root
+    networks:
+      - xfiv-dev
+    volumes:
+      - zookeeper:/var/lib/zookeeper/data/version-2
+      - zookeeper:/var/lib/zookeeper/log/version-2
+    command: zookeeper-server-start /etc/kafka/zookeeper.properties
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 22181:2181
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    networks:
+      - xfiv-dev
+    depends_on:
+      - zookeeper
+    ports:
+      # - 9092:9092
+      - 29092:29092
+    # command: kafka-server-start /etc/kafka/server.properties
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://kafka:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: true
+
+  producerKafka:
+    image: intelnexoec/xfiv-producer-kafka:dev_3313e5de
+    depends_on:
+      - kafka
+    networks:
+      - xfiv-dev
+    ports:
+      - 8881:8881
+    environment:
+     - PORT=8881
+     - TOKEN_INTERNAL=LgmhSWvQAcBPVrh4mRnjnvyLsdc6ILiLF4ndd7MCalpuo4NJ9JrRG1Bl4YMhBPtYmfdEh6cksCAwPbm6T1DdPrprxchJ41gAmM2bHMxhXIFtzw0mz0BQMcbVaGzYAFWE7FjVvxdKwOYnUX5wwY5RkIFYujsXTyp7iRBVisXOOMgH1b6dmZXOEStSsRldm1XcgyrVA2tQEF1LgktB3DvWD5O5Upzl0FMBIMRjlzwjP7AJP8rjxUvJVxKEBI1iMUxubtgkbBNAX4yjKZtELxHTvZbtkErfA2ghdKzsB7JQytWxFQoUVReNqVTdFbKGRaVSnXr0lVtoBuYdIQMekMEGkXuMVt1sFts4o8iB1N65yGpMTdR9zBF7b7aVIFkAOXdVNfai8iBdpbj0f8srzWd9S9RIpsMd5B7b7F1JH8eQ9WA7ErtvMsBs7Ibr4BWxl1KCa2UM0yqylJU77vyqH00VVekOhvfdTpq00GKF9XGJcXbgo2wborYDnTRHyTstRINyGzaY2X7qQDTzE903vi0Anjlgl73ZnbbRhlVg7UrzIXmkvy00WelFuzUWnZ0qcp5srPKLpt4MvFi1CFoYCPR9xmu93LXPyM0uwag3tCiIl0sdd31XgE8XQoSJt0YIt4HvcGkCTT0Uc55AWGysavP1sMtyCGHMp2pdadIIIp8SOIMXm5pNMLII
+     - KAFKA_TOPIC=historial-messages
+     - KAFKA_BROKER=kafka:29092
+     - HOST=0.0.0.0
+
+  ocr:
+    image: intelnexoec/xfiv-ocr-rest-api:latest
+    networks:
+      - xfiv-dev
+    depends_on:
+      - mongoose
+    ports:
+      - 1221:1221
+    environment:
+      - PORT=1221
+      - HOST=0.0.0.0
+      - TABLE=infoBeneficiario
+      - MONGO_HOST=mongodb://mongoose:27017/xfiv-ocr-rest-api
+
+  whatsappQR:
+    image: intelnexoec/xfiv-whatsapp-qr:dev_7e668ac8
+    networks:
+      - xfiv-dev
+    ports:
+      - 4203:3000
+    environment:
+      - PORT=3000
+      - HOST=0.0.0.0
+      - DEV=PROD
+      - POST_BOT=https://clients.csml.dev/v1/api/
+      - MONGO_HOST=mongodb://mongoose:27017/sessio_whatsapp
+      - PATH_EXPIRA=http://whatsappQR:3000/connect/expira
+      - SCAPE_PATH=http://whatsappQR:3000/connect/scape
+      - USER_PATH=http://sensor:4000/channel/user_id
+      - SENSOR_PATH=http://sensor:4000/channel/sesion
+      - PATH_S3=http://s3_Upload:3030/s3/carga_archivos
+      - HOST_KAFKA=http://producerKafka:8881/api/v1/kafka
+      - ACCESSCONFIG=http://accessconfig:3002/api/v1/
+      - ACCESSCONFIGINFO=http://accessconfig:3002/info/
+      - EXCHANGE=http://exchangeMessages:8093/api/v1/
+      - PATH_CONECTOR=http://whatsappQR:3000/api/v1/send/message
+      - PATH_KEY=http://xfivmskeys:1010/api/keys/validation
+      - API_KEY_EXTERNAL=qlwgcylehdn134x.ybfugexuhjnwedchvqkdcqu-rgfqbedjcqcxnejcbvqhrcjqrchberjc
+      - TOKEN_INTERNAL=LgmhSWvQAcBPVrh4mRnjnvyLsdc6ILiLF4ndd7MCalpuo4NJ9JrRG1Bl4YMhBPtYmfdEh6cksCAwPbm6T1DdPrprxchJ41gAmM2bHMxhXIFtzw0mz0BQMcbVaGzYAFWE7FjVvxdKwOYnUX5wwY5RkIFYujsXTyp7iRBVisXOOMgH1b6dmZXOEStSsRldm1XcgyrVA2tQEF1LgktB3DvWD5O5Upzl0FMBIMRjlzwjP7AJP8rjxUvJVxKEBI1iMUxubtgkbBNAX4yjKZtELxHTvZbtkErfA2ghdKzsB7JQytWxFQoUVReNqVTdFbKGRaVSnXr0lVtoBuYdIQMekMEGkXuMVt1sFts4o8iB1N65yGpMTdR9zBF7b7aVIFkAOXdVNfai8iBdpbj0f8srzWd9S9RIpsMd5B7b7F1JH8eQ9WA7ErtvMsBs7Ibr4BWxl1KCa2UM0yqylJU77vyqH00VVekOhvfdTpq00GKF9XGJcXbgo2wborYDnTRHyTstRINyGzaY2X7qQDTzE903vi0Anjlgl73ZnbbRhlVg7UrzIXmkvy00WelFuzUWnZ0qcp5srPKLpt4MvFi1CFoYCPR9xmu93LXPyM0uwag3tCiIl0sdd31XgE8XQoSJt0YIt4HvcGkCTT0Uc55AWGysavP1sMtyCGHMp2pdadIIIp8SOIMXm5pNMLII
+      - PHONE=573218982389
+      - ESTADO_D=default
+      - ESTADO_C=close
+      - ESTADO_U=unboarding
+      - ESTADO_T=template
+      - ESTADO_R=reunboarding
+      - EVENT_N=new-message
+      - EVENT_RC=resolve-conversation
+      - EVENT_RU=reunbording-conversation
+      - TYPE=cmd
+      - TYPE_C=catalogs
+      - CHANNEL=whatsapp-qr
+      - MSG_BOT=bot
+      - MSG_USER=user
+      - MSG_AGENT=agent
+
+
+
+volumes:
+  mongoose:
+  storage:
+  redis:
+  zookeeper:
