@@ -48,7 +48,7 @@ services:
       - TOKEN=Izhqu4s71UlevpCwemkfYxak7xfxCHY49zcc3Jo8QPLbHubW1BDd6IPMlUnjha5uhG70qrLiukEl49rlgGQ2D0H1oSEQlLNB3W6FH5nH1TQdvWEsZMh1dnFUDJXVcmzw
 
   accessconfig:
-    image: intelnexoec/accessconfig:dev_4a7aa7ad
+    image: intelnexoec/accessconfig:dev_9c9cfcf2
     depends_on:
       - mongoose
     networks:
