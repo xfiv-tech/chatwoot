@@ -394,3 +394,4 @@ volumes:
   storage:
   redis:
   zookeeper:
+  kafka:
