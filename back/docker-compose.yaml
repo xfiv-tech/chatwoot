@@ -283,8 +283,8 @@ services:
     networks:
       - xfiv-dev
     volumes:
-      - zookeeper/data/:/var/lib/zookeeper/data/version-2
-      - zookeeper/log:/var/lib/zookeeper/log/version-2
+      - zookeeper:/var/lib/zookeeper/data/version-2
+      - zookeeper:/var/lib/zookeeper/log/version-2
     command: zookeeper-server-start /etc/kafka/zookeeper.properties
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
