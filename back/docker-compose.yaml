@@ -48,7 +48,7 @@ services:
       - TOKEN=Izhqu4s71UlevpCwemkfYxak7xfxCHY49zcc3Jo8QPLbHubW1BDd6IPMlUnjha5uhG70qrLiukEl49rlgGQ2D0H1oSEQlLNB3W6FH5nH1TQdvWEsZMh1dnFUDJXVcmzw
 
   accessconfig:
-    image: intelnexoec/accessconfig:dev_badbfd23
+    image: intelnexoec/accessconfig:dev_90f6a2dd
     depends_on:
       - mongoose
     networks:
@@ -69,7 +69,6 @@ services:
       - BASE_URL_360=https://waba.360dialog.io/v1/
       - BASE_URL_CLOUD=
       - BASE_URL_INSTAGRAM=
-
 
   incoming:
     image: intelnexoec/incoming:dev_540fe016
