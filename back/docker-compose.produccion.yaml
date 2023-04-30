@@ -332,12 +332,10 @@ services:
      - KAFKA_BROKER=kafka:29092
      - HOST=0.0.0.0
 
-  ocr:
+  xfiv-core-prod-ocr:
     image: intelnexoec/xfiv-ocr-rest-api:latest
     networks:
-      - xfiv-dev
-    depends_on:
-      - mongoose
+      - xfiv-prod
     ports:
       - 1221:1221
     environment:
@@ -345,6 +343,19 @@ services:
       - HOST=0.0.0.0
       - TABLE=infoBeneficiario
       - MONGO_HOST=mongodb://mongoose:27017/xfiv-ocr-rest-api
+
+  xfiv-core-prod-botinternet:
+    image: intelnexoec/xfiv-internetbots-wifi:latest
+    networks:
+      - xfiv-prod
+    ports:
+      - 1223:1223
+    environment:
+      - PORT=1223
+      - HOST=0.0.0.0
+      - MONGO_HOST=mongodb://mongoose:27017/
+      - DOCUMENTO=internetISP
+      - TABLE=isp
 
   whatsappQR:
     image: intelnexoec/xfiv-whatsapp-qr:dev_7e668ac8
