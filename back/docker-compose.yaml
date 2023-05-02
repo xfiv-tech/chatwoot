@@ -71,7 +71,7 @@ services:
       - BASE_URL_INSTAGRAM=
 
   incoming:
-    image: intelnexoec/incoming:dev_ea79f1bc
+    image: intelnexoec/incoming:dev_a5a973e4
     depends_on:
       - mongoose
     networks:
