@@ -247,7 +247,7 @@ services:
       - MSG_AGENT=agent
 
   xfivConnector360:
-    image: intelnexoec/xfiv-connector-whatsapp-360dialog-nodejs:dev_c6b2899e
+    image: intelnexoec/xfiv-connector-whatsapp-360dialog-nodejs:dev_8579c875
     networks:
       - xfiv-dev
     ports:
