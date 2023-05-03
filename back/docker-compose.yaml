@@ -393,7 +393,7 @@ services:
     networks:
       - xfiv-dev
     ports:
-      - 8811:8000
+      - 8000:8000
 
 
 
