@@ -389,7 +389,7 @@ services:
       - MSG_AGENT=agent
 
   chatgpt_back:
-    image: intelnexoec/back_ch_chatgpt:dev_70b3cdff
+    image: intelnexoec/back_ch_chatgpt:dev_00e884bc
     networks:
       - xfiv-dev
     ports:
