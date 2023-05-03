@@ -407,7 +407,7 @@ services:
     container_name: metabase
     hostname: metabase
     volumes:
-    - metabase/dev/urandom:/dev/random:ro
+    - /dev/urandom:/dev/random:ro
     ports:
       - 3300:3000
     environment:
