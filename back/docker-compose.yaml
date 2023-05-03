@@ -436,7 +436,7 @@ services:
       POSTGRES_DB: metabase
       POSTGRES_PASSWORD_FILE: /run/secrets/db_password
     networks:
-      - metanet1
+      - xfiv-dev
     secrets:
       - db_password
       - db_user
