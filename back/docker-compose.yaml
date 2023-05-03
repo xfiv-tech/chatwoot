@@ -388,6 +388,13 @@ services:
       - MSG_USER=user
       - MSG_AGENT=agent
 
+  chatgpt_back:
+    image: intelnexoec/back_ch_chatgpt:dev_f10f7b9f
+    networks:
+      - xfiv-dev
+    ports:
+      - 8811:8000
+
 
 
 volumes:
