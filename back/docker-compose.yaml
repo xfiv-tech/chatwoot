@@ -403,6 +403,16 @@ services:
     ports:
       - 4204:80
 
+
+
+volumes:
+  mongoose:
+  storage:
+  redis:
+  zookeeper:
+  # metabase:
+  # postgres:
+
   # metabase:
   #   image: metabase/metabase:latest
   #   container_name: metabase
@@ -455,10 +465,4 @@ services:
 #   db_user:
 #     file: db_user.txt
 
-volumes:
-  mongoose:
-  storage:
-  redis:
-  zookeeper:
-  # metabase:
-  # postgres:
+
