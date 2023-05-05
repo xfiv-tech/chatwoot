@@ -403,7 +403,19 @@ services:
     ports:
       - 4204:80
 
-
+  botinternet:
+    image: intelnexoec/xfiv-internetbots-wifi:dev_785c538e
+    networks:
+      - xfiv-dev
+    restart: unless-stopped
+    ports:
+      - 1223:1223
+    environment:
+      - PORT=1223
+      - HOST=0.0.0.0
+      - MONGO_HOST=mongodb://mongoose:27017/
+      - DOCUMENTO=internetISP
+      - TABLE=isp
 
 volumes:
   mongoose:
