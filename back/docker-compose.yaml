@@ -404,7 +404,7 @@ services:
       - 4204:80
 
   botinternet:
-    image: intelnexoec/xfiv-internetbots-wifi:dev_74d370dc
+    image: intelnexoec/xfiv-internetbots-wifi:dev_5017e121
     networks:
       - xfiv-dev
     restart: unless-stopped
