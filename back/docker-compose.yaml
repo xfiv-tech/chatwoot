@@ -425,7 +425,7 @@ services:
     networks:
       - xfiv-dev
     volumes:
-    - back_metabase/dev/urandom:/dev/random:ro
+    - /dev/urandom:/dev/random:ro
     ports:
       - 3300:3000
 
@@ -476,7 +476,6 @@ volumes:
   storage:
   back_redis:
   zookeeper:
-  back_metabase:
   back_s3_data:
   back_db_data:
 
