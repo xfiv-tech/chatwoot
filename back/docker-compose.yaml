@@ -470,20 +470,12 @@ services:
       "
 
 
-secrets:
-  db_password:
-    file: db_password.txt
-  db_user:
-    file: db_user.txt
-
-
 volumes:
   mongoose:
   storage:
   redis:
   zookeeper:
   metabase:
-  postgres:
   s3_data:
   db_data:
 
