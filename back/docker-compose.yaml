@@ -30,7 +30,7 @@ services:
     ports:
       - 6000:6379
     volumes:
-      - redis:/data/redis
+      - back_redis:/data/redis
 
   xfivmskeys:
     image: intelnexoec/xfiv-ms-keys:dev_5ffe001c
@@ -425,7 +425,7 @@ services:
     networks:
       - xfiv-dev
     volumes:
-    - /dev/urandom:/dev/random:ro
+    - back_metabase/dev/urandom:/dev/random:ro
     ports:
       - 3300:3000
 
@@ -435,7 +435,7 @@ services:
       - '5433:5432'
     restart: always
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - back_db_data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: 'typebot'
       POSTGRES_PASSWORD: 'typebot'
@@ -443,6 +443,7 @@ services:
   minio:
     image: minio/minio
     command: server /data --console-address ":9001"
+    container_name: minio
     ports:
       - '9000:9000'
       - '9001:9001'
@@ -452,7 +453,7 @@ services:
       MINIO_ROOT_USER: minio
       MINIO_ROOT_PASSWORD: minio123
     volumes:
-      - s3_data:/data
+      - back_s3_data:/data
 
   createbuckets:
     image: minio/mc
@@ -473,11 +474,11 @@ services:
 volumes:
   mongoose:
   storage:
-  redis:
+  back_redis:
   zookeeper:
-  metabase:
-  s3_data:
-  db_data:
+  back_metabase:
+  back_s3_data:
+  back_db_data:
 
 
 
