@@ -350,7 +350,7 @@ services:
       - MONGO_HOST=mongodb://mongoose:27017/xfiv-ocr-rest-api
 
   whatsappQR:
-    image: intelnexoec/xfiv-whatsapp-qr:dev_7e668ac8
+    image: intelnexoec/xfiv-whatsapp-qr:dev_20ee95e1
     networks:
       - xfiv-dev
     ports:
@@ -431,12 +431,16 @@ services:
 
   postgres:
     image: postgres:13
+    container_name: back_postgres
+    networks:
+      - xfiv-dev
     ports:
       - '5433:5432'
     restart: always
     volumes:
       - back_db_data:/var/lib/postgresql/data
     environment:
+      POSTGRES_USER: 'typebot'
       POSTGRES_DB: 'typebot'
       POSTGRES_PASSWORD: 'typebot'
 
