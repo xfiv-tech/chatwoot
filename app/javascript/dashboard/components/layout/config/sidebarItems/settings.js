@@ -38,6 +38,8 @@ const settings = accountId => ({
     'settings_teams_finish',
     'settings_teams_list',
     'settings_teams_new',
+    // Rutas creadas por Moises
+    'botTypebot'
   ],
   menuItems: [
     {
@@ -63,6 +65,16 @@ const settings = accountId => ({
       toStateName: 'settings_teams_list',
       featureFlag: FEATURE_FLAGS.TEAM_MANAGEMENT,
     },
+    // =====
+    {
+      icon: 'bot',
+      label: 'AGENT_BOTS',
+      hasSubMenu: false,
+      toState: frontendURL(`accounts/${accountId}/settings/bots`),
+      toStateName: 'settings_inbox_list',
+      featureFlag: FEATURE_FLAGS.AGENT_BOTS,
+    },
+    // =====
     {
       icon: 'mail-inbox-all',
       label: 'INBOXES',
@@ -76,7 +88,7 @@ const settings = accountId => ({
       label: 'LABELS',
       hasSubMenu: false,
       toState: frontendURL(`accounts/${accountId}/settings/labels/list`),
-      toStateName: 'labels_list',
+      toStateName: 'agent_bots',
       featureFlag: FEATURE_FLAGS.LABELS,
     },
     {
@@ -92,7 +104,7 @@ const settings = accountId => ({
     {
       icon: 'automation',
       label: 'AUTOMATION',
-      beta: true,
+      beta: false,
       hasSubMenu: false,
       toState: frontendURL(`accounts/${accountId}/settings/automation/list`),
       toStateName: 'automation_list',
@@ -101,7 +113,7 @@ const settings = accountId => ({
     {
       icon: 'bot',
       label: 'AGENT_BOTS',
-      beta: true,
+      beta: false,
       hasSubMenu: false,
       globalConfigFlag: 'csmlEditorHost',
       toState: frontendURL(`accounts/${accountId}/settings/agent-bots`),
@@ -114,7 +126,7 @@ const settings = accountId => ({
       hasSubMenu: false,
       toState: frontendURL(`accounts/${accountId}/settings/macros`),
       toStateName: 'macros_wrapper',
-      beta: true,
+      beta: false,
       featureFlag: FEATURE_FLAGS.MACROS,
     },
     {
@@ -157,7 +169,7 @@ const settings = accountId => ({
       hasSubMenu: false,
       toState: frontendURL(`accounts/${accountId}/settings/audit-log/list`),
       toStateName: 'auditlogs_list',
-      beta: true,
+      beta: false,
     },
   ],
 });
