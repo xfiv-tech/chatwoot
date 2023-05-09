@@ -1,7 +1,26 @@
 <template>
   <div class="settings--content">
     <loading-state v-if="uiFlags.isFetching || uiFlags.isFetchingAgentBot" />
-    <form v-else class="row" @submit.prevent="updateActiveAgentBot">
+    <div class="row">
+      <div class="small-12">
+        <div class="card">
+          <div class="contenedor-img">
+            <p>+593 996232139</p>
+            <img
+              src="https://www.ocu.org/-/media/ta/images/_%20orphaned/qr-code.png?rev=2e1cc496-40d9-4e21-a7fb-9e2c76d6a288&hash=38DA21F2DF33F4BB3CE83BE5D2A723F5&mw=960"
+              class="img">
+          </div>
+          <div class="body-card">
+            <h2>✌ Lee antes de escanear</h2>
+            <h3>Debes ir a las configuraciones de tu teléfono</h3>
+            <p>Encuéntralo en <b>Configuración Dispositivos Vinculados > Vincular un dispositivo</b></p>
+
+            <a class="boton btn-primary">Actualizar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <form v-else class="row" @submit.prevent="updateActiveAgentBot">
       <settings-section
         :title="$t('AGENT_BOTS.BOT_CONFIGURATION.TITLE')"
         :sub-title="$t('AGENT_BOTS.BOT_CONFIGURATION.DESC')"
@@ -40,7 +59,7 @@
           </div>
         </div>
       </settings-section>
-    </form>
+    </form> -->
   </div>
 </template>
 
@@ -110,7 +129,7 @@ export default {
       } catch (error) {
         this.showAlert(
           error?.message ||
-            this.$t('AGENT_BOTS.BOT_CONFIGURATION.DISCONNECTED_ERROR_MESSAGE')
+          this.$t('AGENT_BOTS.BOT_CONFIGURATION.DISCONNECTED_ERROR_MESSAGE')
         );
       }
     },
@@ -121,5 +140,57 @@ export default {
 <style scoped lang="scss">
 .button--disconnect {
   margin-left: var(--space-small);
+}
+
+.card {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 25px;
+  display: block;
+  justify-content: center;
+}
+
+.contenedor-img p {
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.contenedor-img img {
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+}
+
+.body-card h2 {
+  font-size: 30px;
+}
+
+.body-card h3 {
+  font-size: 25px;
+}
+
+.body-card p {
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+
+
+.boton {
+  padding: 15px;
+  margin: 30px;
+}
+
+.btn-primary {
+  background-color: rgb(22, 74, 218);
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  box-shadow: 2px 2px 10px 2px rgba(130, 130, 130, 0.724);
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  box-shadow: 2px 2px 10px 2px rgba(59, 59, 59, 0.724);
 }
 </style>
