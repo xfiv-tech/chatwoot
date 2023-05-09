@@ -350,7 +350,7 @@ services:
       - MONGO_HOST=mongodb://mongoose:27017/xfiv-ocr-rest-api
 
   whatsappQR:
-    image: intelnexoec/xfiv-whatsapp-qr:dev_20ee95e1
+    image: intelnexoec/xfiv-whatsapp-qr:dev_5af827b6
     networks:
       - xfiv-dev
     ports:
