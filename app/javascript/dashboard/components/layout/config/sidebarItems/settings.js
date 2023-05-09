@@ -71,7 +71,7 @@ const settings = accountId => ({
       label: 'AGENT_BOTS',
       hasSubMenu: false,
       toState: frontendURL(`accounts/${accountId}/settings/bots`),
-      toStateName: 'settings_inbox_list',
+      toStateName: 'botTypebot',
       featureFlag: FEATURE_FLAGS.AGENT_BOTS,
     },
     // =====
