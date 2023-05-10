@@ -440,9 +440,9 @@ services:
     volumes:
       - back_db_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: 'typebot'
+      POSTGRES_USER: 'postgres'
       POSTGRES_DB: 'typebot'
-      POSTGRES_PASSWORD: 'typebot'
+      POSTGRES_PASSWORD: 'postgres'
 
   minio:
     image: minio/minio
