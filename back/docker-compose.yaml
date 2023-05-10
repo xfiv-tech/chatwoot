@@ -435,14 +435,14 @@ services:
     networks:
       - xfiv-dev
     ports:
-      - '5433:5432'
+      - 5433:5432
     restart: always
     volumes:
       - back_db_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: 'postgres'
-      POSTGRES_DB: 'typebot'
-      POSTGRES_PASSWORD: 'postgres'
+      - POSTGRES_DB=typebot
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 
   minio:
     image: minio/minio
@@ -454,8 +454,8 @@ services:
     networks:
       - xfiv-dev
     environment:
-      MINIO_ROOT_USER: minio
-      MINIO_ROOT_PASSWORD: minio123
+      - MINIO_ROOT_USER=minio
+      - MINIO_ROOT_PASSWORD=minio123
     volumes:
       - back_s3_data:/data
 
