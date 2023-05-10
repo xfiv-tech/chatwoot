@@ -430,12 +430,12 @@ services:
       - 3300:3000
 
   postgres:
-    image: postgres:13
+    image: postgres:latest
     container_name: back_postgres
     networks:
       - xfiv-dev
     ports:
-      - 5433:5432
+      - '5433:5432'
     restart: always
     volumes:
       - back_db_data:/var/lib/postgresql/data
