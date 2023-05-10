@@ -7,7 +7,7 @@ docker-compose up -d
 echo "Ahora se ejecutará el comando para crear el back interno de chatwoot personalizado"
 seelp 5
 
-cd back && docker-compose up -d
+# cd back && docker-compose up -d
 echo "Up se ejecutó correctamente"
 echo ""
 echo "Este comando se ejecutó solo una vez, si desea volver a ejecutarlo, debe ejecutar el comando down.sh y luego up.sh"

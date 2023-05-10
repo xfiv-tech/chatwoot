@@ -29,7 +29,7 @@ services:
       - cache:/app/tmp/cache
       - bundle:/usr/local/bundle
     depends_on:
-      - postgres
+      - postgres_chatwoot
       - redis
       - webpack
       - mailhog
@@ -55,7 +55,7 @@ services:
       - cache:/app/tmp/cache
       - bundle:/usr/local/bundle
     depends_on:
-      - postgres
+      - postgres_chatwoot
       - redis
       - mailhog
     environment:
@@ -86,9 +86,10 @@ services:
 
   postgres:
     image: postgres:latest
+    container_name: postgres_chatwoot
     restart: always
     ports:
-      - '5432:5432'
+      - '5434:5432'
     volumes:
       - /data/postgres:/var/lib/postgresql/data
     environment:
