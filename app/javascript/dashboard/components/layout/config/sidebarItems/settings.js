@@ -4,7 +4,6 @@ import { frontendURL } from '../../../../helper/URLHelper';
 const settings = accountId => ({
   parentNav: 'settings',
   routes: [
-    'agent_bots',
     'agent_list',
     'attributes_list',
     'automation_list',
@@ -39,7 +38,8 @@ const settings = accountId => ({
     'settings_teams_list',
     'settings_teams_new',
     // Rutas creadas por Moises
-    'botTypebot'
+    'botTypebot',
+    'agent_bots'
   ],
   menuItems: [
     {
@@ -65,7 +65,6 @@ const settings = accountId => ({
       toStateName: 'settings_teams_list',
       featureFlag: FEATURE_FLAGS.TEAM_MANAGEMENT,
     },
-    // =====
     {
       icon: 'bot',
       label: 'AGENT_BOTS',
@@ -74,7 +73,6 @@ const settings = accountId => ({
       toStateName: 'botTypebot',
       featureFlag: FEATURE_FLAGS.AGENT_BOTS,
     },
-    // =====
     {
       icon: 'mail-inbox-all',
       label: 'INBOXES',

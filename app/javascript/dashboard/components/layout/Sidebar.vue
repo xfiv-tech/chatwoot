@@ -194,6 +194,10 @@ export default {
         if (!this.isCurrentRouteSameAsNavigation('agent_list')) {
           router.push({ name: 'agent_list' });
         }
+      } else if (hasPressedAltAndSKey(e)) {
+        if (!this.isCurrentRouteSameAsNavigation('botTypebot')) {
+          router.push({ name: 'botTypebot' });
+        }
       }
     },
     isCurrentRouteSameAsNavigation(routeName) {
