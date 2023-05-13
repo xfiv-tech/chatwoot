@@ -38,6 +38,13 @@ elif [ $opcion -eq 2 ]; then
 elif [ $opcion -eq 3 ]; then
     echo "Levantando contenedores caidos"
     docker-compose up -d
+    # eliminar contenedores caidos con su volumen
+    echo "Eliminando contenedores caidos con su volumen que no se esten usando"
+    docker volume prune -f
+    echo "Listo."
+    echo " "
+    echo " "
+    echo " "
     docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}" > tabla_contenedores.txt
     docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}"
 elif [ $opcion -eq 0 ]; then

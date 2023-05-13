@@ -95,7 +95,7 @@ services:
     command: bin/webpack-dev-server
 # cambias listen 3000 por 3001
   postgres:
-    image: intelnexoec/xfiv-postgres:v.1.1.0
+    image: intelnexoec/xfiv-postgres:v1.1.0
     restart: always
     networks:
       - xfiv-dev
