@@ -20,13 +20,14 @@ echo ""
 
 read -p "Escriba el número de la opción que desea ejecutar: " opcion
 
-if [ $opcion -eq 1 ]
+if [ $opcion -eq 1 ]; then
     echo "Reiniciando contenedor en específico"
     read -p "Escriba el nombre del contenedor que desea reiniciar: " nombre_contenedor
     docker restart $nombre_contenedor
     docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}" > tabla_contenedores.txt
     docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}"
-elif [ $opcion -eq 2 ]
+
+elif [ $opcion -eq 2 ]; then
     echo "Reconstruir imagen de contenedor"
     read -p "Escriba el nombre del contenedor que desea reconstruir: " nombre_contenedor
     docker stop $nombre_contenedor
@@ -34,12 +35,12 @@ elif [ $opcion -eq 2 ]
     docker-compose build $nombre_contenedor
     docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}" > tabla_contenedores.txt
     docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}"
-elif [ $opcion -eq 3 ]
+elif [ $opcion -eq 3 ]; then
     echo "Levantando contenedores caidos"
     docker-compose up -d
     docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}" > tabla_contenedores.txt
     docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}"
-elif [ $opcion -eq 0 ]
+elif [ $opcion -eq 0 ]; then
     echo "Listo."
 else
     echo "Opción no válida"
