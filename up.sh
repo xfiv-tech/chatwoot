@@ -5,11 +5,8 @@ docker-compose run --rm rails bundle exec rails db:chatwoot_prepare
 docker exec -it $(basename $(pwd))_rails_1 sh -c 'RAILS_ENV=production bundle exec rails c'
 docker-compose up -d
 #--remove-orphans
-echo "Ahora se ejecutará el comando para crear el back interno de chatwoot personalizado"
+docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}" > tabla_contenedores.txt
+docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}"
 seelp 5
 
 # cd back && docker-compose up -d
-echo "Up se ejecutó correctamente"
-echo ""
-echo "Este comando se ejecutó solo una vez, si desea volver a ejecutarlo, debe ejecutar el comando down.sh y luego up.sh"
-echo "Si quieres reiniciar los contenedores del back reiniciar_back.sh"
