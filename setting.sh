@@ -24,8 +24,8 @@ if [ $opcion -eq 1 ]; then
     echo "Reiniciando contenedor en específico"
     read -p "Escriba el nombre del contenedor que desea reiniciar: " nombre_contenedor
     docker restart $nombre_contenedor
-    docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}" > tabla_contenedores.txt
-    docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}"
+    docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}\t{{.Status}}" > tabla_contenedores.txt
+    docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}\t{{.Status}}"
 
 elif [ $opcion -eq 2 ]; then
     echo "Reconstruir imagen de contenedor"
@@ -33,8 +33,8 @@ elif [ $opcion -eq 2 ]; then
     docker stop $nombre_contenedor
     docker rm $nombre_contenedor
     docker-compose build $nombre_contenedor
-    docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}" > tabla_contenedores.txt
-    docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}"
+    docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}\t{{.Status}}" > tabla_contenedores.txt
+    docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}\t{{.Status}}"
 elif [ $opcion -eq 3 ]; then
     echo "Levantando contenedores caidos"
     docker-compose up -d
@@ -45,8 +45,8 @@ elif [ $opcion -eq 3 ]; then
     echo " "
     echo " "
     echo " "
-    docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}" > tabla_contenedores.txt
-    docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}"
+    docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}\t{{.Status}}" > tabla_contenedores.txt
+    docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}\t{{.Status}}"
 elif [ $opcion -eq 0 ]; then
     echo "Listo."
 else

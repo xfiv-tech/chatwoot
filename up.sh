@@ -6,7 +6,7 @@ docker exec -it $(basename $(pwd))_rails_1 sh -c 'RAILS_ENV=production bundle ex
 docker-compose up -d
 #--remove-orphans
 docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}" > tabla_contenedores.txt
-docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}"
+docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}\t{{.Status}}"
 seelp 5
 
 # cd back && docker-compose up -d
