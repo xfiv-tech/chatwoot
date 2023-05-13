@@ -150,7 +150,7 @@ services:
       - TOKEN=Izhqu4s71UlevpCwemkfYxak7xfxCHY49zcc3Jo8QPLbHubW1BDd6IPMlUnjha5uhG70qrLiukEl49rlgGQ2D0H1oSEQlLNB3W6FH5nH1TQdvWEsZMh1dnFUDJXVcmzw
 
   accessconfig:
-    image: intelnexoec/accessconfig:dev_3d1b95fd
+    image: intelnexoec/accessconfig:dev_21ef714d
     depends_on:
       - mongoose
     networks:
@@ -159,7 +159,10 @@ services:
       - 3002:3002
     environment:
       - DEV=PRO
-      - HOST_MONGO=mongodb://mongoose:27017/xfiv-accesConfig
+      - user=postgres
+      - password=postgres
+      - host=postgres
+      - database=accessconfig
       - HOST_REDIS=redis
       - PORT_REDIS=6379
       - ADMIN_USER=Xfiv@xfiv.com
@@ -171,7 +174,7 @@ services:
       - BASE_URL_360=https://waba.360dialog.io/v1/
       - BASE_URL_CLOUD=
       - BASE_URL_INSTAGRAM=
-      - HOST_TYPEBOT=https://cloud-dev.xfiv.chat/flowbuilder
+      - HOST_TYPEBOT=https://flow.xfiv.chat
 
   incoming:
     image: intelnexoec/incoming:dev_a5a973e4
