@@ -244,42 +244,7 @@ server {
 }" > /etc/nginx/sites-available/$dominio
 
 echo " "
-
-
-
-if [ -f /etc/nginx/sites-enabled/$dominio ]; then
-    echo "El archivo de configuracion ya existe"
-    sleed 5
-else
-    sudo cat > /etc/nginx/sites-available/$dominio
-    crearEnslaSimbolico
-fi
-sleep 5s
-
-
-
-function crearEnslaSimbolico(){
-  if [ -f /etc/nginx/sites-enabled/$dominio ]; then
-      echo "El enlace simbolico ya existe"
-      End
-  else
-      sudo ln -s /etc/nginx/sites-available/$dominio /etc/nginx/sites-enabled/
-      End
-  fi
-}
-
-
-
-# reiniciar nginx
-function reiniciarNginx(){
-  # sudo systemctl status certbot.timer
-  sudo systemctl restart nginx
-}
-
-function End(){
-  echo "proceso finalizado:"
-  echo "reiniciando nginx"
-  reiniciarNginx
-  exit 0
-}
+sudo ln -s /etc/nginx/sites-available/$dominio /etc/nginx/sites-enabled/
+sudo systemctl restart nginx
+echo "reiniciando nginx"
 
