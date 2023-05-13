@@ -136,8 +136,6 @@ services:
 
   xfivmskeys:
     image: intelnexoec/xfiv-ms-keys:dev_5ffe001c
-    depends_on:
-      - mongoose
     networks:
       - xfiv-dev
     ports:
