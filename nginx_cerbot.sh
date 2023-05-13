@@ -4,41 +4,41 @@
 
 # instalar docker y docker-compose
 
-sudo apt update
+# sudo apt update
 
-sudo apt install docker.io -y
+# sudo apt install docker.io -y
 
-sudo apt install docker-compose -y
+# sudo apt install docker-compose -y
 
 
 # dar permisos a docker
 
-sudo usermod -aG docker $USER
+# sudo usermod -aG docker $USER
 
 
 # instalar nodejs 18 y npm
 
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+# curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 
-sudo apt-get install -y nodejs
+# sudo apt-get install -y nodejs
 
 # instalar pm2
 
-sudo npm install pm2@latest -g
+# sudo npm install pm2@latest -g
 
 # instalar git
 
-sudo apt install git -y
+# sudo apt install git -y
 
 # Instalar nginx
 
-sudo apt update
+# sudo apt update
 
-sudo apt install nginx -y
+# sudo apt install nginx -y
 
 # Instalar certbot
 
-sudo apt install certbot python3-certbot-nginx -y
+# sudo apt install certbot python3-certbot-nginx -y
 
 # pedir dominio y correo
 
@@ -53,7 +53,7 @@ read correo
 
 # pedir certificado
 
-sudo certbot --nginx -d $dominio -m $correo --agree-tos --redirect
+# sudo certbot --nginx -d $dominio -m $correo --agree-tos --redirect
 
 # editar el archivo de configuracion de nginx
 echo " "
