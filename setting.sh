@@ -40,6 +40,7 @@ elif [ $opcion -eq 3 ]; then
     docker-compose up -d
     # eliminar contenedores caidos con su volumen
     echo "Eliminando contenedores caidos con su volumen que no se esten usando"
+    docker system prune -f
     docker volume prune -f
     echo "Listo."
     echo " "
