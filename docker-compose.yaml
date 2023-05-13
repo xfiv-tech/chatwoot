@@ -150,7 +150,7 @@ services:
       - TOKEN=Izhqu4s71UlevpCwemkfYxak7xfxCHY49zcc3Jo8QPLbHubW1BDd6IPMlUnjha5uhG70qrLiukEl49rlgGQ2D0H1oSEQlLNB3W6FH5nH1TQdvWEsZMh1dnFUDJXVcmzw
 
   accessconfig:
-    image: intelnexoec/accessconfig:dev_2170b97b
+    image: intelnexoec/accessconfig:dev_a36e8cf2
     depends_on:
       - mongoose
     networks:
@@ -232,7 +232,7 @@ services:
     environment:
       - PORT=8093
       - MONGO_HOST=mongodb://mongoose:27017/
-      - CHATWOOT=https://cloud.xfiv.chat/api/v1/accounts/
+      - CHATWOOT=http://rails:3000/api/v1/accounts/
       - ACCESSCONFIG=http://accessconfig:3002/info/
       - TRANSFERIDO=Ha sido transferido con un agente
       - WARNNING_24=Lo siento el usuario no esta activo en el chat despues de 24 horas sin actividad
@@ -378,8 +378,16 @@ services:
       - xfiv-dev
     ports:
       - 9092:9092
+      # - 29092:29092
     environment:
-      - KAFKA_BROKER_ID=1
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://kafka:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+
 
   consumer:
     image: intelnexoec/xfiv-consumer-kafka:dev_054b3c8f
