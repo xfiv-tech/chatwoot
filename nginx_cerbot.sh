@@ -57,16 +57,16 @@ read correo
 
 # editar el archivo de configuracion de nginx
 echo " "
-echo "server {
+ruta="/etc/nginx/sites-available/$dominio"
+
+contenido="server {
     listen 80;
-    listen [::]:80;
     server_name $dominio;
     return 301 https://$dominio$request_uri;
 }
 
 server {
     listen 443 ssl;
-    listen [::]:443 ssl;
     server_name $dominio;
 
     ssl_certificate /etc/letsencrypt/live/$dominio/fullchain.pem;
@@ -241,9 +241,10 @@ server {
     proxy_redirect  http://localhost:3005/ https://$dominio;
     }
 
-}" > /etc/nginx/sites-available/$dominio
+}"
 
-echo " "
+echo "$contenido" > "$ruta"
+
 sudo ln -s /etc/nginx/sites-available/$dominio /etc/nginx/sites-enabled/
 sudo systemctl restart nginx
 echo "reiniciando nginx"
