@@ -149,8 +149,6 @@ services:
 
   accessconfig:
     image: intelnexoec/accessconfig:dev_1d6e4dea
-    depends_on:
-      - mongoose
     networks:
       - xfiv-dev
     ports:
@@ -192,8 +190,6 @@ services:
 
   sensor:
     image: intelnexoec/xfiv-sensor_sesion:dev_7135fc8e
-    depends_on:
-      - mongoose
     networks:
       - xfiv-dev
     ports:
@@ -221,8 +217,6 @@ services:
 
   exchangeMessages:
     image: intelnexoec/xfiv-core-exchange:dev_cdcac110
-    depends_on:
-      - mongoose
     networks:
       - xfiv-dev
     ports:
@@ -243,8 +237,6 @@ services:
 
   crontime:
     image: intelnexoec/xfiv-cron-time:dev_38cc2966
-    depends_on:
-      - mongoose
     networks:
       - xfiv-dev
     environment:
@@ -425,8 +417,6 @@ services:
     image: intelnexoec/xfiv-ocr-rest-api:latest
     networks:
       - xfiv-dev
-    depends_on:
-      - mongoose
     ports:
       - 1221:1221
     environment:
