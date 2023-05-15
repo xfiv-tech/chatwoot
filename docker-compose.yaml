@@ -392,8 +392,7 @@ services:
     environment:
       - PORT=8094
       - TOPIC=automatic
-      - HOST_MONGO=mongodb://mongoose:27017/
-      - HOST_KAFKA=kafka:9092
+      - HOST_KAFKA=localhost:9092
       - TOPIC_KAFKA=historial-messages
       - XFIV_GROUP=historial
       - EXCHANGE_AUTOMATIC=http://exchangeMessages:8093/api/v1/automatic/
