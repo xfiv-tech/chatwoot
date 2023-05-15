@@ -369,8 +369,6 @@ services:
     restart: always
     networks:
       - xfiv-dev
-    depends_on:
-      - zookeeper
     ports:
       - "9092:9092"
     environment:
