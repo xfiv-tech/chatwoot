@@ -370,7 +370,7 @@ services:
       - xfiv-dev
     ports:
       - 9092:9092
-      # - 29092:29092
+      - 2181:2181
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://kafka:29092
@@ -392,12 +392,10 @@ services:
     environment:
       - PORT=8094
       - TOPIC=automatic
-      - HOST_KAFKA=localhost:9092
+      - HOST_KAFKA=kafka:9092
       - TOPIC_KAFKA=historial-messages
       - XFIV_GROUP=historial
       - EXCHANGE_AUTOMATIC=http://exchangeMessages:8093/api/v1/automatic/
-      - XFIV_USERNAME=user1
-      - XFIV_PASSWORD=pass1
 
   producerKafka:
     image: intelnexoec/xfiv-producer-kafka:dev_3313e5de
