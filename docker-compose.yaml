@@ -368,8 +368,8 @@ services:
     image: confluentinc/cp-zookeeper:latest
     user: root
     networks:
-      - xfiv-prod
-    restart: unless-stopped
+      - xfiv-dev
+    restart: always
     volumes:
       - ./zookeeper/data/:/var/lib/zookeeper/data/version-2
       - ./zookeeper/log:/var/lib/zookeeper/log/version-2
@@ -383,8 +383,8 @@ services:
   kafka:
     image: confluentinc/cp-kafka:latest
     networks:
-      - xfiv-prod
-    restart: unless-stopped
+      - xfiv-dev
+    restart: always
     depends_on:
       - zookeeper
     ports:
