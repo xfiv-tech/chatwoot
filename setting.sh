@@ -5,7 +5,7 @@
 # reconstruir imagen de contenedor
 #  escriba el nombre del contenedor que desea reiniciar de la lista presentada anterior mente
 
-
+docker network create xfiv-dev
 docker ps --format "table {{.Names}}"
 echo ""
 echo ""
