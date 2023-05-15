@@ -364,17 +364,40 @@ services:
       - MSG_AGENT=agent
 
 
-  kafka:
-    image: intelnexoec/xfiv-kafka:v1.0.1
-    restart: always
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    user: root
     networks:
-      - xfiv-dev
-    ports:
-      - "9092:9092"
+      - xfiv-prod
+    restart: unless-stopped
+    volumes:
+      - ./zookeeper/data/:/var/lib/zookeeper/data/version-2
+      - ./zookeeper/log:/var/lib/zookeeper/log/version-2
+    command: zookeeper-server-start /etc/kafka/zookeeper.properties
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: kafka
-      KAFKA_CREATE_TOPICS: "historial-messages:1:1,automatic:1:1"
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 22181:2181
 
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    networks:
+      - xfiv-prod
+    restart: unless-stopped
+    depends_on:
+      - zookeeper
+    ports:
+      - 29092:29092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://kafka:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
 
   consumer:
     image: intelnexoec/xfiv-consumer-kafka:dev_054b3c8f
@@ -387,7 +410,7 @@ services:
     environment:
       - PORT=8094
       - TOPIC=automatic
-      - HOST_KAFKA=kafka:9092
+      - HOST_KAFKA=kafka:29092
       - TOPIC_KAFKA=historial-messages
       - XFIV_GROUP=historial
       - EXCHANGE_AUTOMATIC=http://exchangeMessages:8093/api/v1/automatic/
@@ -404,7 +427,7 @@ services:
      - PORT=8881
      - TOKEN_INTERNAL=LgmhSWvQAcBPVrh4mRnjnvyLsdc6ILiLF4ndd7MCalpuo4NJ9JrRG1Bl4YMhBPtYmfdEh6cksCAwPbm6T1DdPrprxchJ41gAmM2bHMxhXIFtzw0mz0BQMcbVaGzYAFWE7FjVvxdKwOYnUX5wwY5RkIFYujsXTyp7iRBVisXOOMgH1b6dmZXOEStSsRldm1XcgyrVA2tQEF1LgktB3DvWD5O5Upzl0FMBIMRjlzwjP7AJP8rjxUvJVxKEBI1iMUxubtgkbBNAX4yjKZtELxHTvZbtkErfA2ghdKzsB7JQytWxFQoUVReNqVTdFbKGRaVSnXr0lVtoBuYdIQMekMEGkXuMVt1sFts4o8iB1N65yGpMTdR9zBF7b7aVIFkAOXdVNfai8iBdpbj0f8srzWd9S9RIpsMd5B7b7F1JH8eQ9WA7ErtvMsBs7Ibr4BWxl1KCa2UM0yqylJU77vyqH00VVekOhvfdTpq00GKF9XGJcXbgo2wborYDnTRHyTstRINyGzaY2X7qQDTzE903vi0Anjlgl73ZnbbRhlVg7UrzIXmkvy00WelFuzUWnZ0qcp5srPKLpt4MvFi1CFoYCPR9xmu93LXPyM0uwag3tCiIl0sdd31XgE8XQoSJt0YIt4HvcGkCTT0Uc55AWGysavP1sMtyCGHMp2pdadIIIp8SOIMXm5pNMLII
      - KAFKA_TOPIC=historial-messages
-     - KAFKA_BROKER=kafka:9092
+     - KAFKA_BROKER=kafka:29092
      - HOST=0.0.0.0
 
   ocr:
