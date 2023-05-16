@@ -174,13 +174,19 @@ services:
       - HOST_TYPEBOT=https://flow.xfiv.chat
 
   incoming:
-    image: intelnexoec/incoming:dev_a5a973e4
+    image: intelnexoec/incoming:dev_c0987092
     networks:
       - xfiv-dev
     ports:
       - 3005:3005
     environment:
-      - DEV=DEV
+      - DEV=PRO
+      - user=postgres
+      - password=postgres
+      - host=postgres
+      - database=accessconfig
+      - HOST_REDIS=redis
+      - PORT_REDIS=6379
       - HOST_MONGO=mongodb://mongoose:27017/xfiv-accesConfig
       - HOST_MONGO_LOCAL=mongodb://mongoose:27017/xfiv-accesConfig
       - SECRET=wUSXZzhziFqoKMdTOiKivTOSzTDcJzlxBTAXVmHSHySLSgExfLBAFadXnOjjawvmtKdlAHZUADfiVOPVPCaPlLsDjOlZLXAotIRDdWmSSmWdYeVwCjAODCAJWDAblPkN
