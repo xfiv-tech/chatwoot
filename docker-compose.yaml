@@ -174,7 +174,7 @@ services:
       - HOST_TYPEBOT=https://flow.xfiv.chat
 
   incoming:
-    image: intelnexoec/incoming:dev_c0987092
+    image: intelnexoec/incoming:dev_3fdd7717
     networks:
       - xfiv-dev
     ports:
