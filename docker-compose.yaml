@@ -193,35 +193,8 @@ services:
       - TOKEN_EXTENAL=LgmhSWvQAcBPVrh4mRnjnvyLsdc6ILiLF4ndd7MCalpuo4NJ9JrRG1Bl4YMhBPtYmfdEh6cksCAwPbm6T1DdPrprxchJ41gAmM2bHMxhXIFtzw0mz0BQMcbVaGzYAFWE7FjVvxdKwOYnUX5wwY5RkIFYujsXTyp7iRBVisXOOMgH1b6dmZXOEStSsRldm1XcgyrVA2tQEF1LgktB3DvWD5O5Upzl0FMBIMRjlzwjP7AJP8rjxUvJVxKEBI1iMUxubtgkbBNAX4yjKZtELxHTvZbtkErfA2ghdKzsB7JQytWxFQoUVReNqVTdFbKGRaVSnXr0lVtoBuYdIQMekMEGkXuMVt1sFts4o8iB1N65yGpMTdR9zBF7b7aVIFkAOXdVNfai8iBdpbj0f8srzWd9S9RIpsMd5B7b7F1JH8eQ9WA7ErtvMsBs7Ibr4BWxl1KCa2UM0yqylJU77vyqH00VVekOhvfdTpq00GKF9XGJcXbgo2wborYDnTRHyTstRINyGzaY2X7qQDTzE903vi0Anjlgl73ZnbbRhlVg7UrzIXmkvy00WelFuzUWnZ0qcp5srPKLpt4MvFi1CFoYCPR9xmu93LXPyM0uwag3tCiIl0sdd31XgE8XQoSJt0YIt4HvcGkCTT0Uc55AWGysavP1sMtyCGHMp2pdadIIIp8SOIMXm5pNMLII
       - TOKEN_VERIFICACION=tes-xfiv-webhook
 
-  sensor:
-    image: intelnexoec/xfiv-sensor_sesion:dev_7135fc8e
-    networks:
-      - xfiv-dev
-    ports:
-      - 8088:4000
-    environment:
-      - PORT=4000
-      - HOST=0.0.0.0
-      - MONGO_HOST=mongodb://mongoose:27017/
-      - DOCUMENTO=SENSOR
-      - TABLE=SESION
-      - TABLE_USER=USER
-      - TABLE_TEMPLATE=SESION_TEMPLATE
-      - ESTADO_D=default
-      - ESTADO_C=close
-      - ESTADO_U=unboarding
-      - ESTADO_T=template
-      - SALIR=salir
-      - TITLE_QUESTION=Esta seguro de salir del agente
-      - TITLE_QUESTION_1=por favor digite una de la siguiente opcione
-      - TITLE_TEXTO=Recuerda que puedes volver cuando gustes
-      - XFIV=http://exchangeMessages:8093/api/v1/actions/handle/ #confirmar si esta apuntando al exchangeMessages nada mas
-      - POST_BOT=https://clients.csml.dev/v1/api/
-      - EXIT=conversation-exit
-      - TOKEN_INTERNAL=LgmhSWvQAcBPVrh4mRnjnvyLsdc6ILiLF4ndd7MCalpuo4NJ9JrRG1Bl4YMhBPtYmfdEh6cksCAwPbm6T1DdPrprxchJ41gAmM2bHMxhXIFtzw0mz0BQMcbVaGzYAFWE7FjVvxdKwOYnUX5wwY5RkIFYujsXTyp7iRBVisXOOMgH1b6dmZXOEStSsRldm1XcgyrVA2tQEF1LgktB3DvWD5O5Upzl0FMBIMRjlzwjP7AJP8rjxUvJVxKEBI1iMUxubtgkbBNAX4yjKZtELxHTvZbtkErfA2ghdKzsB7JQytWxFQoUVReNqVTdFbKGRaVSnXr0lVtoBuYdIQMekMEGkXuMVt1sFts4o8iB1N65yGpMTdR9zBF7b7aVIFkAOXdVNfai8iBdpbj0f8srzWd9S9RIpsMd5B7b7F1JH8eQ9WA7ErtvMsBs7Ibr4BWxl1KCa2UM0yqylJU77vyqH00VVekOhvfdTpq00GKF9XGJcXbgo2wborYDnTRHyTstRINyGzaY2X7qQDTzE903vi0Anjlgl73ZnbbRhlVg7UrzIXmkvy00WelFuzUWnZ0qcp5srPKLpt4MvFi1CFoYCPR9xmu93LXPyM0uwag3tCiIl0sdd31XgE8XQoSJt0YIt4HvcGkCTT0Uc55AWGysavP1sMtyCGHMp2pdadIIIp8SOIMXm5pNMLII
-
   exchangeMessages:
-    image: intelnexoec/xfiv-core-exchange:dev_ab8392a9
+    image: intelnexoec/xfiv-core-exchange:dev_1f934083
     networks:
       - xfiv-dev
     ports:
@@ -369,6 +342,34 @@ services:
       - MSG_BOT=bot
       - MSG_USER=user
       - MSG_AGENT=agent
+
+  sensor:
+    image: intelnexoec/xfiv-sensor_sesion:dev_7135fc8e
+    restart: always
+    networks:
+      - xfiv-dev
+    ports:
+      - 8088:4000
+    environment:
+      - PORT=4000
+      - HOST=0.0.0.0
+      - MONGO_HOST=mongodb://mongoose:27017/
+      - DOCUMENTO=SENSOR
+      - TABLE=SESION
+      - TABLE_USER=USER
+      - TABLE_TEMPLATE=SESION_TEMPLATE
+      - ESTADO_D=default
+      - ESTADO_C=close
+      - ESTADO_U=unboarding
+      - ESTADO_T=template
+      - SALIR=salir
+      - TITLE_QUESTION=Esta seguro de salir del agente
+      - TITLE_QUESTION_1=por favor digite una de la siguiente opcione
+      - TITLE_TEXTO=Recuerda que puedes volver cuando gustes
+      - XFIV=http://exchangeMessages:8093/api/v1/actions/handle/ #confirmar si esta apuntando al exchangeMessages nada mas
+      - POST_BOT=https://clients.csml.dev/v1/api/
+      - EXIT=conversation-exit
+      - TOKEN_INTERNAL=LgmhSWvQAcBPVrh4mRnjnvyLsdc6ILiLF4ndd7MCalpuo4NJ9JrRG1Bl4YMhBPtYmfdEh6cksCAwPbm6T1DdPrprxchJ41gAmM2bHMxhXIFtzw0mz0BQMcbVaGzYAFWE7FjVvxdKwOYnUX5wwY5RkIFYujsXTyp7iRBVisXOOMgH1b6dmZXOEStSsRldm1XcgyrVA2tQEF1LgktB3DvWD5O5Upzl0FMBIMRjlzwjP7AJP8rjxUvJVxKEBI1iMUxubtgkbBNAX4yjKZtELxHTvZbtkErfA2ghdKzsB7JQytWxFQoUVReNqVTdFbKGRaVSnXr0lVtoBuYdIQMekMEGkXuMVt1sFts4o8iB1N65yGpMTdR9zBF7b7aVIFkAOXdVNfai8iBdpbj0f8srzWd9S9RIpsMd5B7b7F1JH8eQ9WA7ErtvMsBs7Ibr4BWxl1KCa2UM0yqylJU77vyqH00VVekOhvfdTpq00GKF9XGJcXbgo2wborYDnTRHyTstRINyGzaY2X7qQDTzE903vi0Anjlgl73ZnbbRhlVg7UrzIXmkvy00WelFuzUWnZ0qcp5srPKLpt4MvFi1CFoYCPR9xmu93LXPyM0uwag3tCiIl0sdd31XgE8XQoSJt0YIt4HvcGkCTT0Uc55AWGysavP1sMtyCGHMp2pdadIIIp8SOIMXm5pNMLII
 
 
   zookeeper:
