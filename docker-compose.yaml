@@ -505,6 +505,19 @@ services:
       - DOCUMENTO=internetISP
       - TABLE=isp
 
+  chatgpt_back:
+    image: intelnexoec/back_ch_chatgpt:dev_00e884bc
+    networks:
+      - xfiv-dev
+    ports:
+      - 8000:8000
+
+  chatgpt_front:
+    image: intelnexoec/front-chatgpt:dev_443ea5ec
+    networks:
+      - xfiv-dev
+    ports:
+      - 4204:80
 
 volumes:
   postgres:
