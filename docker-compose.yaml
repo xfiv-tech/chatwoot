@@ -153,7 +153,7 @@ services:
     networks:
       - xfiv-dev
     ports:
-      - 3002:3002
+      - 3003:3002
     environment:
       - DEV=PRO
       - user=postgres
