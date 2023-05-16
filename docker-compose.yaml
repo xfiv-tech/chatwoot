@@ -175,7 +175,7 @@ services:
       - HOST_INCOMING=http://incoming:3005
 
   incoming:
-    image: intelnexoec/incoming:dev_1469c47f
+    image: intelnexoec/incoming:dev_5f76e55a
     networks:
       - xfiv-dev
     ports:
