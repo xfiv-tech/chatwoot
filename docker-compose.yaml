@@ -194,7 +194,7 @@ services:
       - TOKEN_VERIFICACION=tes-xfiv-webhook
 
   exchangeMessages:
-    image: intelnexoec/xfiv-core-exchange:dev_49bd4ff3
+    image: intelnexoec/xfiv-core-exchange:dev_482da144
     networks:
       - xfiv-dev
     ports:
