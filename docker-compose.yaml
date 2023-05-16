@@ -506,7 +506,7 @@ services:
       - TABLE=isp
 
   chatgpt_back:
-    image: intelnexoec/back_ch_chatgpt:dev_00e884bc
+    image: intelnexoec/back_ch_chatgpt:dev_d3239425
     networks:
       - xfiv-dev
     ports:
