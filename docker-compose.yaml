@@ -246,7 +246,7 @@ services:
       - PATH_ACCESS=http://accessconfig:3002/api/v1/ #confirmar que este apuntando al accessConfig
 
   s3_Upload:
-    image: intelnexoec/xfiv-bucket-s3-media:dev_6b3c60d6
+    image: intelnexoec/xfiv-bucket-s3-media:dev_2e3a2db3
     networks:
       - xfiv-dev
     ports:
@@ -267,7 +267,7 @@ services:
       - MY_HOST=https://cloud-dev.xfiv.chat/s3_upload
 
   whatsappCloudApi:
-    image: intelnexoec/xfiv-connector-whatsapp-cloud-api:dev_425185db
+    image: intelnexoec/xfiv-connector-whatsapp-cloud-api:dev_eec85a52
     networks:
       - xfiv-dev
     ports:
