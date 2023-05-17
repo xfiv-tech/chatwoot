@@ -267,7 +267,7 @@ services:
       - MY_HOST=https://cloud-dev.xfiv.chat/s3_upload
 
   whatsappCloudApi:
-    image: intelnexoec/xfiv-connector-whatsapp-cloud-api:dev_3115af57
+    image: intelnexoec/xfiv-connector-whatsapp-cloud-api:dev_3981d724
     networks:
       - xfiv-dev
     ports:
@@ -282,11 +282,9 @@ services:
       - USER_PATH=http://sensor:4000/channel/user_id
       - SENSOR_TEMPLATE=http://sensor:4000/template
       - SENSOR_PATH=http://sensor:4000/channel/sesion
-      - XFIV_EXCHANGE=http://exchangeMessages:8093/api/v1/webhook/connectors/messages
-      - XFIV_EXCHANGE_SEND=http://exchangeMessages:8093/api/v1/webhook/connectors/send
+      - EXCHANGE=http://exchangeMessages:8093/api/v1/
       - PATH_FB=https://graph.facebook.com/v16.0/
       - PATH_S3=http://s3_Upload:3030/s3/carga_archivos
-      - XFIV=http://exchangeMessages:8093/api/v1/actions/handle/ #confirmar que este apuntando al exchangeMessages
       - HOST_KAFKA=http://producerKafka:8881/api/v1/kafka
       - PATH_ACCESS=http://accessconfig:3002/api/v1/
       - PATH_CONECTOR=http://whatsappCloudApi:5050/api/v1/send/message
