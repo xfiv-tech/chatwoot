@@ -267,7 +267,7 @@ services:
       - MY_HOST=https://cloud-dev.xfiv.chat/s3_upload
 
   whatsappCloudApi:
-    image: intelnexoec/xfiv-connector-whatsapp-cloud-api:dev_dded95f6
+    image: intelnexoec/xfiv-connector-whatsapp-cloud-api:dev_425185db
     networks:
       - xfiv-dev
     ports:
