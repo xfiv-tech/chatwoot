@@ -246,7 +246,7 @@ services:
       - PATH_ACCESS=http://accessconfig:3002/api/v1/ #confirmar que este apuntando al accessConfig
 
   s3_Upload:
-    image: intelnexoec/xfiv-bucket-s3-media:dev_0dd81e5e
+    image: intelnexoec/xfiv-bucket-s3-media:dev_0fbba857
     networks:
       - xfiv-dev
     ports:
@@ -284,7 +284,7 @@ services:
       - SENSOR_PATH=http://sensor:4000/channel/sesion
       - XFIV_EXCHANGE=http://exchangeMessages:8093/api/v1/webhook/connectors/messages
       - XFIV_EXCHANGE_SEND=http://exchangeMessages:8093/api/v1/webhook/connectors/send
-      - PATH_FB=https://graph.facebook.com/v15.0/
+      - PATH_FB=https://graph.facebook.com/v16.0/
       - PATH_S3=http://s3_Upload:3030/s3/carga_archivos
       - XFIV=http://exchangeMessages:8093/api/v1/actions/handle/ #confirmar que este apuntando al exchangeMessages
       - HOST_KAFKA=http://producerKafka:8881/api/v1/kafka
