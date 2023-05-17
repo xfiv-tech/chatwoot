@@ -286,7 +286,7 @@ services:
       - PATH_FB=https://graph.facebook.com/v16.0/
       - PATH_S3=http://s3_Upload:3030/s3/carga_archivos
       - HOST_KAFKA=http://producerKafka:8881/api/v1/kafka
-      - PATH_ACCESS=http://accessconfig:3002/api/v1/
+      - PATH_ACCESS=http://accessconfig:3002/info/
       - PATH_CONECTOR=http://whatsappCloudApi:5050/api/v1/send/message
       - PATH_KEYS=http://xfivmskeys:1010/api/keys/validation
       - ESTADO_D=default
