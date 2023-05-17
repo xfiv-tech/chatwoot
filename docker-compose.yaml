@@ -267,7 +267,7 @@ services:
       - MY_HOST=https://cloud-dev.xfiv.chat/s3_upload
 
   whatsappCloudApi:
-    image: intelnexoec/xfiv-connector-whatsapp-cloud-api:dev_16d466d9
+    image: intelnexoec/xfiv-connector-whatsapp-cloud-api:dev_edd9c39d
     networks:
       - xfiv-dev
     ports:
@@ -277,6 +277,7 @@ services:
       - HOST=0.0.0.0
       - BASIC_USERNAME=user1
       - BASIC_PASSWORD=pass1
+      - TOKEN_INTERNAL=LgmhSWvQAcBPVrh4mRnjnvyLsdc6ILiLF4ndd7MCalpuo4NJ9JrRG1Bl4YMhBPtYmfdEh6cksCAwPbm6T1DdPrprxchJ41gAmM2bHMxhXIFtzw0mz0BQMcbVaGzYAFWE7FjVvxdKwOYnUX5wwY5RkIFYujsXTyp7iRBVisXOOMgH1b6dmZXOEStSsRldm1XcgyrVA2tQEF1LgktB3DvWD5O5Upzl0FMBIMRjlzwjP7AJP8rjxUvJVxKEBI1iMUxubtgkbBNAX4yjKZtELxHTvZbtkErfA2ghdKzsB7JQytWxFQoUVReNqVTdFbKGRaVSnXr0lVtoBuYdIQMekMEGkXuMVt1sFts4o8iB1N65yGpMTdR9zBF7b7aVIFkAOXdVNfai8iBdpbj0f8srzWd9S9RIpsMd5B7b7F1JH8eQ9WA7ErtvMsBs7Ibr4BWxl1KCa2UM0yqylJU77vyqH00VVekOhvfdTpq00GKF9XGJcXbgo2wborYDnTRHyTstRINyGzaY2X7qQDTzE903vi0Anjlgl73ZnbbRhlVg7UrzIXmkvy00WelFuzUWnZ0qcp5srPKLpt4MvFi1CFoYCPR9xmu93LXPyM0uwag3tCiIl0sdd31XgE8XQoSJt0YIt4HvcGkCTT0Uc55AWGysavP1sMtyCGHMp2pdadIIIp8SOIMXm5pNMLII
       - POST_BOT=https://clients.csml.dev/v1/api/
       - PATH_EXPIRA=http://whatsappCloudApi:5050/connect/expira
       - SCAPE_PATH=http://whatsappCloudApi:5050/connect/scape
