@@ -246,7 +246,7 @@ services:
       - PATH_ACCESS=http://accessconfig:3002/api/v1/ #confirmar que este apuntando al accessConfig
 
   s3_Upload:
-    image: intelnexoec/xfiv-bucket-s3-media:dev_0fbba857
+    image: intelnexoec/xfiv-bucket-s3-media:dev_1f98d5fe
     networks:
       - xfiv-dev
     ports:
