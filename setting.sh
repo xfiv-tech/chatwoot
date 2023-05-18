@@ -26,7 +26,8 @@ if [ $opcion -eq 1 ]; then
     docker restart $nombre_contenedor
     docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}\t{{.Status}}" > tabla_contenedores.txt
     docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}\t{{.Status}}"
-
+    sync && echo 3 > /proc/sys/vm/drop_caches
+    exit
 elif [ $opcion -eq 2 ]; then
     echo "Reconstruir imagen de contenedor"
     read -p "Escriba el nombre del contenedor que desea reconstruir: " nombre_contenedor
@@ -35,6 +36,8 @@ elif [ $opcion -eq 2 ]; then
     docker-compose build $nombre_contenedor
     docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}\t{{.Status}}" > tabla_contenedores.txt
     docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}\t{{.Status}}"
+    sync && echo 3 > /proc/sys/vm/drop_caches
+    exit
 elif [ $opcion -eq 3 ]; then
     echo "Levantando contenedores caidos"
     docker-compose up -d
@@ -48,6 +51,8 @@ elif [ $opcion -eq 3 ]; then
     echo " "
     docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}\t{{.Status}}" > tabla_contenedores.txt
     docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Size}}\t{{.Status}}"
+    sync && echo 3 > /proc/sys/vm/drop_caches
+    exit
 elif [ $opcion -eq 0 ]; then
     echo "Listo."
 else
