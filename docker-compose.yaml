@@ -344,7 +344,7 @@ services:
       - MSG_AGENT=agent
 
   whatsappQR:
-    image: intelnexoec/xfiv-whatsapp-qr:dev_49c8096e
+    image: intelnexoec/xfiv-whatsapp-qr:dev_6b0e5b5a
     networks:
       - xfiv-dev
     ports:
