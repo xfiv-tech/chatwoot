@@ -343,6 +343,48 @@ services:
       - MSG_USER=user
       - MSG_AGENT=agent
 
+  whatsappQR:
+    image: intelnexoec/xfiv-whatsapp-qr:dev_49c8096e
+    networks:
+      - xfiv-dev
+    ports:
+      - 4203:3000
+    environment:
+      - PORT=3000
+      - HOST=0.0.0.0
+      - DEV=PROD
+      - POST_BOT=https://clients.csml.dev/v1/api/
+      - POST_TYPEBOT=https://viewer.typebot.io/api/v1/sendMessage
+      # - MONGO_HOST=mongodb://mongoose:27017/sessio_whatsapp
+      - PATH_EXPIRA=http://whatsappQR:3000/connect/expira
+      - SCAPE_PATH=http://whatsappQR:3000/connect/scape
+      - USER_PATH=http://sensor:4000/channel/user_id
+      - SENSOR_PATH=http://sensor:4000/channel/sesion
+      - PATH_S3=http://s3_Upload:3030/s3/carga_archivos
+      - HOST_KAFKA=http://producerKafka:8881/api/v1/kafka
+      - ACCESSCONFIG=http://accessconfig:3002/api/v1/
+      - ACCESSCONFIGINFO=http://accessconfig:3002/info/
+      - EXCHANGE=http://exchangeMessages:8093/api/v1/
+      - PATH_CONECTOR=http://whatsappQR:3000/api/v1/send/message
+      - PATH_KEY=http://xfivmskeys:1010/api/keys/validation
+      - API_KEY_EXTERNAL=qlwgcylehdn134x.ybfugexuhjnwedchvqkdcqu-rgfqbedjcqcxnejcbvqhrcjqrchberjc
+      - TOKEN_INTERNAL=LgmhSWvQAcBPVrh4mRnjnvyLsdc6ILiLF4ndd7MCalpuo4NJ9JrRG1Bl4YMhBPtYmfdEh6cksCAwPbm6T1DdPrprxchJ41gAmM2bHMxhXIFtzw0mz0BQMcbVaGzYAFWE7FjVvxdKwOYnUX5wwY5RkIFYujsXTyp7iRBVisXOOMgH1b6dmZXOEStSsRldm1XcgyrVA2tQEF1LgktB3DvWD5O5Upzl0FMBIMRjlzwjP7AJP8rjxUvJVxKEBI1iMUxubtgkbBNAX4yjKZtELxHTvZbtkErfA2ghdKzsB7JQytWxFQoUVReNqVTdFbKGRaVSnXr0lVtoBuYdIQMekMEGkXuMVt1sFts4o8iB1N65yGpMTdR9zBF7b7aVIFkAOXdVNfai8iBdpbj0f8srzWd9S9RIpsMd5B7b7F1JH8eQ9WA7ErtvMsBs7Ibr4BWxl1KCa2UM0yqylJU77vyqH00VVekOhvfdTpq00GKF9XGJcXbgo2wborYDnTRHyTstRINyGzaY2X7qQDTzE903vi0Anjlgl73ZnbbRhlVg7UrzIXmkvy00WelFuzUWnZ0qcp5srPKLpt4MvFi1CFoYCPR9xmu93LXPyM0uwag3tCiIl0sdd31XgE8XQoSJt0YIt4HvcGkCTT0Uc55AWGysavP1sMtyCGHMp2pdadIIIp8SOIMXm5pNMLII
+      - PHONE=105631582269051
+      - ESTADO_D=default
+      - ESTADO_C=close
+      - ESTADO_U=unboarding
+      - ESTADO_T=template
+      - ESTADO_R=reunboarding
+      - EVENT_N=new-message
+      - EVENT_RC=resolve-conversation
+      - EVENT_RU=reunbording-conversation
+      - TYPE=cmd
+      - TYPE_C=catalogs
+      - CHANNEL=whatsapp-qr
+      - MSG_BOT=bot
+      - MSG_USER=user
+      - MSG_AGENT=agent
+
   sensor:
     image: intelnexoec/xfiv-sensor_sesion:dev_7135fc8e
     restart: always
@@ -448,47 +490,6 @@ services:
       - HOST=0.0.0.0
       - TABLE=infoBeneficiario
       - MONGO_HOST=mongodb://mongoose:27017/xfiv-ocr-rest-api
-
-  whatsappQR:
-    image: intelnexoec/xfiv-whatsapp-qr:dev_5af827b6
-    networks:
-      - xfiv-dev
-    ports:
-      - 4203:3000
-    environment:
-      - PORT=3000
-      - HOST=0.0.0.0
-      - DEV=PROD
-      - POST_BOT=https://clients.csml.dev/v1/api/
-      - MONGO_HOST=mongodb://mongoose:27017/sessio_whatsapp
-      - PATH_EXPIRA=http://whatsappQR:3000/connect/expira
-      - SCAPE_PATH=http://whatsappQR:3000/connect/scape
-      - USER_PATH=http://sensor:4000/channel/user_id
-      - SENSOR_PATH=http://sensor:4000/channel/sesion
-      - PATH_S3=http://s3_Upload:3030/s3/carga_archivos
-      - HOST_KAFKA=http://producerKafka:8881/api/v1/kafka
-      - ACCESSCONFIG=http://accessconfig:3002/api/v1/
-      - ACCESSCONFIGINFO=http://accessconfig:3002/info/
-      - EXCHANGE=http://exchangeMessages:8093/api/v1/
-      - PATH_CONECTOR=http://whatsappQR:3000/api/v1/send/message
-      - PATH_KEY=http://xfivmskeys:1010/api/keys/validation
-      - API_KEY_EXTERNAL=qlwgcylehdn134x.ybfugexuhjnwedchvqkdcqu-rgfqbedjcqcxnejcbvqhrcjqrchberjc
-      - TOKEN_INTERNAL=LgmhSWvQAcBPVrh4mRnjnvyLsdc6ILiLF4ndd7MCalpuo4NJ9JrRG1Bl4YMhBPtYmfdEh6cksCAwPbm6T1DdPrprxchJ41gAmM2bHMxhXIFtzw0mz0BQMcbVaGzYAFWE7FjVvxdKwOYnUX5wwY5RkIFYujsXTyp7iRBVisXOOMgH1b6dmZXOEStSsRldm1XcgyrVA2tQEF1LgktB3DvWD5O5Upzl0FMBIMRjlzwjP7AJP8rjxUvJVxKEBI1iMUxubtgkbBNAX4yjKZtELxHTvZbtkErfA2ghdKzsB7JQytWxFQoUVReNqVTdFbKGRaVSnXr0lVtoBuYdIQMekMEGkXuMVt1sFts4o8iB1N65yGpMTdR9zBF7b7aVIFkAOXdVNfai8iBdpbj0f8srzWd9S9RIpsMd5B7b7F1JH8eQ9WA7ErtvMsBs7Ibr4BWxl1KCa2UM0yqylJU77vyqH00VVekOhvfdTpq00GKF9XGJcXbgo2wborYDnTRHyTstRINyGzaY2X7qQDTzE903vi0Anjlgl73ZnbbRhlVg7UrzIXmkvy00WelFuzUWnZ0qcp5srPKLpt4MvFi1CFoYCPR9xmu93LXPyM0uwag3tCiIl0sdd31XgE8XQoSJt0YIt4HvcGkCTT0Uc55AWGysavP1sMtyCGHMp2pdadIIIp8SOIMXm5pNMLII
-      - PHONE=59399734043
-      - ESTADO_D=default
-      - ESTADO_C=close
-      - ESTADO_U=unboarding
-      - ESTADO_T=template
-      - ESTADO_R=reunboarding
-      - EVENT_N=new-message
-      - EVENT_RC=resolve-conversation
-      - EVENT_RU=reunbording-conversation
-      - TYPE=cmd
-      - TYPE_C=catalogs
-      - CHANNEL=whatsapp-qr
-      - MSG_BOT=bot
-      - MSG_USER=user
-      - MSG_AGENT=agent
 
   botinternet:
     image: intelnexoec/xfiv-internetbots-wifi:dev_5017e121
