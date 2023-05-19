@@ -519,6 +519,17 @@ services:
     ports:
       - 4204:80
 
+  worldnet:
+    image: intelnexoec/worldnet:dev_hdetyalcbw
+    ports:
+      - 3006:3003
+    environment:
+      - user=admin_xtrim
+      - password=Xtrim**2023
+      - host=xtrim-database.intelnexo.com:3306
+      - database=worldnet
+      - DEV=PROD
+
 volumes:
   postgres:
   redis:
