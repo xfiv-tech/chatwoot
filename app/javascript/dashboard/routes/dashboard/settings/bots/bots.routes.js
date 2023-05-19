@@ -8,7 +8,7 @@ export default {
       path: frontendURL('accounts/:accountId/settings/bots'),
       component: SettingsContent,
       props: {
-        headerTitle: 'GENERAL_SETTINGS.TITLE',
+        headerTitle: 'GENERAL_SETTINGS.BOT_TITLE',
         icon: 'briefcase',
         showNewButton: false,
       },
@@ -17,7 +17,7 @@ export default {
           path: '',
           name: 'botTypebot',
           component: Index,
-          roles: ['administrator'],
+          roles: ['administrator', 'agent'],
         },
       ],
     },

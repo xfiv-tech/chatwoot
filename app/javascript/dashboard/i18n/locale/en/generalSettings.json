@@ -1,5 +1,6 @@
 {
   "GENERAL_SETTINGS": {
+    "BOT_TITLE": "Bots Settings",
     "TITLE": "Account settings",
     "SUBMIT": "Update settings",
     "BACK": "Back",

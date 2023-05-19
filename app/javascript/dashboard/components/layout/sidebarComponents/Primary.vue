@@ -1,7 +1,7 @@
 <template>
   <div class="primary--sidebar">
     <logo
-      :source="logoSource"
+      :source="'https://xfiv-content.s3.amazonaws.com/xfiv-content/external-images/share_dir/Xfiv/20230519/Xfiv.jpeg'"
       :name="installationName"
       :account-id="accountId"
     />

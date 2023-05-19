@@ -3,71 +3,41 @@
     <loading-state v-if="uiFlags.isFetching || uiFlags.isFetchingAgentBot" />
     <div class="row">
       <div class="small-12">
-        <div class="card">
-          <div class="contenedor-img">
-            <p>+593 996232139</p>
-            <img
-              src="https://www.ocu.org/-/media/ta/images/_%20orphaned/qr-code.png?rev=2e1cc496-40d9-4e21-a7fb-9e2c76d6a288&hash=38DA21F2DF33F4BB3CE83BE5D2A723F5&mw=960"
-              class="img">
+        <div class="container_qr">
+          <div class="container_qr_contimg">
+            <div class="container_qr_contimg_box">
+              <!-- <img class="container_qr_contimg_box_icon" src="./refreshicon.png" /> -->
+              <div v-if="status === 'Conectado'" class="container_qr_contimg_box_connected">
+                <p>Ya se encuentra conectado✌</p>
+              </div>
+              <div v-if="status === 'Conectado'" class="container_qr_contimg_box_bg">
+              </div>
+              <div :style="changeClassStatus" class="container_qr_contimg_box_img" v-html="svgContent"></div>
+            </div>
+            
           </div>
-          <div class="body-card">
-            <h2>✌ Lee antes de escanear</h2>
-            <h3>Debes ir a las configuraciones de tu teléfono</h3>
+          <div class="container_qr_bot">
+            <!-- <h2>✌ Lee antes de escanear</h2> -->
+            <p>Para configurar debes ir a las configuraciones de tu teléfono</p>
             <p>Encuéntralo en <b>Configuración Dispositivos Vinculados > Vincular un dispositivo</b></p>
-
-            <a class="boton btn-primary">Actualizar</a>
+            <div class="button_container">
+              <div v-if="status === 'Conectado'" @click="cleanSessionQRCode()" class="button_container_btn">
+                <p> Desconectar</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- <form v-else class="row" @submit.prevent="updateActiveAgentBot">
-      <settings-section
-        :title="$t('AGENT_BOTS.BOT_CONFIGURATION.TITLE')"
-        :sub-title="$t('AGENT_BOTS.BOT_CONFIGURATION.DESC')"
-      >
-        <div class="medium-7 columns">
-          <label>
-            <select v-model="selectedAgentBotId">
-              <option value="" disabled selected>{{
-                $t('AGENT_BOTS.BOT_CONFIGURATION.SELECT_PLACEHOLDER')
-              }}</option>
-              <option
-                v-for="agentBot in agentBots"
-                :key="agentBot.id"
-                :value="agentBot.id"
-              >
-                {{ agentBot.name }}
-              </option>
-            </select>
-          </label>
-          <div class="button-container">
-            <woot-submit-button
-              :button-text="$t('AGENT_BOTS.BOT_CONFIGURATION.SUBMIT')"
-              :loading="uiFlags.isSettingAgentBot"
-            />
-            <woot-button
-              type="button"
-              :disabled="!selectedAgentBotId"
-              :loading="uiFlags.isDisconnecting"
-              variant="smooth"
-              color-scheme="alert"
-              class="button--disconnect"
-              @click="disconnectBot"
-            >
-              {{ $t('AGENT_BOTS.BOT_CONFIGURATION.DISCONNECT') }}
-            </woot-button>
-          </div>
-        </div>
-      </settings-section>
-    </form> -->
   </div>
 </template>
-
 <script>
 import { mapGetters } from 'vuex';
 import SettingsSection from 'dashboard/components/SettingsSection';
 import LoadingState from 'dashboard/components/widgets/LoadingState';
 import alertMixin from 'shared/mixins/alertMixin';
+import { config } from '../../../../../config/config'
+import axios from 'axios'
 
 export default {
   components: {
@@ -84,6 +54,10 @@ export default {
   data() {
     return {
       selectedAgentBotId: null,
+      svgContent: '',
+      statusQRSession: '',
+      timerInterval: null,
+      status: '' //Conectado, Error de conexion, Reconectando, Generando nuevo token qr
     };
   },
   computed: {
@@ -104,8 +78,27 @@ export default {
     this.$store.dispatch('agentBots/get');
     this.$store.dispatch('agentBots/fetchAgentBotInbox', this.inbox.id);
   },
-
   methods: {
+    changeClassStatus() {
+      return {
+        filter: this.status !== 'Conectado' ? 'blur(0)' : 'blur(3px)',
+      };
+
+    },
+    async getQrCode() {
+      const generatedQR = await axios.get(config.ENDPOINT_BACKEND + 'whatsapp_qr/qr');
+      this.svgContent = generatedQR.data;
+    },
+    async cleanSessionQRCode() {
+      const {data} = await axios.get(config.ENDPOINT_BACKEND + 'whatsapp_qr/limpiar_session_whatsapp')
+      this.status = 'Reconectando';
+      this.getQrCode()
+      this.timerInterval = setInterval(this.getQrCode, 30000);
+    },
+    async getStatusSession() {
+      const {data} = await axios.get(config.ENDPOINT_BACKEND + 'whatsapp_qr/session_whatsapp')
+      this.status = data.message;
+    }, 
     async updateActiveAgentBot() {
       try {
         await this.$store.dispatch('agentBots/setAgentBotInbox', {
@@ -134,6 +127,17 @@ export default {
       }
     },
   },
+  created() {
+    this.getStatusSession();
+    if (this.status !== 'Conectado') {
+      this.getQrCode();
+    }
+    setInterval(this.getStatusSession, 5000);
+  },
+  beforeDestroy() {
+    clearInterval(this.timerInterval);
+    // clearInterval(this.getStatusSession);
+  }
 };
 </script>
 
@@ -142,55 +146,98 @@ export default {
   margin-left: var(--space-small);
 }
 
-.card {
+.button_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  &_btn {
+    background-color: #007EF3;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding: 7px 12px;
+    cursor: pointer;
+    p {
+      font-weight: 600;
+      margin: 0;
+      padding: 0;
+    }
+    &:hover {
+      background-color: #0774da;
+    }
+  }
+}
+.container_qr {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
   padding: 25px;
   display: block;
   justify-content: center;
-}
-
-.contenedor-img p {
-  font-weight: bold;
-  font-size: 25px;
-}
-
-.contenedor-img img {
-  width: 200px;
-  height: 200px;
-  border: 1px solid black;
-}
-
-.body-card h2 {
-  font-size: 30px;
-}
-
-.body-card h3 {
-  font-size: 25px;
-}
-
-.body-card p {
-  font-size: 20px;
-  margin-bottom: 40px;
-}
-
-
-.boton {
-  padding: 15px;
-  margin: 30px;
-}
-
-.btn-primary {
-  background-color: rgb(22, 74, 218);
-  color: white;
-  font-weight: bold;
-  font-size: 18px;
-  box-shadow: 2px 2px 10px 2px rgba(130, 130, 130, 0.724);
-  cursor: pointer;
-}
-
-.btn-primary:hover {
-  box-shadow: 2px 2px 10px 2px rgba(59, 59, 59, 0.724);
+  &_contimg {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    &_box {
+      width: 200px;
+      height: 200px;
+      position: relative;
+      border-radius: 20px;
+      &_connected {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        font-size: 1.3rem;
+        color: #ffffff;
+        font-weight: 600;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 12;
+      }
+      &_icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 12;
+      }
+      &_bg {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-color: #000000;
+        opacity: .6;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+      }
+      &_img {
+        // filter: blur(3px);
+        width: 100%;
+        height: 100%;
+        border: 1px solid #000000;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+      }
+    }
+  }
+  &_bot {
+    margin-top: 30px;
+    p {
+      font-size: 1.5rem;
+    }
+  }
 }
 </style>

@@ -267,6 +267,28 @@
     },
     "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again."
   },
+  "CREATE_BOT": {
+    "NEW_BOT": "New Bot",
+    "SELECTOR_SUBTITLE": "Create new bot",
+    "API": {
+      "SUCCESS_MESSAGE": "Bot created successfully",
+      "EXIST_MESSAGE": "Bot name already exists",
+      "ERROR_MESSAGE": "Could not connect to Server, Please try again later"
+    },
+    "FORM": {
+      "NAME": {
+        "LABEL": "Bor name",
+        "PLACEHOLDER": "Name.."
+      },
+      "SUBMIT": "Submit",
+      "CANCEL": "Cancel"
+    }
+  },
+  "LIST_BOTS_OPTIONS": {
+    "BUTTON_DROP": "Disconnect",
+    "BUTTON_EDIT": "Edit",
+    "LAST_UPDATE_DATE": "Updated At"
+  },
   "CREATE_ACCOUNT": {
     "NO_ACCOUNT_WARNING": "Uh oh! We could not find any Chatwoot accounts. Please create a new account to continue.",
     "NEW_ACCOUNT": "New Account",
