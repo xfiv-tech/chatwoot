@@ -344,7 +344,7 @@ services:
       - MSG_AGENT=agent
 
   whatsappQR:
-    image: intelnexoec/xfiv-whatsapp-qr:dev_6b0e5b5a
+    image: intelnexoec/xfiv-whatsapp-qr:dev_7c016f7f
     networks:
       - xfiv-dev
     ports:
@@ -530,6 +530,25 @@ services:
       - database=worldnet
       - DEV=PROD
 
+  Ecommerce:
+    image: intelnexoec/xfiv-dwuant:dev_eea8a3ac
+    ports:
+      - 3007:3003
+    environment:
+      - PORT=3003
+      - BASIC_USERNAME=Xfiv
+      - BASIC_PASSWORD=Xfiv**2023
+      - NODE_ENV=production
+      - HOSTPAYMENTZ=https://noccapi-stg.paymentez.com/linktopay/init_order/
+      - DEV=PRO
+      - HOST_CLOUD=https://whatsappCloudApi:5050/api/v1/send
+      - HOST_360=https://xfivConnector360:5080/api/v1/send
+      - TOKEN_CLOUD=FbcfgvH9iWKKui7xGgAItujo4ovCYQF6vvUMCttjMV4
+      - HOST_EMAIL=https://core.xfiv.chat/email_api/api/v1/sendEmail_content
+      - API_KEY=N97tnV8Nrxte6ehXhL23WZjhctJflUTevN3GKYW78XAGd93dJjWkFHt1s2ynTSzY8J1DvlL0WSlJLwUuM8rzxZb2wCWdCRgxZ6fW5tWMEktzom4vWc1M0svksJvVR3NjWCbkQLFyRktc0JGAONUeGuGBtt3Sql1wu0aP3ISBovggRGpexWs5qhShet85t94wvwVEPPold1IpCEx2ZwyxqrEKl7tvC8csdiR3UezjiEjo0UrI0dOuMqyT2SpikiAj
+      - EMPRESA=dwuant
+      - DATABASE_URL=mysql://admin_xtrim:Xtrim**2023@xtrim-database.intelnexo.com:3306/xfiv_dwuant?schema=public
+
 volumes:
   postgres:
   redis:
@@ -541,49 +560,3 @@ volumes:
   storage:
   s3_data:
   db_data:
-
-
-  # minio:
-  #   image: minio/minio
-  #   command: server /data --console-address ":9001"
-  #   ports:
-  #     - 9000:9000
-  #     - 9001:9001
-  #   networks:
-  #     - xfiv-dev
-  #   environment:
-  #     - MINIO_ROOT_USER=minio
-  #     - MINIO_ROOT_PASSWORD=minio123
-  #   volumes:
-  #     - s3_data:/data
-  #   healthcheck:
-  #     test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-  #     interval: 30s
-  #     timeout: 20s
-  #     retries: 5
-
-  # createbuckets:
-  #   image: minio/mc
-  #   networks:
-  #     - xfiv-dev
-  #   depends_on:
-  #     - minio
-  #   entrypoint: >
-  #     /bin/sh -c "
-  #     /usr/bin/mc config host add minio http://minio:9000 minio minio123;
-  #     /usr/bin/mc mb minio/typebot;
-  #     /usr/bin/mc anonymous set public minio/typebot/public;
-  #     exit 0;
-  #     "
-
-  # pgadmin:
-  #   image: dpage/pgadmin4
-  #   networks:
-  #     - xfiv-dev
-  #   restart: always
-  #   ports:
-  #     - 3331:80
-  #   environment:
-  #     - PGADMIN_DEFAULT_EMAIL=xfiv@xfiv.com
-  #     - PGADMIN_DEFAULT_PASSWORD=xfiv
-  #     - PGADMIN_LISTEN_PORT=80
