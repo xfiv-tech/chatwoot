@@ -558,5 +558,3 @@ volumes:
   bundle:
   mongoose:
   storage:
-  s3_data:
-  db_data:
