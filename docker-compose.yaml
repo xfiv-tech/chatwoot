@@ -149,7 +149,7 @@ services:
       - TOKEN=Izhqu4s71UlevpCwemkfYxak7xfxCHY49zcc3Jo8QPLbHubW1BDd6IPMlUnjha5uhG70qrLiukEl49rlgGQ2D0H1oSEQlLNB3W6FH5nH1TQdvWEsZMh1dnFUDJXVcmzw
 
   accessconfig:
-    image: intelnexoec/accessconfig:dev_3bb43641
+    image: intelnexoec/accessconfig:dev_035aeb65
     networks:
       - xfiv-dev
     ports:
