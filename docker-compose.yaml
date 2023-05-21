@@ -100,7 +100,7 @@ services:
     networks:
       - xfiv-dev
     ports:
-      - 5432:5432
+      - 5432
     volumes:
       - postgres:/var/lib/postgresql/data
     environment:
@@ -113,7 +113,7 @@ services:
     networks:
       - xfiv-dev
     ports:
-      - 6379:6379
+      - 6379
     volumes:
       - redis:/data/redis
 
@@ -131,7 +131,7 @@ services:
     networks:
       - xfiv-dev
     ports:
-      - 27017:27017
+      - 27017
     volumes:
       - mongoose:/data/db
 
@@ -427,7 +427,7 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     ports:
-      - 22181:2181
+      - 2181
 
   kafka:
     image: confluentinc/cp-kafka:latest
@@ -437,7 +437,7 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - 29092:29092
+      - 29092
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -455,7 +455,7 @@ services:
     networks:
       - xfiv-dev
     ports:
-      - 8094:8094
+      - 8094
     environment:
       - PORT=8094
       - TOPIC=automatic
@@ -471,7 +471,7 @@ services:
     networks:
       - xfiv-dev
     ports:
-      - 8881:8881
+      - 8881
     environment:
      - PORT=8881
      - TOKEN_INTERNAL=LgmhSWvQAcBPVrh4mRnjnvyLsdc6ILiLF4ndd7MCalpuo4NJ9JrRG1Bl4YMhBPtYmfdEh6cksCAwPbm6T1DdPrprxchJ41gAmM2bHMxhXIFtzw0mz0BQMcbVaGzYAFWE7FjVvxdKwOYnUX5wwY5RkIFYujsXTyp7iRBVisXOOMgH1b6dmZXOEStSsRldm1XcgyrVA2tQEF1LgktB3DvWD5O5Upzl0FMBIMRjlzwjP7AJP8rjxUvJVxKEBI1iMUxubtgkbBNAX4yjKZtELxHTvZbtkErfA2ghdKzsB7JQytWxFQoUVReNqVTdFbKGRaVSnXr0lVtoBuYdIQMekMEGkXuMVt1sFts4o8iB1N65yGpMTdR9zBF7b7aVIFkAOXdVNfai8iBdpbj0f8srzWd9S9RIpsMd5B7b7F1JH8eQ9WA7ErtvMsBs7Ibr4BWxl1KCa2UM0yqylJU77vyqH00VVekOhvfdTpq00GKF9XGJcXbgo2wborYDnTRHyTstRINyGzaY2X7qQDTzE903vi0Anjlgl73ZnbbRhlVg7UrzIXmkvy00WelFuzUWnZ0qcp5srPKLpt4MvFi1CFoYCPR9xmu93LXPyM0uwag3tCiIl0sdd31XgE8XQoSJt0YIt4HvcGkCTT0Uc55AWGysavP1sMtyCGHMp2pdadIIIp8SOIMXm5pNMLII
