@@ -284,6 +284,11 @@
         "LABEL": "Nombre de Bot",
         "PLACEHOLDER": "Nombre.."
       },
+      "CHANNEL": {
+        "LABEL": "Seleccionar Canal",
+        "PLACEHOLDER": "Canal..",
+        "ERROR": "Es necesario seleccionar un canal"
+      },
       "SUBMIT": "Enviar",
       "CANCEL": "Cancelar"
     }
@@ -291,7 +296,17 @@
   "LIST_BOTS_OPTIONS": {
     "BUTTON_DROP": "Desconectar",
     "BUTTON_EDIT": "Editar",
-    "LAST_UPDATE_DATE": "Última Actualización"
+    "LAST_UPDATE_DATE": "Última Actualización",
+    "CHANNEL": "Canal",
+    "ONLINE_STATE": "En Linea"
+  },
+  "DELETE_BOT": {
+    "COFIRM": {
+      "TITLE": "Eliminar bot",
+      "MESSAGE": "Estas seguro de eliminar este Bot?",
+      "YES": "Si, eliminar ",
+      "NO": "No, cancelar "
+    }
   },
   "CREATE_ACCOUNT": {
     "NO_ACCOUNT_WARNING": "¡Oh oh! No hemos podido encontrar ninguna cuenta de \"Chatwoot\". Por favor, crea una nueva cuenta para continuar.",

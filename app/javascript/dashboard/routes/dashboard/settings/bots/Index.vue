@@ -15,14 +15,18 @@
         <div class="card">
           <div class="row">
             <div class="small-12 columns bot_cont">
+              
               <div class="bot_cont_left">
                 <h5>{{ bot.name }}</h5>
                 <div class="bot_cont_left_info">
                   <div class="bot_cont_left_info_update">
-                    <p><strong> {{$t('LIST_BOTS_OPTIONS.LAST_UPDATE_DATE')}}</strong></p>
-                    <p>{{bot.updatedAt}}</p>
+                    <p><strong> {{$t('LIST_BOTS_OPTIONS.CHANNEL')}}</strong></p>
+                    <p>{{'Webchat - ' + bot.channels}}</p>
                   </div>
                   <div class="cont bot_cont_left_info_socialmedia" >
+                    <div v-if="bot.publicId !== null" class="online_state">
+                      <p>{{$t('LIST_BOTS_OPTIONS.ONLINE_STATE')}}</p>
+                    </div>
                     <!-- <div class="" v-for="social in socialmedias" :key="social.name">
                       <img class="bot_cont_left_info_socialmedia_img" :src='social.link' />
                     </div> -->
@@ -36,7 +40,7 @@
                 >
                   <p>{{$t('LIST_BOTS_OPTIONS.BUTTON_EDIT')}}</p>
                 </div>
-                <div
+                <div 
                   class="button_delete"
                   @click="deleteBot(bot)"
                 >
@@ -54,6 +58,7 @@
         :idaccount="this.$route.params.accountId"
         :show="showAddPopup"
         :on-close="hideAddPopup"
+        @getbots="getAllbots"
       />
     </woot-modal>
     <!-- Edit Agent -->
@@ -61,17 +66,29 @@
 
     </woot-modal>
 
-    <!-- Delete Agent -->
-    <woot-modal :show.sync="showEditPopup" :on-close="hideEditPopup">
+    <!-- Delete Bot -->
+    <woot-delete-modal
+      :show.sync="showDeletePopup"
+      :on-close="hideClosePopup"
+      :on-confirm="confirmDeletion"
+      :title="$t('DELETE_BOT.COFIRM.TITLE')"
+      :message="$t('DELETE_BOT.COFIRM.MESSAGE')"
+      :message-value="deleteMessage"
+      :confirm-text="deleteConfirmText"
+      :reject-text="deleteRejectText"
+    />
 
-    </woot-modal>
+    <!-- <woot-modal :show.sync="showEditPopup" :on-close="hideEditPopup">
+
+    </woot-modal> -->
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
 import globalConfigMixin from 'shared/mixins/globalConfigMixin';
-import axios from 'axios'
+import axios from 'axios';
 import AddBotModal from './AddBotModal.vue';
+import { config } from '../../../../config/config'
 
 
 export default {
@@ -81,6 +98,7 @@ export default {
   mixins: [globalConfigMixin],
   data() {
     return {
+      botSelected: {},
       loading: {},
       showAddPopup: false,
       showDeletePopup: false,
@@ -111,12 +129,25 @@ export default {
       agentBots: 'agentBots/getBots',
       uiFlags: 'agentBots/getUIFlags',
     }),
+    deleteMessage() {
+      return ` ${this.botSelected.name}?`;
+    },
+    deleteConfirmText() {
+      return `${this.$t('DELETE_BOT.COFIRM.YES')} ${
+        this.botSelected.name
+      }`;
+    },
+    deleteRejectText() {
+      return `${this.$t('DELETE_BOT.COFIRM.NO')} ${
+        this.botSelected.name
+      }`;
+    },
   },
   mounted() {
   },
   methods: {
     async getAllbots(accountId) {
-      const bots = await axios.get('https://cloud-dev.xfiv.chat/accessconfig/info/account_bot/'+accountId)
+      const bots = await axios.get(config.ENDPOINT_BACKEND + 'accessconfig/info/account_bot/'+accountId)
       // console.log(bots.data.data)
       this.bots = bots.data.data
     },
@@ -144,13 +175,22 @@ export default {
       this.showAddPopup = true;
     },
     async goEditbot(bot) {
-      window.open(`${bot.path_session}?redirect=${bot.path_edit}`, '_blank');
+      window.open(`${bot.path_session}?redirect=${bot.path_edit}?account_id=${this.idUser}`, '_blank');
     },
     async deleteBot(bot) {
-      console.log('eliminar bot')
+      this.showDeletePopup = true;
+      this.botSelected = bot
+    },
+    async confirmDeletion() {
+      const bots = await axios.delete(config.ENDPOINT_BACKEND + 'accessconfig/info/account_bot_delete/'+this.idUser+'/'+this.botSelected.id)
+      this.getAllbots(this.idUser)
+      this.hideClosePopup()
     },
     hideAddPopup() {
       this.showAddPopup = false;
+    },
+    hideClosePopup() {
+      this.showDeletePopup = false;
     },
 
     // Edit Function
@@ -204,6 +244,22 @@ export default {
       background-color: #0774da;
     }
   }
+  .online_state {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 5px;
+    padding: 2px 4px;
+    background: rgba(37, 211, 102, 0.1);
+    color: #44ce4b;
+    font-size: 0.8rem;
+    p {
+      margin: 0;
+    }
+  }
   .button_delete {
     background-color: #ffebee;
     color: #de1e27;
@@ -232,6 +288,7 @@ export default {
     width: 100%;
     height: auto;
     display: flex;
+    position: relative;
     justify-content: space-between;
     align-items: center;
     &_left {

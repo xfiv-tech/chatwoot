@@ -8,7 +8,7 @@ export default {
   routes: [
     {
       path: frontendURL('accounts/:accountId/settings/agent-bots'),
-      roles: ['administrator'],
+      roles: ['administrator', 'agent'],
       component: SettingsContent,
       props: {
         headerTitle: 'AGENT_BOTS.HEADER',

@@ -277,8 +277,13 @@
     },
     "FORM": {
       "NAME": {
-        "LABEL": "Bor name",
+        "LABEL": "Bot name",
         "PLACEHOLDER": "Name.."
+      },
+      "CHANNEL": {
+        "LABEL": "Select channel",
+        "PLACEHOLDER": "Channel..",
+        "ERROR": "Channel is required"
       },
       "SUBMIT": "Submit",
       "CANCEL": "Cancel"
@@ -287,7 +292,17 @@
   "LIST_BOTS_OPTIONS": {
     "BUTTON_DROP": "Disconnect",
     "BUTTON_EDIT": "Edit",
-    "LAST_UPDATE_DATE": "Updated At"
+    "LAST_UPDATE_DATE": "Updated At",
+    "CHANNEL": "Channel",
+    "ONLINE_STATE": "On Line"
+  },
+  "DELETE_BOT": {
+    "COFIRM": {
+      "TITLE": "Confirm Deletion",
+      "MESSAGE": "Are you sure to delete",
+      "YES": "Yes, Delete ",
+      "NO": "No, Keep "
+    }
   },
   "CREATE_ACCOUNT": {
     "NO_ACCOUNT_WARNING": "Uh oh! We could not find any Chatwoot accounts. Please create a new account to continue.",

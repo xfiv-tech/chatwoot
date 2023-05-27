@@ -57,6 +57,7 @@ export default {
       svgContent: '',
       statusQRSession: '',
       timerInterval: null,
+      userAccount: '',
       status: '' //Conectado, Error de conexion, Reconectando, Generando nuevo token qr
     };
   },
@@ -86,18 +87,24 @@ export default {
 
     },
     async getQrCode() {
-      const generatedQR = await axios.get(config.ENDPOINT_BACKEND + 'whatsapp_qr/qr');
+      const {data} = await axios.get(config.ENDPOINT_BACKEND + 'accessconfig/info/account_qr/' + this.userAccount);
+      const generatedQR = await axios.get(data.data.host + data.data.path_qr);
       this.svgContent = generatedQR.data;
     },
     async cleanSessionQRCode() {
-      const {data} = await axios.get(config.ENDPOINT_BACKEND + 'whatsapp_qr/limpiar_session_whatsapp')
-      this.status = 'Reconectando';
+      const {data} = await axios.get(config.ENDPOINT_BACKEND + 'accessconfig/info/account_qr/' + this.userAccount);
+      const clean = await axios.get(data.data.host + data.data.path_qr_limpiar)
+      const statusSess = this.getStatusSession();
+      this.status = statusSess;
       this.getQrCode()
       this.timerInterval = setInterval(this.getQrCode, 30000);
     },
     async getStatusSession() {
-      const {data} = await axios.get(config.ENDPOINT_BACKEND + 'whatsapp_qr/session_whatsapp')
-      this.status = data.message;
+      const {data} = await axios.get(config.ENDPOINT_BACKEND + 'accessconfig/info/account_qr/' + this.userAccount);
+      const session = await axios.get(data.data.host + data.data.path_qr_stado)
+      this.status = session.data.message;
+      console.log(session.data.message)
+      return session.data.message
     }, 
     async updateActiveAgentBot() {
       try {
@@ -128,6 +135,7 @@ export default {
     },
   },
   created() {
+    this.userAccount = this.$route.params.accountId;
     this.getStatusSession();
     if (this.status !== 'Conectado') {
       this.getQrCode();

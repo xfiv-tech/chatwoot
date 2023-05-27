@@ -30,6 +30,19 @@
             />
           </label>
         </div>
+        <div class="medium-12 columns">
+          <label :class="{ error: $v.botChannel.$error }">
+            {{ $t('CREATE_BOT.FORM.CHANNEL.LABEL') }}
+            <select v-model="botChannel">
+              <option v-for="channel in channels" :key="channel.channel" :value="channel.channel">
+                {{ channel.channel }}
+              </option>
+            </select>
+            <span v-if="$v.botChannel.$error" class="message">
+              {{ $t('CREATE_BOT.FORM.CHANNEL.ERROR') }}
+            </span>
+          </label>
+        </div>
         <div class="modal-footer">
           <div class="medium-12 columns">
             <woot-submit-button
@@ -55,6 +68,7 @@ import { required, minLength } from 'vuelidate/lib/validators';
 import { mapGetters } from 'vuex';
 import alertMixin from 'shared/mixins/alertMixin';
 import axios from 'axios';
+import { config } from '../../../../config/config'
 
 export default {
   mixins: [alertMixin],
@@ -79,10 +93,16 @@ export default {
   data() {
     return {
       botName: '',
+      botChannel: '',
+      channels: []
     };
   },
   validations: {
     botName: {
+      required,
+      minLength: minLength(1),
+    },
+    botChannel: {
       required,
       minLength: minLength(1),
     },
@@ -94,27 +114,45 @@ export default {
   },
   methods: {
     async addBot() {
-      try {
-        const createAccount = await axios.post('https://cloud-dev.xfiv.chat/accessconfig/info/account_bot_creatd/'+idaccount,{
+      // try {
+      const createAccount = await axios({
+        method: 'post',
+        url: config.ENDPOINT_BACKEND + 'accessconfig/info/account_bot_creatd/'+this.idaccount,
+        data: {
           "bots": [
-            {
+              {
                 "name": this.botName,
-                "identity": ""
-            }
+                "phoneNumber": "+599999999",
+                "channels": this.botChannel,
+                "access_token": "any"
+              }
           ]
-        })
-        console.log(createAccount)
-        this.showAlert(this.$t('CREATE_BOT.API.SUCCESS_MESSAGE'));
-      } catch (error) {
-        this.showAlert(this.$t('CREATE_BOT.API.ERROR_MESSAGE'));
-        // if (error.response.status === 422) {
-        //   this.showAlert(this.$t('CREATE_BOT.API.EXIST_MESSAGE'));
-        // } else {
-        //   this.showAlert(this.$t('CREATE_BOT.API.ERROR_MESSAGE'));
-        // }
-      }
+        }
+      })
+      console.log(createAccount)
+      this.$emit('getbots', this.idaccount);
+      this.showAlert(this.$t('CREATE_BOT.API.SUCCESS_MESSAGE'));
+      this.onClose()
+      // } catch (error) {
+      //   this.showAlert(this.$t('CREATE_BOT.API.ERROR_MESSAGE'));
+      //   // if (error.response.status === 422) {
+      //   //   this.showAlert(this.$t('CREATE_BOT.API.EXIST_MESSAGE'));
+      //   // } else {
+      //   //   this.showAlert(this.$t('CREATE_BOT.API.ERROR_MESSAGE'));
+      //   // }
+      // }
     },
+    async listChannels() {
+      const channels = await axios({
+        method: 'get',
+        url: config.ENDPOINT_BACKEND + 'accessconfig/api/v1/channelhost'
+      })
+      this.channels = channels.data;
+    }
   },
+  created() {
+    this.listChannels()
+  }
 };
 </script>
 <style lang="scss" scoped>

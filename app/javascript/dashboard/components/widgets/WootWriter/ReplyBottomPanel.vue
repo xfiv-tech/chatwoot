@@ -78,7 +78,7 @@
         @click="toggleMessageSignature"
       />
       <woot-button
-        v-if="hasWhatsappTemplates"
+        v-if="true"
         v-tooltip.top-end="'Whatsapp Templates'"
         icon="whatsapp"
         color-scheme="secondary"
