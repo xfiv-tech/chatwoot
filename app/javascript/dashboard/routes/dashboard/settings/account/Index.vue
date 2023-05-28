@@ -99,7 +99,7 @@
         <div>{{ `v${globalConfig.appVersion}` }}</div>
         <div v-if="hasAnUpdateAvailable && globalConfig.displayManifest">
           {{
-            $t('GENERAL_SETTINGS.UPDATE_CHATWOOT', {
+            $t('xxxxxx', {
               latestChatwootVersion: latestChatwootVersion,
             })
           }}
@@ -119,7 +119,6 @@
     <woot-loading-state v-if="uiFlags.isFetchingItem" />
   </div>
 </template>
-
 <script>
 import { required, minValue, maxValue } from 'vuelidate/lib/validators';
 import { mapGetters } from 'vuex';
