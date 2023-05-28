@@ -1,0 +1,8 @@
+NAMES                 PORTS                                                                                  SIZE
+chatwoot_rails_1      0.0.0.0:3000->3000/tcp, :::3000->3000/tcp                                              0B (virtual 2.02GB)
+chatwoot_base_1       3000/tcp                                                                               0B (virtual 2.02GB)
+chatwoot_sidekiq_1    3000/tcp                                                                               0B (virtual 2.02GB)
+chatwoot_postgres_1   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp                                              63B (virtual 374MB)
+chatwoot_webpack_1    3000/tcp, 0.0.0.0:32770->3035/tcp, :::32770->3035/tcp                                  2.19MB (virtual 2.02GB)
+chatwoot_mailhog_1    0.0.0.0:1025->1025/tcp, :::1025->1025/tcp, 0.0.0.0:8025->8025/tcp, :::8025->8025/tcp   0B (virtual 392MB)
+chatwoot_redis_1      0.0.0.0:6379->6379/tcp, :::6379->6379/tcp                                              0B (virtual 30.2MB)
