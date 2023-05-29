@@ -63,7 +63,7 @@ export default {
   computed: {
     ...mapGetters({ globalConfig: 'globalConfig/get' }),
     isAChatwootInstance() {
-      return this.globalConfig.installationName === 'Chatwoot';
+      return this.globalConfig.installationName === 'Xfiv';
     },
   },
   beforeMount() {
