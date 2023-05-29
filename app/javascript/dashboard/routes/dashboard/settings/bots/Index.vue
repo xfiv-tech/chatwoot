@@ -245,9 +245,6 @@ export default {
     }
   }
   .online_state {
-    position: absolute;
-    top: 0;
-    left: 0;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -255,7 +252,7 @@ export default {
     padding: 2px 4px;
     background: rgba(37, 211, 102, 0.1);
     color: #44ce4b;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     p {
       margin: 0;
     }
