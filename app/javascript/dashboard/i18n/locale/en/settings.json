@@ -290,7 +290,7 @@
     }
   },
   "LIST_BOTS_OPTIONS": {
-    "BUTTON_DROP": "Disconnect",
+    "BUTTON_DROP": "Deleted",
     "BUTTON_EDIT": "Edit",
     "LAST_UPDATE_DATE": "Updated At",
     "CHANNEL": "Channel",
@@ -305,7 +305,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "Uh oh! We could not find any Chatwoot accounts. Please create a new account to continue.",
+    "NO_ACCOUNT_WARNING": "Uh oh! We could not find any Xfiv accounts. Please create a new account to continue.",
     "NEW_ACCOUNT": "New Account",
     "SELECTOR_SUBTITLE": "Create a new account",
     "API": {

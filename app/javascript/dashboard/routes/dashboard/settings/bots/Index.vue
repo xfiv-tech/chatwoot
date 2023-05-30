@@ -15,7 +15,7 @@
         <div class="card">
           <div class="row">
             <div class="small-12 columns bot_cont">
-              
+
               <div class="bot_cont_left">
                 <h5>{{ bot.name }}</h5>
                 <div class="bot_cont_left_info">
@@ -40,7 +40,7 @@
                 >
                   <p>{{$t('LIST_BOTS_OPTIONS.BUTTON_EDIT')}}</p>
                 </div>
-                <div 
+                <div
                   class="button_delete"
                   @click="deleteBot(bot)"
                 >
@@ -169,7 +169,7 @@ export default {
       return fechaFormateada
     },
     generateSession(bot) {
-      // return 
+      // return
     },
     openAddPopup() {
       this.showAddPopup = true;
@@ -245,9 +245,6 @@ export default {
     }
   }
   .online_state {
-    position: absolute;
-    top: 0;
-    left: 0;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -255,7 +252,7 @@ export default {
     padding: 2px 4px;
     background: rgba(37, 211, 102, 0.1);
     color: #44ce4b;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     p {
       margin: 0;
     }
@@ -317,7 +314,7 @@ export default {
             border-radius: 2px;
             width: 17px;
             height: 17px;
-            
+
           }
         }
       }
