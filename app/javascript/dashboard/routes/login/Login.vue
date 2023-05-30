@@ -1,11 +1,18 @@
 <template>
   <main class="medium-12 column login">
     <section class="text-center medium-12 login__hero align-self-top">
-      <img
-        :src="globalConfig.logo"
+      <!-- <img
+
+        :src="https://xfiv-content.s3.amazonaws.com/xfiv-content/external-images/share_dir/Xfiv/20230519/Xfiv.jpeg"
         :alt="globalConfig.installationName"
         class="hero__logo"
-      />
+      /> -->
+      <img
+      :src="globalConfig.logo"
+      :alt="globalConfig.installationName"
+      :width="globalConfig.logoWidth"
+      class="hero__logo"
+    />
       <h2 class="hero__title">
         {{
           useInstallationName($t('LOGIN.TITLE'), globalConfig.installationName)
