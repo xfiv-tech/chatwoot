@@ -33,7 +33,7 @@
         <div class="medium-12 columns">
           <label :class="{ error: $v.botChannel.$error }">
             {{ $t('CREATE_BOT.FORM.CHANNEL.LABEL') }}
-            <select v-model="botChannel">
+            <select @change="changeselect" v-model="botChannel">
               <option v-for="channel in channels" :key="channel.channel" :value="channel.channel">
                 {{ channel.channel }}
               </option>
@@ -43,11 +43,34 @@
             </span>
           </label>
         </div>
+        <div v-if="showToken" class="medium-12 columns">
+          <label :class="{ error: $v.phoneNumber.$error }">
+            {{ $t('CREATE_BOT.FORM.PHONENUMBER.LABEL') }}
+            <input
+              v-model.trim="phoneNumber"
+              type="text"
+              :placeholder="$t('CREATE_BOT.FORM.PHONENUMBER.PLACEHOLDER')"
+              @input="$v.phoneNumber.$touch"
+            />
+          </label>
+        </div>
+        <div v-if="showToken" class="medium-12 columns">
+          <label :class="{ error: $v.botAccessToken.$error }">
+            {{ $t('CREATE_BOT.FORM.TOKEN.LABEL') }}
+            <input
+              v-model.trim="botAccessToken"
+              type="text"
+              :placeholder="$t('CREATE_BOT.FORM.TOKEN.PLACEHOLDER')"
+              @input="$v.botAccessToken.$touch"
+            />
+          </label>
+        </div>
         <div class="modal-footer">
           <div class="medium-12 columns">
             <woot-submit-button
               :disabled="
                 $v.botName.$invalid ||
+                $v.botChannel.$invalid ||
                   uiFlags.isCreating
               "
               :button-text="$t('CREATE_BOT.FORM.SUBMIT')"
@@ -92,8 +115,12 @@ export default {
   },
   data() {
     return {
+      tokensChannels: ["whatsapp-360","whatsapp-cloud","telegram"],
       botName: '',
       botChannel: '',
+      botAccessToken: '',
+      phoneNumber: '',
+      showToken: false,
       channels: []
     };
   },
@@ -106,13 +133,28 @@ export default {
       required,
       minLength: minLength(1),
     },
+    botAccessToken: {
+      required,
+      minLength: minLength(1),
+    },
+    phoneNumber: {
+      required,
+      minLength: minLength(1),
+    },
   },
   computed: {
     ...mapGetters({
       uiFlags: 'agents/getUIFlags',
     }),
+    vaidateTokenForChannels() {
+      return this.tokensChannels.includes(this.channel)
+    },
   },
   methods: {
+    changeselect(e){
+      const validate = this.tokensChannels.includes(e.target.value)
+      this.showToken = validate
+    },
     async addBot() {
       // try {
       const createAccount = await axios({
@@ -122,9 +164,9 @@ export default {
           "bots": [
               {
                 "name": this.botName,
-                "phoneNumber": "+599999999",
+                "phoneNumber": this.phoneNumber,
                 "channels": this.botChannel,
-                "access_token": "any"
+                "access_token": this.botAccessToken
               }
           ]
         }
@@ -133,14 +175,6 @@ export default {
       this.$emit('getbots', this.idaccount);
       this.showAlert(this.$t('CREATE_BOT.API.SUCCESS_MESSAGE'));
       this.onClose()
-      // } catch (error) {
-      //   this.showAlert(this.$t('CREATE_BOT.API.ERROR_MESSAGE'));
-      //   // if (error.response.status === 422) {
-      //   //   this.showAlert(this.$t('CREATE_BOT.API.EXIST_MESSAGE'));
-      //   // } else {
-      //   //   this.showAlert(this.$t('CREATE_BOT.API.ERROR_MESSAGE'));
-      //   // }
-      // }
     },
     async listChannels() {
       const channels = await axios({

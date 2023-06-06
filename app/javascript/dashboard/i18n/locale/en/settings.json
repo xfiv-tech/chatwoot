@@ -285,15 +285,28 @@
         "PLACEHOLDER": "Channel..",
         "ERROR": "Channel is required"
       },
+      "TOKEN": {
+        "LABEL": "Token",
+        "PLACEHOLDER": "Token..",
+        "ERROR": "Token is required"
+      },
+      "PHONENUMBER": {
+        "LABEL": "Phone number",
+        "PLACEHOLDER": "Number..",
+        "ERROR": "Phone is required"
+      },
       "SUBMIT": "Submit",
       "CANCEL": "Cancel"
     }
   },
   "LIST_BOTS_OPTIONS": {
+    "LOADER_MESSAGE": "Loading bots",
     "BUTTON_DROP": "Deleted",
     "BUTTON_EDIT": "Edit",
+    "BUTTON_CLONE": "Clone",
     "LAST_UPDATE_DATE": "Updated At",
     "CHANNEL": "Channel",
+    "PHONENUMBER": "Phone number",
     "ONLINE_STATE": "On Line"
   },
   "DELETE_BOT": {

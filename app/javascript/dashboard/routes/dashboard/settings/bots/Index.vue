@@ -11,45 +11,20 @@
 
     <!-- List Agents -->
     <div class="row">
-      <div class="small-5 mr columns with-right-pace" v-for="bot in bots" :key="bot.id">
-        <div class="card">
-          <div class="row">
-            <div class="small-12 columns bot_cont">
-
-              <div class="bot_cont_left">
-                <h5>{{ bot.name }}</h5>
-                <div class="bot_cont_left_info">
-                  <div class="bot_cont_left_info_update">
-                    <p><strong> {{$t('LIST_BOTS_OPTIONS.CHANNEL')}}</strong></p>
-                    <p>{{'Webchat - ' + bot.channels}}</p>
-                  </div>
-                  <div class="cont bot_cont_left_info_socialmedia" >
-                    <div v-if="bot.publicId !== null" class="online_state">
-                      <p>{{$t('LIST_BOTS_OPTIONS.ONLINE_STATE')}}</p>
-                    </div>
-                    <!-- <div class="" v-for="social in socialmedias" :key="social.name">
-                      <img class="bot_cont_left_info_socialmedia_img" :src='social.link' />
-                    </div> -->
-                  </div>
-                </div>
-              </div>
-              <div class="bot_cont_rigth">
-                <div
-                  class="button_edit"
-                  @click="goEditbot(bot)"
-                >
-                  <p>{{$t('LIST_BOTS_OPTIONS.BUTTON_EDIT')}}</p>
-                </div>
-                <div
-                  class="button_delete"
-                  @click="deleteBot(bot)"
-                >
-                  <p>{{$t('LIST_BOTS_OPTIONS.BUTTON_DROP')}}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div v-if="isLoading" class="loader">
+        <Spinner />
+        <span>{{ $t('LIST_BOTS_OPTIONS.LOADER_MESSAGE') }}</span>
+      </div>
+      
+      <div v-else class="small-5 mr columns with-right-pace" v-for="(bot, index) in bots" :key="bot.id">
+        <Bot
+          :index="index"
+          :bot="bot"
+          :nameBot="nameBot"
+          @goEditbot="(e)=>goEditbot(e)"
+          @deleteBot="(e)=>deleteBot(e)"
+          @updateBot="updateBot"
+        />
       </div>
     </div>
     <!-- Add Agent -->
@@ -88,16 +63,22 @@ import { mapGetters } from 'vuex';
 import globalConfigMixin from 'shared/mixins/globalConfigMixin';
 import axios from 'axios';
 import AddBotModal from './AddBotModal.vue';
+import Bot from './Bot.vue';
 import { config } from '../../../../config/config'
-
+import Spinner from '../../../../../shared/components/Spinner.vue';
 
 export default {
   components: {
-    AddBotModal
+    Spinner,
+    AddBotModal,
+    Bot
   },
   mixins: [globalConfigMixin],
   data() {
     return {
+      editName: false,
+      inputNameBot: "",
+      isLoading: true,
       botSelected: {},
       loading: {},
       showAddPopup: false,
@@ -115,10 +96,11 @@ export default {
       ],
       bots:[
         {
-          name: '',
+          name: 'prueba',
           updatedAt: '',
           path_session: '',
-          path_edit: ''
+          path_edit: '',
+          publicId: 'online'
         }
       ],
     };
@@ -142,14 +124,20 @@ export default {
         this.botSelected.name
       }`;
     },
-  },
-  mounted() {
+    nameBot: {
+      get(){
+        return this.inputNameBot
+      },
+      set(newval){
+        this.inputNameBot = newval
+      }
+    }
   },
   methods: {
     async getAllbots(accountId) {
       const bots = await axios.get(config.ENDPOINT_BACKEND + 'accessconfig/info/account_bot/'+accountId)
-      // console.log(bots.data.data)
       this.bots = bots.data.data
+      this.isLoading = false
     },
     changeFormateDate(date) {
       const dateTransform = new Date(date)
@@ -209,6 +197,30 @@ export default {
     },
     closeDeletePopup() {
       this.showDeletePopup = false;
+    },
+    async updateBot(bot, nameParam){
+      console.log({bot, nameParam})
+      let typeData;
+      if(nameParam === 'name'){
+        typeData = {
+          ...bot,
+          "account_identifier": this.idUser,
+          "idBot": bot.id,
+          "name": bot.name,
+        }
+      } else {
+        typeData = {
+          "account_identifier": this.idUser,
+          "idBot": bot.id,
+          "state_bot": null
+        }
+      }
+      const update = await axios({
+        method: 'put',
+        url: config.ENDPOINT_BACKEND + 'accessconfig/info/account_bot_update/'+this.idUser,
+        data: typeData
+      })
+      console.log(update)
     }
   },
   created() {
@@ -218,9 +230,23 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+@import '~dashboard/assets/scss/woot';
   .mr{
     margin-left: 20px;
     margin-bottom: 20px;
+  }
+  .spinner {
+    margin-top: var(--space-normal);
+    margin-bottom: var(--space-normal);
+  }
+  .loader {
+    width: 100%;
+    height: auto;
+    align-items: center;
+    display: flex;
+    font-size: var(--font-size-default);
+    justify-content: center;
+    padding: var(--space-large);
   }
   .cont {
     width: 100%;

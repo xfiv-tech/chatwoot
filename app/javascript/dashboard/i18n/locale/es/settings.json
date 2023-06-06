@@ -289,15 +289,28 @@
         "PLACEHOLDER": "Canal..",
         "ERROR": "Es necesario seleccionar un canal"
       },
+      "TOKEN": {
+        "LABEL": "Token",
+        "PLACEHOLDER": "Vincular token..",
+        "ERROR": "Token es obligatorio"
+      },
+      "PHONENUMBER": {
+        "LABEL": "Número de celular",
+        "PLACEHOLDER": "Ingresar celular..",
+        "ERROR": "Celular es requerido"
+      },
       "SUBMIT": "Enviar",
       "CANCEL": "Cancelar"
     }
   },
   "LIST_BOTS_OPTIONS": {
+    "LOADER_MESSAGE": "Cargando lista de bots",
     "BUTTON_DROP": "Desconectar",
     "BUTTON_EDIT": "Editar",
+    "BUTTON_CLONE": "Clonar",
     "LAST_UPDATE_DATE": "Última Actualización",
     "CHANNEL": "Canal",
+    "PHONENUMBER": "Celular vinculado",
     "ONLINE_STATE": "En Linea"
   },
   "DELETE_BOT": {

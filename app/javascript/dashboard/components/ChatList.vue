@@ -130,7 +130,6 @@
       <div v-if="chatListLoading" class="text-center">
         <span class="spinner" />
       </div>
-
       <woot-button
         v-if="!hasCurrentPageEndReached && !chatListLoading"
         variant="clear"

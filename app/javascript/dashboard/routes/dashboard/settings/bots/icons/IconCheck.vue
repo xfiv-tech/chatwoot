@@ -1,0 +1,10 @@
+<template>
+    <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M26.3733 2.93335L32 8.56002L11.2533 29.3333L0 18.0667L5.62667 12.44L11.2533 18.0667L26.3733 2.93335ZM26.3733 6.66668L11.2533 21.8134L5.62667 16.2533L3.74667 18.0667L11.2533 25.56L28.2533 8.56002L26.3733 6.66668Z" fill="black"/>
+    </svg>
+</template>
+<script>
+export default {
+  name: 'icon-check',
+}
+</script>
