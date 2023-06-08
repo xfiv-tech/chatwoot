@@ -11,19 +11,32 @@
 
     <!-- List Agents -->
     <div class="row">
-      <div v-if="isLoading" class="loader">
-        <Spinner />
-        <span>{{ $t('LIST_BOTS_OPTIONS.LOADER_MESSAGE') }}</span>
+      <div class="small-8 with-right-space ">
+        <div v-if="isLoading" class="loader">
+          <Spinner />
+          <span>{{ $t('LIST_BOTS_OPTIONS.LOADER_MESSAGE') }}</span>
+        </div>
+        
+        <div v-else class="mr columns with-right-pace" v-for="(bot, index) in bots" :key="bot.id">
+          <Bot
+            :index="index"
+            :bot="bot"
+            :nameBot="nameBot"
+            @goEditbot="(e)=>goEditbot(e)"
+            @deleteBot="(e)=>deleteBot(e)"
+            @cloneBot="(e)=>cloneBot(e)"
+            @updateBot="updateBot"
+          />
+        </div>
       </div>
-      
-      <div v-else class="small-5 mr columns with-right-pace" v-for="(bot, index) in bots" :key="bot.id">
-        <Bot
-          :index="index"
-          :bot="bot"
-          :nameBot="nameBot"
-          @goEditbot="(e)=>goEditbot(e)"
-          @deleteBot="(e)=>deleteBot(e)"
-          @updateBot="updateBot"
+      <div class="small-4 columns">
+        <span
+          v-dompurify-html="
+            useInstallationName(
+              $t('AGENT_BOTS.SIDEBAR_TXT'),
+              globalConfig.installationName
+            )
+          "
         />
       </div>
     </div>
@@ -110,6 +123,7 @@ export default {
       accountId: 'getCurrentAccountId',
       agentBots: 'agentBots/getBots',
       uiFlags: 'agentBots/getUIFlags',
+      globalConfig: 'globalConfig/get',
     }),
     deleteMessage() {
       return ` ${this.botSelected.name}?`;
@@ -165,6 +179,12 @@ export default {
     async goEditbot(bot) {
       window.open(`${bot.path_session}?redirect=${bot.path_edit}?account_id=${this.idUser}`, '_blank');
     },
+    async cloneBot(bot) {
+      console.log(bot)
+      const copybot = {...bot, name: bot.name+' copy'}
+      await axios.post(config.ENDPOINT_BACKEND + 'info/account_bot_clonar/'+this.idUser, copybot)
+      this.getAllbots(this.idUser)
+    },
     async deleteBot(bot) {
       this.showDeletePopup = true;
       this.botSelected = bot
@@ -210,9 +230,10 @@ export default {
         }
       } else {
         typeData = {
+          ...bot,
           "account_identifier": this.idUser,
           "idBot": bot.id,
-          "state_bot": null
+          "publishedTypebot": null
         }
       }
       const update = await axios({
@@ -234,6 +255,7 @@ export default {
   .mr{
     margin-left: 20px;
     margin-bottom: 20px;
+    margin-right: 20px;
   }
   .spinner {
     margin-top: var(--space-normal);

@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="cont bot_cont_left_info_socialmedia" >
-              <div v-if="bot.publicId !== null" class="online_state" @click="updateBot(bot, 'publicId')">
+              <div v-if="bot.publishedTypebot !== null" class="online_state" @click="updateBot(bot, 'publishedTypebot')">
                 <p>{{$t('LIST_BOTS_OPTIONS.ONLINE_STATE')}}</p>
               </div>
             </div>
@@ -53,7 +53,7 @@
           </div>
           <div
             class="button_edit"
-            @click="$emit('goEditbot',bot)"
+            @click="$emit('cloneBot',bot)"
           >
             <p>{{$t('LIST_BOTS_OPTIONS.BUTTON_CLONE')}}</p>
           </div>
@@ -121,7 +121,7 @@ export default {
           updatedAt: '',
           path_session: '',
           path_edit: '',
-          publicId: 'online'
+          publishedTypebot: 'online'
         }
       ],
     };
@@ -206,13 +206,15 @@ export default {
     }
   }
   .online_state {
+    height: 30px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    border-radius: 5px;
-    padding: 2px 4px;
+    border-radius: 7px;
+    padding: 2px 10px;
     background: rgba(37, 211, 102, 0.1);
     color: #44ce4b;
+    cursor: pointer;
     font-size: 0.7rem;
     p {
       margin: 0;
