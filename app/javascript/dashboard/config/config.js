@@ -1,3 +1,3 @@
 export const config = {
-    "ENDPOINT_BACKEND": "https://gateway.xfiv.chat/"
+    "ENDPOINT_BACKEND": "https://core.xfiv.chat/"
 }
