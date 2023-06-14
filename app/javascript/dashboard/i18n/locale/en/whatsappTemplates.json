@@ -1,5 +1,47 @@
 {
     "WHATSAPP_TEMPLATES": {
+        "BUTTON": {
+            "ADD_TEMPLATE":"Add Template",
+            "SYNC_TEMPLATES":"Sync Templates",
+            "CANCEL":"Cancel",
+            "CALL_ACTION":"Call Action",
+            "SIMPLE":"Simple",
+            "TEXT":"Text",
+            "IMAGE":"Image",
+            "VIDEO":"Video",
+            "DOCUMENT":"Document",
+            "ADD_BUTTON": "Add Button"
+        },
+        "DROPDOWN":{
+            "SELECT_CATEGORY":"Select Category",
+            "SELECT_TEMPLATE":"Select Template type",
+            "SELECT_LANGUAGE":"Select Language",
+            "ONLY_TEXT":"Only Text",
+            "INTERACTIVE":"Media Interactive"
+        },
+        "LABEL": {
+            "NAME":"Name",
+            "TEXT_BUTTON":"Text Button",
+            "MOBILE": "Mobile",
+            "BUTTONS": "Buttons",
+            "HEADER": "Header",
+            "FOOTER": "Footer",
+            "URL":"Url",
+            "NEW_TEMPLATE": "New Template",
+            "INFORMATION_TEMPLATE":"Information Template",
+            "NAME":"Name",
+            "CATEGORY":"Category",
+            "LANGUAGE":"Language",
+            "TEMPLATE_TYPE":"Template Type",
+            "TEMPLATE_CONTENT":"Template Content",
+            "BODY":"Body",
+            "TEMPLATE":"Template",
+            "TEXT_HEADER":"Text Header",
+            "TEXT_FOOTER":"Text Footer",
+            "UPLOAD_IMAGE":"Upload Image",
+            "UPLOAD_VIDEO":"Upload Video",
+            "UPLOAD_DOCUMENT":"Upload Document"
+        },
         "MODAL": {
             "TITLE": "Whatsapp Templates",
             "SUBTITLE": "Select the whatsapp template you want to send",

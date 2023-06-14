@@ -1,4 +1,5 @@
 const { colors } = require('tailwindcss/defaultTheme');
+// const tcolors = require('tailwindcss/colors')
 
 module.exports = {
   purge: [
@@ -90,6 +91,12 @@ module.exports = {
         800: '#D11320',
         900: '#C30011',
       },
+      nexto: '#EBE5DB',
+      home: '#F8FAFC',
+      dash: '#EAF0F6',
+      background: '#E5E5E5',
+      blue: colors.blue,
+      gray: colors.gray,
     },
     extend: {
       screens: {

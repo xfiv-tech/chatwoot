@@ -1,27 +1,31 @@
 /* global axios */
 import ApiClient from './ApiClient';
 
-class AccountAPI extends ApiClient {
+class WhatsAppAPI extends ApiClient {
   constructor() {
     super('', { accountScoped: true });
   }
 
-  createAccount(data) {
-    return axios.post(`${this.apiVersion}/accounts`, data);
+  createWhatsAppTemplate(payload) {
+    return axios.post(
+      `${this.url}/whatsapp_business/${payload.accountId}/templates`,
+      payload.data
+    );
   }
 
-  getWhatsappAccounts() {
+  getWhatsAppBusinessTemplates() {
     return axios.get(`${this.url}whatsapp_business`);
   }
 
-  getWhatsappAccountById(accountId) {
-    return axios.get(`${this.url}whatsapp_business/${accountId}`);
+  syncWhatsAppTemplates(accountId) {
+    return axios.get(
+      `${this.url}whatsapp_business/${accountId}/sync_templates`
+    );
   }
 
-  updateBusinessProfile(accountId, body) {
-    return axios.put(
-      `${this.url}whatsapp_business/${accountId}/update_business_profile`,
-      body
+  deleteWhatsAppTemplate(businessAccountId, templateName) {
+    return axios.delete(
+      `${this.url}whatsapp_business/${businessAccountId}/templates/${templateName}`
     );
   }
 
@@ -30,6 +34,10 @@ class AccountAPI extends ApiClient {
       `${this.url}whatsapp_business/${accountId}/update_profile_about`,
       body
     );
+  }
+
+  uploadTemplateResource(body) {
+    return axios.post(`${this.url}whatsapp_business/s3_upload`, body);
   }
 
   updateProfilePhoto(accountId, body) {
@@ -52,4 +60,4 @@ class AccountAPI extends ApiClient {
   }
 }
 
-export default new AccountAPI();
+export default new WhatsAppAPI();
