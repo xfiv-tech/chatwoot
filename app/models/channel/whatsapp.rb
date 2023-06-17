@@ -197,7 +197,7 @@ class Channel::Whatsapp < ApplicationRecord
       "#{api_base_path}/configs/webhook",
       headers: { 'D360-API-KEY': provider_config['api_key'], 'Content-Type': 'application/json' },
       body: {
-        url: "https://omnichannel.xfiv.chat/app/webhooks/whatsapp/#{phone_number}"
+        url: "https://cloud.xfiv.chat/app/webhooks/whatsapp/#{phone_number}"
       }.to_json
     )
     errors.add(:provider_config, 'error setting up the webook') unless response.success?
