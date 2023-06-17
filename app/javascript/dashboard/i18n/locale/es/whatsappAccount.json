@@ -1,34 +1,34 @@
 {
 	"WHATSAPP_ACCOUNT":{
 		"BUTTON":{
-			"SAVE":"Save",
-			"UPDATE_ABOUT":"Update About",
-			"UPDATE_PHOTO":"Update Photo"
+			"SAVE":"Guardar",
+			"UPDATE_ABOUT":"Actualizar",
+			"UPDATE_PHOTO":"Actualizar Foto"
 		},
 		"TITLE":{
-			"USER_ACCOUNT":"User Account",
-			"STATE":"State",
-			"WHATSAPP_PROFILE":"WhatsApp Business Profile",
-			"TEMPLATES":"Templates",
-			"CAMPAIGN":"Campaign"
+			"USER_ACCOUNT":"Cuenta de usuario",
+			"STATE":"Estado",
+			"WHATSAPP_PROFILE":"Perfil de WhatsApp Business",
+			"TEMPLATES":"Plantillas",
+			"CAMPAIGN":"Campaña"
 		},
 		"STATUS":{
-			"CONNECTED":"Connected",
-			"DISCONNECTED":"Disconnected"
+			"CONNECTED":"Conectado",
+			"DISCONNECTED":"Desconectado"
 		},
 		"LOADER":{
-			"PLEASE_WAIT":"Please Wait ..."
+			"PLEASE_WAIT":"Espera por favor ..."
 		},
 		"ACCOUNT":{
-			"ADDRESS":"Address",
-			"DESCRIPTION":"Description",
-			"EMAIL":"Email",
-			"WEBSITE":"Website",
-			"CATEGORY":"Category",
-			"PREVIEW":"Preview",
-			"PROFILE_IMAGE":"Profile Image",
-			"ABOUT_TEXT":"About Text",
-			"INFORMATION":"Informations"
+			"ADDRESS":"Dirección",
+			"DESCRIPTION":"Descripción",
+			"EMAIL":"Correo Electrónico",
+			"WEBSITE":"Sitio Web",
+			"CATEGORY":"Catetoria",
+			"PREVIEW":"Vista Previa",
+			"PROFILE_IMAGE":"Imagen de Perfil",
+			"ABOUT_TEXT":"Acerca de",
+			"INFORMATION":"Información"
 		}
 	}
 }
