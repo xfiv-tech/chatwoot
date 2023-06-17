@@ -1,0 +1,34 @@
+{
+	"WHATSAPP_ACCOUNT":{
+		"BUTTON":{
+			"SAVE":"Salvar",
+			"UPDATE_ABOUT":"Cambiar cerca de",
+			"UPDATE_PHOTO":"Cambiar foto"
+		},
+		"TITLE":{
+			"USER_ACCOUNT":"Conta de usuário",
+			"STATE":"Estado",
+			"WHATSAPP_PROFILE":"Perfil comercial do WhatsApp",
+			"TEMPLATES":"Modelos",
+			"CAMPAIGN":"Campanhas"
+		},
+		"STATUS":{
+			"CONNECTED":"Conectado",
+			"DISCONNECTED":"Desconectado"
+		},
+		"LOADER":{
+			"PLEASE_WAIT":"Por favor, espere ..."
+		},
+		"ACCOUNT":{
+			"ADDRESS":"Endereço",
+			"DESCRIPTION":"Descrição",
+			"EMAIL":"E-mail",
+			"WEBSITE":"Local na rede Internet",
+			"CATEGORY":"Categoria",
+			"PREVIEW":"Visualizar",
+			"PROFILE_IMAGE":"Imagem de perfil",
+			"ABOUT_TEXT":"Sobre o texto",
+			"INFORMATION":"Informações"
+		}
+	}
+}

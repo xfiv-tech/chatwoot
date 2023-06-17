@@ -1,0 +1,34 @@
+{
+	"WHATSAPP_ACCOUNT":{
+		"BUTTON":{
+			"SAVE":"Guardar",
+			"UPDATE_ABOUT":"Actualizar",
+			"UPDATE_PHOTO":"Actualizar Foto"
+		},
+		"TITLE":{
+			"USER_ACCOUNT":"Cuenta de usuario",
+			"STATE":"Estado",
+			"WHATSAPP_PROFILE":"Perfil de WhatsApp Business",
+			"TEMPLATES":"Plantillas",
+			"CAMPAIGN":"Campaña"
+		},
+		"STATUS":{
+			"CONNECTED":"Conectado",
+			"DISCONNECTED":"Desconectado"
+		},
+		"LOADER":{
+			"PLEASE_WAIT":"Espera por favor ..."
+		},
+		"ACCOUNT":{
+			"ADDRESS":"Dirección",
+			"DESCRIPTION":"Descripción",
+			"EMAIL":"Correo Electrónico",
+			"WEBSITE":"Sitio Web",
+			"CATEGORY":"Catetoria",
+			"PREVIEW":"Vista Previa",
+			"PROFILE_IMAGE":"Imagen de Perfil",
+			"ABOUT_TEXT":"Acerca de",
+			"INFORMATION":"Información"
+		}
+	}
+}

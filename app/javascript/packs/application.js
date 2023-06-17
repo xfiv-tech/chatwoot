@@ -31,6 +31,7 @@ import VueDOMPurifyHTML from 'vue-dompurify-html';
 import { domPurifyConfig } from '../shared/helpers/HTMLSanitizer';
 import AnalyticsPlugin from '../dashboard/helper/AnalyticsHelper/plugin';
 
+import '../application.css';
 Vue.config.env = process.env;
 
 if (window.errorLoggingConfig) {

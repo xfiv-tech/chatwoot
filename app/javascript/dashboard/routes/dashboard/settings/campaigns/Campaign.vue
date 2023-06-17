@@ -31,10 +31,12 @@ import alertMixin from 'shared/mixins/alertMixin';
 import campaignMixin from 'shared/mixins/campaignMixin';
 import CampaignsTable from './CampaignsTable';
 import EditCampaign from './EditCampaign';
+// import WhatsappBusiness from './Whatsapp';
 export default {
   components: {
     CampaignsTable,
     EditCampaign,
+    // WhatsappBusiness,
   },
   mixins: [alertMixin, campaignMixin],
   props: {
