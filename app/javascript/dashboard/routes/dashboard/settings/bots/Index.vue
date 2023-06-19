@@ -180,9 +180,9 @@ export default {
       window.open(`${bot.path_session}?redirect=${bot.path_edit}?account_id=${this.idUser}`, '_blank');
     },
     async cloneBot(bot) {
-      console.log(bot)
-      const copybot = {...bot, name: bot.name+' copy'}
-      await axios.post(config.ENDPOINT_BACKEND + 'info/account_bot_clonar/'+this.idUser, copybot)
+      const copybot = {...bot, idBot: bot.id}
+      const clonado = await axios.post(config.ENDPOINT_BACKEND + 'accessconfig/info/account_bot_clonar/'+this.idUser, copybot)
+      console.log(clonado)
       this.getAllbots(this.idUser)
     },
     async deleteBot(bot) {

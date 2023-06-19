@@ -156,10 +156,13 @@ export default {
       this.assignedAgent = selfAssign;
     },
     onClickAssignAgent(selectedItem) {
+      console.log(selectedItem,"sleectect")
       if (this.assignedAgent && this.assignedAgent.id === selectedItem.id) {
         this.assignedAgent = null;
+        console.log( this.assignedAgent,"null")
       } else {
         this.assignedAgent = selectedItem;
+        console.log( this.assignedAgent,"sleectect")
       }
     },
 

@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 // TODO: Remove this when we support all formats
 const formatsToRemove = ['DOCUMENT', 'IMAGE', 'VIDEO'];
 
@@ -66,10 +67,11 @@ export default {
   data() {
     return {
       query: '',
+      listAllTemplates: []
     };
   },
   computed: {
-    whatsAppTemplateMessages() {
+    async whatsAppTemplateMessages() {
       // TODO: Remove the last filter when we support all formats
       return this.$store.getters['inboxes/getWhatsAppTemplates'](this.inboxId)
         .filter(template => template.status.toLowerCase() === 'approved')
@@ -80,17 +82,31 @@ export default {
         });
     },
     filteredTemplateMessages() {
-      return this.whatsAppTemplateMessages.filter(template =>
+      return  this.listAllTemplates.length > 0 && this.listAllTemplates.filter(template =>
         template.name.toLowerCase().includes(this.query.toLowerCase())
       );
     },
   },
   methods: {
+    //Trae la lista de los templates desde el endpoint
+    async getAllWhatsappTemplates(){
+      const listTemplates = await axios.get('https://core.xfiv.chat/accessconfig/info/account_plantillas/'+this.inboxId)
+      const filtertemplates = listTemplates.data.data?.filter(template => template.status.toLowerCase() === 'approved')
+        .filter(template => {
+          return template.components.every(component => {
+            return !formatsToRemove.includes(component.format);
+          });
+        });
+      this.listAllTemplates = filtertemplates
+    },
     getTemplatebody(template) {
       return template.components.find(component => component.type === 'BODY')
         .text;
     },
   },
+  created(){
+    this.getAllWhatsappTemplates()
+  }
 };
 </script>
 

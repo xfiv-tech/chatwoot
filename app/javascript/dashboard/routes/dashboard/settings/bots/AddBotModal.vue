@@ -65,6 +65,17 @@
             />
           </label>
         </div>
+        <div v-if="showWhatsappId" class="medium-12 columns">
+          <label :class="{ error: $v.wappid.$error }">
+            WhatsApp Business ID
+            <input
+              v-model.trim="wappid"
+              type="text"
+              placeholder="Id..."
+              @input="$v.wappid.$touch"
+            />
+          </label>
+        </div>
         <div class="modal-footer">
           <div class="medium-12 columns">
             <woot-submit-button
@@ -121,6 +132,7 @@ export default {
       botAccessToken: '',
       phoneNumber: '',
       showToken: false,
+      showWhatsappId: false,
       channels: []
     };
   },
@@ -141,6 +153,10 @@ export default {
       required,
       minLength: minLength(1),
     },
+    wappid: {
+      required,
+      minLength: minLength(1),
+    },
   },
   computed: {
     ...mapGetters({
@@ -154,6 +170,7 @@ export default {
     changeselect(e){
       const validate = this.tokensChannels.includes(e.target.value)
       this.showToken = validate
+      this.showWhatsappId = e.target.value === "whatsapp-cloud" && true
     },
     async addBot() {
       // try {
