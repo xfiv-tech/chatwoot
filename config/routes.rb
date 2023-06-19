@@ -206,6 +206,18 @@ Rails.application.routes.draw do
               post :reorder, on: :collection
             end
           end
+
+          resources :whatsapp_business, only: [:index, :show] do
+            post :s3_upload, on: :collection
+            member do
+              put :update_business_profile
+              put :update_profile_photo
+              put :update_profile_about
+              get :sync_templates
+              post :templates, to: 'whatsapp_business#create_template'
+              delete 'templates/(:template_name)', to: 'whatsapp_business#delete_template'
+            end
+          end
         end
       end
       # end of account scoped api routes

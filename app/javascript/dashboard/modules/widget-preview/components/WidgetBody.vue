@@ -106,6 +106,23 @@ export default {
         font-size: var(--font-size-mini);
       }
     }
+    .message-wrap {
+      margin-right: var(--space-smaller);
+      max-width: 100%;
+      .chat-bubble {
+        box-shadow: var(--shadow-medium);
+        // background: var(--color-woot);
+        background-color: #eaf0f6;
+        border-radius: var(--border-radius-large);
+        color: var(--white);
+        display: inline-block;
+        font-size: var(--font-size-nano);
+        line-height: 1.5;
+        padding: var(--space-small) var(--space-one);
+        text-align: left;
+        word-break: break-word;
+      }
+    }
   }
   .conversation-content {
     height: calc(var(--space-large) * 10);

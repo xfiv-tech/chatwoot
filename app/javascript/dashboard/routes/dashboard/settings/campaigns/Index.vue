@@ -39,6 +39,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch('campaigns/get');
+    this.$store.dispatch('whatsapp/get');
   },
   methods: {
     openAddPopup() {

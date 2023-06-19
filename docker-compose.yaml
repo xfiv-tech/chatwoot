@@ -28,8 +28,7 @@ services:
       - cache:/app/tmp/cache
       - bundle:/usr/local/bundle
     depends_on:
-      - postgres
-      - redis
+      # - redis
       - webpack
       - mailhog
       - sidekiq
@@ -53,8 +52,7 @@ services:
       - cache:/app/tmp/cache
       - bundle:/usr/local/bundle
     depends_on:
-      - postgres
-      - redis
+      # - redis
       - mailhog
     environment:
       - NODE_ENV=development
@@ -82,28 +80,16 @@ services:
     entrypoint: docker/entrypoints/webpack.sh
     command: bin/webpack-dev-server
 
-  postgres:
-    image: intelnexoec/xfiv-postgres:latest
-    restart: always
-    ports:
-      - '5432:5432'
-    volumes:
-      - postgres:/data/postgres
-    environment:
-      - POSTGRES_DB=chatwoot
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-
-  redis:
-    image: redis:alpine
-    restart: always
-    # command: ["sh", "-c", "redis-server --requirepass \"$REDIS_PASSWORD\""]
-    # command: redis-server --appendonly yes --requirepass "$REDIS_PASSWORD"
-    # env_file: .env
-    volumes:
-      - redis:/data/redis
-    ports:
-      - '6379:6379'
+  # redis:
+  #   image: redis:alpine
+  #   restart: always
+  #   # command: ["sh", "-c", "redis-server --requirepass \"$REDIS_PASSWORD\""]
+  #   command: redis-server --appendonly yes --requirepass "$REDIS_PASSWORD"
+  #   env_file: .env
+  #   volumes:
+  #     - redis:/data/redis
+  #   ports:
+  #     - '6379:6379'
 
   mailhog:
     image: mailhog/mailhog
@@ -112,7 +98,6 @@ services:
       - 8025:8025
 
 volumes:
-  postgres:
   redis:
   packs:
   node_modules:

@@ -61,6 +61,8 @@ if (window.logRocketProjectId) {
 
   plugins.push(logRocketPlugin);
 }
+import whatsapp from './modules/whatsapp';
+import whatsapptemplates from './modules/whatsapptemplates';
 
 Vue.use(Vuex);
 export default new Vuex.Store({
@@ -106,6 +108,8 @@ export default new Vuex.Store({
     teams,
     userNotificationSettings,
     webhooks,
+    whatsapp,
+    whatsapptemplates,
   },
   plugins,
 });

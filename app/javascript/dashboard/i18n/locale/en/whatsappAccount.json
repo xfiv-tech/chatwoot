@@ -1,0 +1,37 @@
+{
+	"WHATSAPP_ACCOUNT":{
+		"BUTTON":{
+			"SAVE":"Save",
+			"CANCEL":"Cancel",
+			"UPDATE_ABOUT":"Update About",
+			"UPDATE_PHOTO":"Update Photo",
+			"ADD_TEMPLATE":"Add Template",
+			"SYNC_TEMPLATES":"Sync Templates"
+		},
+		"TITLE":{
+			"USER_ACCOUNT":"User Account",
+			"STATE":"State",
+			"WHATSAPP_PROFILE":"WhatsApp Business Profile",
+			"TEMPLATES":"Templates",
+			"CAMPAIGN":"Campaign"
+		},
+		"STATUS":{
+			"CONNECTED":"Connected",
+			"DISCONNECTED":"Disconnected"
+		},
+		"LOADER":{
+			"PLEASE_WAIT":"Please Wait ..."
+		},
+		"ACCOUNT":{
+			"ADDRESS":"Address",
+			"DESCRIPTION":"Description",
+			"EMAIL":"Email",
+			"WEBSITE":"Website",
+			"CATEGORY":"Category",
+			"PREVIEW":"Preview",
+			"PROFILE_IMAGE":"Profile Image",
+			"ABOUT_TEXT":"About Text",
+			"INFORMATION":"Informations"
+		}
+	}
+}
