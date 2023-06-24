@@ -297,6 +297,36 @@
         "PLACEHOLDER": "Number..",
         "ERROR": "Phone is required"
       },
+      "WHATSAPP_CLOUD_API": {
+        "TOKEN": {
+          "LABEL": "Token",
+          "PLACEHOLDER": "Token..",
+          "ERROR": "Token is required"
+        },
+        "IDENTIFIER": {
+          "LABEL": "Identifier",
+          "PLACEHOLDER": "Identifier..",
+          "ERROR": "Identifier is required"
+        },
+        "MOBILE": {
+          "LABEL": "Mobile Number",
+          "PLACEHOLDER": "Number..",
+          "ERROR": "Number is required"
+        }
+      },
+      "WHATSAPP_360_DIALOG": {
+        "MOBILE": {
+          "LABEL": "Mobile Number",
+          "PLACEHOLDER": "Number..",
+          "ERROR": "Number is required"
+        },
+        "KEY": {
+          "LABEL": "Key",
+          "PLACEHOLDER": "Key..",
+          "ERROR": "Key is required"
+        }
+      },
+      
       "SUBMIT": "Submit",
       "CANCEL": "Cancel"
     }
@@ -304,7 +334,7 @@
   "LIST_BOTS_OPTIONS": {
     "LOADER_MESSAGE": "Loading bots",
     "BUTTON_DROP": "Delete",
-    "BUTTON_EDIT": "Edit",
+    "BUTTON_EDIT": "Bot Builder",
     "BUTTON_CLONE": "Clone",
     "LAST_UPDATE_DATE": "Updated At",
     "CHANNEL": "Channel",

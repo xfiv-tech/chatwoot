@@ -68,6 +68,63 @@
     "TYPES": {
       "WEBHOOK": "Webhook Bot",
       "CSML": "CSML Bot"
+    },
+    "CREATE_FLOW": {
+      "CREATE": {
+        "TITLE": "Crear un nuevo bot",
+        "DESC": "Añada un título y una descripción a su nuevo bot."
+      },
+      "AGENTS": {
+        "BUTTON_TEXT": "Añadir equipos al bot",
+        "TITLE": "Añadir equipos al bot - %{botName}",
+        "DESC": "Añada agentes a su recién creado equipo. Le permitirá colaborar como un equipo en las conversaciones, y ser notificado acerca de nuevos eventos en la misma conversación."
+      },
+      "WIZARD": [
+        {
+          "title": "Crear",
+          "route": "settings_teams_new",
+          "body": "Crear un nuevo equipo de agentes."
+        },
+        {
+          "title": "Añadir agentes",
+          "route": "settings_teams_add_agents",
+          "body": "Añadir agentes al equipo."
+        },
+        {
+          "title": "Finalizar",
+          "route": "settings_teams_finish",
+          "body": "¡Todo está listo!"
+        }
+      ]
+    },
+    "EDIT_FLOW": {
+      "CREATE": {
+        "TITLE": "Editar los detalles del equipo",
+        "DESC": "Editar el título y la descripción de su equipo.",
+        "BUTTON_TEXT": "Actualizar el equipo"
+      },
+      "AGENTS": {
+        "BUTTON_TEXT": "Actualizar los agentes en el equipo",
+        "TITLE": "Añadir agentes al equipo - %{teamName}",
+        "DESC": "Añada agentes a su recién creado equipo. Le permitirá colaborar como un equipo en las conversaciones, y ser notificado acerca de nuevos eventos en la misma conversación."
+      },
+      "WIZARD": [
+        {
+          "title": "Detalles del equipo",
+          "route": "settings_teams_edit",
+          "body": "Cambiar nombre, descripción y otros detalles."
+        },
+        {
+          "title": "Editar Agentes",
+          "route": "settings_teams_edit_members",
+          "body": "Editar agentes en su equipo."
+        },
+        {
+          "title": "Finalizar",
+          "route": "settings_teams_edit_finish",
+          "body": "¡Todo está listo!"
+        }
+      ]
     }
   }
 }

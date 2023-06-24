@@ -1,10 +1,18 @@
 <template>
   <div class="column content-box">
+      <!-- <router-link
+        class-names="button--fixed-top"
+        :to="{
+            name: 'settings_bot_new',
+        }"
+      >
+        {{$t('CREATE_BOT.NEW_BOT')}}
+      </router-link> -->
     <woot-button
       color-scheme="success"
       class-names="button--fixed-top"
       icon="add-circle"
-      @click="openAddPopup()"
+      @click="goNewBot()"
     >
       {{$t('CREATE_BOT.NEW_BOT')}}
     </woot-button>
@@ -172,6 +180,9 @@ export default {
     },
     generateSession(bot) {
       // return
+    },
+    goNewBot(){
+      this.$router.push({ name: 'settings_bot_new' })
     },
     openAddPopup() {
       this.showAddPopup = true;

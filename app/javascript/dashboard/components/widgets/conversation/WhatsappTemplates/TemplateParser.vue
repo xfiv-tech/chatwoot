@@ -98,6 +98,7 @@ export default {
           processed_params: this.processedParams,
         },
       };
+      console.log(payload,'payload')
       this.$emit('sendMessage', payload);
     },
     processVariable(str) {

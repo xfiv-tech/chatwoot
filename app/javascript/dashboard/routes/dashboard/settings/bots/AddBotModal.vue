@@ -2,7 +2,6 @@
   <woot-modal
     :show="show"
     :on-close="onClose"
-    class="account-selector--modal"
   >
     <div class="column content-box">
       <woot-modal-header
@@ -43,7 +42,7 @@
             </span>
           </label>
         </div>
-        <div v-if="showToken" class="medium-12 columns">
+        <!-- <div v-if="showToken" class="medium-12 columns">
           <label :class="{ error: $v.phoneNumber.$error }">
             {{ $t('CREATE_BOT.FORM.PHONENUMBER.LABEL') }}
             <input
@@ -75,7 +74,60 @@
               @input="$v.wappid.$touch"
             />
           </label>
+        </div> -->
+        <!-- WHATSAPP CLOUD API -->
+        <div v-if="showWaApiOptions" class="medium-12 columns">
+          <label :class="{ error: $v.tokenApiWA.$error }">
+            {{ $t('CREATE_BOT.FORM.WHATSAPP_CLOUD_API.TOKEN.LABEL') }}
+            <input
+              v-model.trim="tokenApiWA"
+              type="text"
+              :placeholder="$t('CREATE_BOT.FORM.WHATSAPP_CLOUD_API.TOKEN.PLACEHOLDER')"
+              @input="$v.tokenApiWA.$touch"
+            />
+          </label>
+          <label :class="{ error: $v.idApiWA.$error }">
+            {{ $t('CREATE_BOT.FORM.WHATSAPP_CLOUD_API.IDENTIFIER.LABEL') }}
+            <input
+              v-model.trim="idApiWA"
+              type="text"
+              :placeholder="$t('CREATE_BOT.FORM.WHATSAPP_CLOUD_API.IDENTIFIER.PLACEHOLDER')"
+              @input="$v.idApiWA.$touch"
+            />
+          </label>
+          <label :class="{ error: $v.numberApiWA.$error }">
+            {{ $t('CREATE_BOT.FORM.WHATSAPP_CLOUD_API.MOBILE.LABEL') }}
+            <input
+              v-model.trim="numberApiWA"
+              type="text"
+              :placeholder="$t('CREATE_BOT.FORM.WHATSAPP_CLOUD_API.MOBILE.PLACEHOLDER')"
+              @input="$v.numberApiWA.$touch"
+            />
+          </label>
         </div>
+        <!-- WHATSAPP CLOUD API -->
+        <!-- WHATSAPP 360 DIALOG -->
+        <div v-if="show360Options" class="medium-12 columns">
+          <label :class="{ error: $v.number360dialog.$error }">
+            {{ $t('CREATE_BOT.FORM.WHATSAPP_360_DIALOG.MOBILE.LABEL') }}
+            <input
+              v-model.trim="number360dialog"
+              type="text"
+              :placeholder="$t('CREATE_BOT.FORM.WHATSAPP_360_DIALOG.MOBILE.PLACEHOLDER')"
+              @input="$v.number360dialog.$touch"
+            />
+          </label>
+          <label :class="{ error: $v.key360dialog.$error }">
+            {{ $t('CREATE_BOT.FORM.WHATSAPP_360_DIALOG.KEY.LABEL') }}
+            <input
+              v-model.trim="key360dialog"
+              type="text"
+              :placeholder="$t('CREATE_BOT.FORM.WHATSAPP_360_DIALOG.KEY.PLACEHOLDER')"
+              @input="$v.key360dialog.$touch"
+            />
+          </label>
+        </div>
+        <!-- WHATSAPP CLOUD API -->
         <div class="modal-footer">
           <div class="medium-12 columns">
             <woot-submit-button
@@ -133,7 +185,14 @@ export default {
       phoneNumber: '',
       showToken: false,
       showWhatsappId: false,
-      channels: []
+      showWaApiOptions: false,
+      show360Options: false,
+      channels: [],
+      tokenApiWA: '',
+      idApiWA: '',
+      numberApiWA: '',
+      number360dialog: '',
+      key360dialog: '',
     };
   },
   validations: {
@@ -157,6 +216,26 @@ export default {
       required,
       minLength: minLength(1),
     },
+    tokenApiWA: {
+      required,
+      minLength: minLength(1),
+    },
+    idApiWA: {
+      required,
+      minLength: minLength(1),
+    },
+    numberApiWA: {
+      required,
+      minLength: minLength(1),
+    },
+    number360dialog: {
+      required,
+      minLength: minLength(1),
+    },
+    key360dialog: {
+      required,
+      minLength: minLength(1),
+    },
   },
   computed: {
     ...mapGetters({
@@ -168,9 +247,10 @@ export default {
   },
   methods: {
     changeselect(e){
-      const validate = this.tokensChannels.includes(e.target.value)
-      this.showToken = validate
-      this.showWhatsappId = e.target.value === "whatsapp-cloud" && true
+      // const validate = this.tokensChannels.includes(e.target.value)
+      // this.showToken = validate
+      this.showWaApiOptions = e.target.value === "whatsapp-cloud" && true
+      this.show360Options = e.target.value === "whatsapp-360" && true
     },
     async addBot() {
       // try {

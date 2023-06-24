@@ -68,6 +68,97 @@
     "TYPES": {
       "WEBHOOK": "Webhook Bot",
       "CSML": "CSML Bot"
+    },
+    "EDIT_FLOW": {
+      "CREATE": {
+        "TITLE": "Edit your bots details",
+        "DESC": "Edit title and description to your bot.",
+        "BUTTON_TEXT": "Update bot"
+      },
+      "TEAMS": {
+        "BUTTON_TEXT": "Update teams in bot",
+        "TITLE": "Add team to bot - %{botName}",
+        "DESC": "Add teams to your newly created bot. All the added teams will be notified when a conversation is assigned to this bot."
+      },
+      "WIZARD": [
+        {
+          "title": "Bot details",
+          "route": "settings_teams_edit",
+          "body": "Change name, description and other details."
+        },
+        {
+          "title": "Edit Bots",
+          "route": "settings_teams_edit_members",
+          "body": "Edit teams in your bot."
+        },
+        {
+          "title": "Finish",
+          "route": "settings_teams_edit_finish",
+          "body": "You are all set to go!"
+        }
+      ]
+    },
+    "CREATE_FLOW": {
+      "CREATE": {
+        "TITLE": "Create a new bot",
+        "DESC": "Add a title and description to your new bot."
+      },
+      "AGENTS": {
+        "BUTTON_TEXT": "Add teams to bot",
+        "TITLE": "Add teams to bot - %{botName}",
+        "DESC": "Add teams to your newly created bot. This lets you collaborate as a bot on conversations, get notified on new events in the same conversation."
+      },
+      "WIZARD": [
+        {
+          "title": "Create",
+          "route": "settings_teams_new",
+          "body": "Create a new bot of teams."
+        },
+        {
+          "title": "Add Agents",
+          "route": "settings_teams_add_agents",
+          "body": "Add teams to the bot."
+        },
+        {
+          "title": "Finish",
+          "route": "settings_teams_finish",
+          "body": "You are all set to go!"
+        }
+      ]
+    },
+    "TEAM_FORM": {
+      "ERROR_MESSAGE": "Couldn't save the team details. Try again."
+    },
+    "AGENTS": {
+      "AGENT": "AGENT",
+      "EMAIL": "EMAIL",
+      "BUTTON_TEXT": "Add agents",
+      "ADD_AGENTS": "Adding Agents to your Team...",
+      "SELECT": "select",
+      "SELECT_ALL": "select all agents",
+      "SELECTED_COUNT": "%{selected} out of %{total} agents selected."
+    },
+    "FINISH": {
+      "TITLE": "Your bot is ready!",
+      "MESSAGE": "You can now collaborate as a bot on conversations. Happy supporting ",
+      "BUTTON_TEXT": "Finish"
+    },
+    "SETTINGS": "Settings",
+    "FORM": {
+      "UPDATE": "Update bot",
+      "CREATE": "Create bot",
+      "NAME": {
+        "LABEL": "Bot name",
+        "PLACEHOLDER": "Example: Sales, Customer Support"
+      },
+      "DESCRIPTION": {
+        "LABEL": "Bot Description",
+        "PLACEHOLDER": "Short description about this bot."
+      },
+      "AUTO_ASSIGN": {
+        "LABEL": "Allow auto assign for this bot."
+      },
+      "SUBMIT_CREATE": "Create bot"
     }
   }
 }

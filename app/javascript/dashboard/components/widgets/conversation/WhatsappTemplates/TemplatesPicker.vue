@@ -90,7 +90,8 @@ export default {
   methods: {
     //Trae la lista de los templates desde el endpoint
     async getAllWhatsappTemplates(){
-      const listTemplates = await axios.get('https://core.xfiv.chat/accessconfig/info/account_plantillas/'+this.inboxId)
+      // const listTemplates = await axios.get('https://core.xfiv.chat/accessconfig/info/account_plantillas/'+this.inboxId)
+      const listTemplates = await axios.get('https://core.xfiv.chat/accessconfig/info/account_plantillas/2')
       const filtertemplates = listTemplates.data.data?.filter(template => template.status.toLowerCase() === 'approved')
         .filter(template => {
           return template.components.every(component => {

@@ -134,6 +134,7 @@ import alertMixin from 'shared/mixins/alertMixin';
 import { INBOX_TYPES } from 'shared/mixins/inboxMixin';
 import { ExceptionWithMessage } from 'shared/helpers/CustomErrors';
 import { required, requiredIf } from 'vuelidate/lib/validators';
+import axios from 'axios'
 
 export default {
   components: {
@@ -285,6 +286,35 @@ export default {
     async createConversation(payload) {
       try {
         const data = await this.onSubmit(payload);
+        
+        const bodysub = {
+          "to": "NUMERO DE TELEFONO",
+          "type": "template",
+          "template": {
+            "namespace": payload.namespace,
+            "language": {
+              "policy": "deterministic",
+              "code": payload.language
+            },
+            "name": payload.name,
+            "components": [
+              {
+                "type": "body",
+                "parameters": [
+                  {
+                    "type": "text",
+                    "text": "valor de la variable"
+                  }
+                ]
+              }
+            ]
+          },
+          "account_id": data.account_id,
+          "inbox_id": 0,
+          "conversation_id": data.id
+        }
+        
+        // const sendtemplate = await axios.post('https://core.xfiv.chat/exchange/api/v1/webhook/template',bodysub)
         const action = {
           type: 'link',
           to: `/app/accounts/${data.account_id}/conversations/${data.id}`,
