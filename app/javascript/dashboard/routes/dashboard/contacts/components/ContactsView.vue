@@ -5,6 +5,7 @@
         :search-query="searchQuery"
         :segments-id="segmentsId"
         :on-search-submit="onSearchSubmit"
+        :on-export-submit="onExportSubmit"
         this-selected-contact-id=""
         :on-input-search="onInputSearch"
         :on-toggle-create="onToggleCreate"
@@ -87,6 +88,9 @@ import filterQueryGenerator from '../../../../helper/filterQueryGenerator';
 import AddCustomViews from 'dashboard/routes/dashboard/customviews/AddCustomViews';
 import DeleteCustomViews from 'dashboard/routes/dashboard/customviews/DeleteCustomViews';
 import { CONTACTS_EVENTS } from '../../../../helper/AnalyticsHelper/events';
+import alertMixin from 'shared/mixins/alertMixin';
+import countries from 'shared/constants/countries.js';
+import { generateValuesForEditCustomViews } from 'dashboard/helper/customViewsHelper';
 
 const DEFAULT_PAGE = 1;
 const FILTER_TYPE_CONTACT = 1;
@@ -103,6 +107,7 @@ export default {
     AddCustomViews,
     DeleteCustomViews,
   },
+  mixins: [alertMixin],
   props: {
     label: { type: String, default: '' },
     segmentsId: {
@@ -358,6 +363,56 @@ export default {
     clearFilters() {
       this.$store.dispatch('contacts/clearContactFilters');
       this.fetchContacts(this.pageParameter);
+    },
+    onExportSubmit() {
+      try {
+        this.$store.dispatch('contacts/export');
+        this.showAlert(this.$t('EXPORT_CONTACTS.SUCCESS_MESSAGE'));
+      } catch (error) {
+        this.showAlert(
+          error.message || this.$t('EXPORT_CONTACTS.ERROR_MESSAGE')
+        );
+      }
+    },
+    setParamsForEditSegmentModal() {
+      // Here we are setting the params for edit segment modal to show the existing values.
+
+      // For custom attributes we get only attribute key.
+      // So we are mapping it to find the input type of the attribute to show in the edit segment modal.
+      const params = {
+        countries: countries,
+        filterTypes: contactFilterItems,
+        allCustomAttributes: this.$store.getters[
+          'attributes/getAttributesByModel'
+        ]('contact_attribute'),
+      };
+      return params;
+    },
+    initializeSegmentToFilterModal(activeSegment) {
+      // Here we are setting the params for edit segment modal.
+      //  To show the existing values. when we click on edit segment button.
+
+      // Here we get the query from the active segment.
+      // And we are mapping the query to the actual values.
+      // To show in the edit segment modal by the help of generateValuesForEditCustomViews helper.
+      const query = activeSegment?.query?.payload;
+      if (!Array.isArray(query)) return;
+
+      this.appliedFilter.push(
+        ...query.map(filter => ({
+          attribute_key: filter.attribute_key,
+          attribute_model: filter.attribute_model,
+          filter_operator: filter.filter_operator,
+          values: Array.isArray(filter.values)
+            ? generateValuesForEditCustomViews(
+                filter,
+                this.setParamsForEditSegmentModal()
+              )
+            : [],
+          query_operator: filter.query_operator,
+          custom_attribute_type: filter.custom_attribute_type,
+        }))
+      );
     },
     openSavedItemInSegment() {
       const lastItemInSegments = this.segments[this.segments.length - 1];
