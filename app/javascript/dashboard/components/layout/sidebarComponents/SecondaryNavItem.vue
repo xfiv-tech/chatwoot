@@ -3,6 +3,8 @@
     <div v-if="hasSubMenu" class="secondary-menu--wrap">
       <span class="secondary-menu--header fs-small">
         {{ $t(`SIDEBAR.${menuItem.label}`) }}
+        {{ console.log("SIDEBAR: ",menuItem) }}
+
       </span>
       <div v-if="menuItem.showNewButton" class="submenu-icons">
         <woot-button
