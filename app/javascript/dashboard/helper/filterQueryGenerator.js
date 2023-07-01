@@ -1,12 +1,9 @@
-const setArrayValues = item => {
-  return item.values[0]?.id ? item.values.map(val => val.id) : item.values;
-};
 const generatePayload = data => {
   // Make a copy of data to avoid vue data reactivity issues
   const filters = JSON.parse(JSON.stringify(data));
   let payload = filters.map(item => {
     if (Array.isArray(item.values)) {
-      item.values = setArrayValues(item);
+      item.values = item.values.map(val => val.id);
     } else if (typeof item.values === 'object') {
       item.values = [item.values.id];
     } else if (!item.values) {
