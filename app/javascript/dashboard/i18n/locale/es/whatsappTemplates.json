@@ -6,6 +6,10 @@
             "TEMPLATE_SELECTED_SUBTITLE": "Procesar %{templateName}"
         },
         "PICKER": {
+            "IMBOX_TEMPLATES": {
+                "LABEL": "Seleccionar imbox",
+                "ERROR": "Es necesario seleccionar un imbox"
+            },
             "SEARCH_PLACEHOLDER": "Buscar plantillas",
             "NO_TEMPLATES_FOUND": "No se encontraron plantillas para",
             "LABELS": {

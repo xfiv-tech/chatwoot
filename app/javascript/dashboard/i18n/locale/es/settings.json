@@ -299,6 +299,17 @@
         "PLACEHOLDER": "Ingresar celular..",
         "ERROR": "Celular es requerido"
       },
+      "CLOUD_API_IDENTIFIER":{
+        "LABEL": "Identificado de Cloud Api",
+        "PLACEHOLDER": "Identificador..",
+        "ERROR": "El identificador es requerido"
+      },
+      "TEAMS_BOT":{
+        "LABEL": "Seleccionar agentes"
+      },
+      "ID_NUMBER_CLOUD":{
+        "LABEL": "Número identificador"
+      },
       "SUBMIT": "Enviar",
       "CANCEL": "Cancelar"
     }
