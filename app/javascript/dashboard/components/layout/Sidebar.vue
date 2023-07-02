@@ -129,10 +129,8 @@ export default {
       const { secondaryMenu } = this.sideMenuConfig;
       const { name: currentRoute } = this.$route;
 
-      const activeSecondaryMenu =
-        secondaryMenu.find(menuItem =>
-          menuItem.routes.includes(currentRoute)
-        ) || {};
+      const activeSecondaryMenu = secondaryMenu.find(menuItem => menuItem.routes.includes(currentRoute)) || {};
+
       return activeSecondaryMenu;
     },
     activePrimaryMenu() {
@@ -140,6 +138,7 @@ export default {
         this.primaryMenuItems.find(
           menuItem => menuItem.key === this.activeSecondaryMenu.parentNav
         ) || {};
+
       return activePrimaryMenu;
     },
   },

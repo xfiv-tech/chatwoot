@@ -1,21 +1,9 @@
 <template>
   <div class="column">
-    <woot-modal-header :header-title="filterModalHeaderTitle">
-      <p>{{ filterModalSubTitle }}</p>
+    <woot-modal-header :header-title="$t('FILTER.TITLE')">
+      <p>{{ $t('FILTER.SUBTITLE') }}</p>
     </woot-modal-header>
-    <div class="column modal-content">
-      <div v-if="isFolderView" class="columns">
-        <label class="input-label" :class="{ error: !activeFolderNewName }">
-          {{ $t('FILTER.FOLDER_LABEL') }}
-          <input v-model="activeFolderNewName" type="text" class="name-input" />
-          <span v-if="!activeFolderNewName" class="message">
-            {{ $t('FILTER.EMPTY_VALUE_ERROR') }}
-          </span>
-        </label>
-        <label class="input-label">
-          {{ $t('FILTER.FOLDER_QUERY_LABEL') }}
-        </label>
-      </div>
+    <div class="row modal-content">
       <div class="medium-12 columns filters-wrap">
         <filter-input-box
           v-for="(filter, i) in appliedFilters"
@@ -54,14 +42,7 @@
           <woot-button class="button clear" @click.prevent="onClose">
             {{ $t('FILTER.CANCEL_BUTTON_LABEL') }}
           </woot-button>
-          <woot-button
-            v-if="isFolderView"
-            :disabled="!activeFolderNewName"
-            @click="updateSavedCustomViews"
-          >
-            {{ $t('FILTER.UPDATE_BUTTON_LABEL') }}
-          </woot-button>
-          <woot-button v-else @click="submitFilterQuery">
+          <woot-button @click="submitFilterQuery">
             {{ $t('FILTER.SUBMIT_BUTTON_LABEL') }}
           </woot-button>
         </div>
@@ -100,14 +81,6 @@ export default {
       type: Array,
       default: () => [],
     },
-    activeFolderName: {
-      type: String,
-      default: '',
-    },
-    isFolderView: {
-      type: Boolean,
-      default: false,
-    },
   },
   validations: {
     appliedFilters: {
@@ -134,7 +107,6 @@ export default {
     return {
       show: true,
       appliedFilters: this.initialAppliedFilters,
-      activeFolderNewName: this.activeFolderName,
       filterTypes: this.initialFilterTypes,
       filterAttributeGroups,
       filterGroups: [],
@@ -147,16 +119,6 @@ export default {
     ...mapGetters({
       getAppliedConversationFilters: 'getAppliedConversationFilters',
     }),
-    filterModalHeaderTitle() {
-      return !this.isFolderView
-        ? this.$t('FILTER.TITLE')
-        : this.$t('FILTER.EDIT_CUSTOM_FILTER');
-    },
-    filterModalSubTitle() {
-      return !this.isFolderView
-        ? this.$t('FILTER.SUBTITLE')
-        : this.$t('FILTER.CUSTOM_VIEWS_SUBTITLE');
-    },
   },
   mounted() {
     this.setFilterAttributes();
@@ -164,7 +126,7 @@ export default {
     if (this.getAppliedConversationFilters.length) {
       this.appliedFilters = [];
       this.appliedFilters = [...this.getAppliedConversationFilters];
-    } else if (!this.isFolderView) {
+    } else {
       this.appliedFilters.push({
         attribute_key: 'status',
         filter_operator: 'equal_to',
@@ -215,11 +177,11 @@ export default {
       if (key === 'created_at' || key === 'last_activity_at')
         if (operator === 'days_before') return 'plain_text';
       const type = this.filterTypes.find(filter => filter.attributeKey === key);
-      return type?.inputType;
+      return type.inputType;
     },
     getOperators(key) {
       const type = this.filterTypes.find(filter => filter.attributeKey === key);
-      return type?.filterOperators;
+      return type.filterOperators;
     },
     getDropdownValues(type) {
       const statusFilters = this.$t('CHAT_LIST.CHAT_STATUS_FILTER_ITEMS');
@@ -305,30 +267,11 @@ export default {
       }
     },
     appendNewFilter() {
-      if (this.isFolderView) {
-        this.setQueryOperatorOnLastQuery();
-      } else {
-        this.appliedFilters.push({
-          attribute_key: 'status',
-          filter_operator: 'equal_to',
-          values: '',
-          query_operator: 'and',
-        });
-      }
-    },
-    setQueryOperatorOnLastQuery() {
-      const lastItemIndex = this.appliedFilters.length - 1;
-      this.appliedFilters[lastItemIndex] = {
-        ...this.appliedFilters[lastItemIndex],
+      this.appliedFilters.push({
+        attribute_key: 'status',
+        filter_operator: 'equal_to',
+        values: '',
         query_operator: 'and',
-      };
-      this.$nextTick(() => {
-        this.appliedFilters.push({
-          attribute_key: 'status',
-          filter_operator: 'equal_to',
-          values: '',
-          query_operator: 'and',
-        });
       });
     },
     removeFilter(index) {
@@ -352,9 +295,6 @@ export default {
           operator: filter.filter_operator,
         })),
       });
-    },
-    updateSavedCustomViews() {
-      this.$emit('updateFolder', this.appliedFilters, this.activeFolderNewName);
     },
     resetFilter(index, currentFilter) {
       this.appliedFilters[index].filter_operator = this.filterTypes.find(
@@ -381,13 +321,5 @@ export default {
 
 .filter-actions {
   margin-top: var(--space-normal);
-}
-
-.input-label {
-  margin-bottom: var(--space-smaller);
-
-  .name-input {
-    width: 50%;
-  }
 }
 </style>
