@@ -297,6 +297,17 @@
         "PLACEHOLDER": "Number..",
         "ERROR": "Phone is required"
       },
+      "CLOUD_IDENTIFIER": {
+        "LABEL": "Cloud API identifier",
+        "PLACEHOLDER": "Identifier..",
+        "ERROR": "Identifier is required"
+      },
+      "TEAMS_BOT":{
+        "LABEL": "Select bot agents"
+      },
+      "ID_NUMBER_CLOUD":{
+        "LABEL": "ID Number"
+      },
       "SUBMIT": "Submit",
       "CANCEL": "Cancel"
     }

@@ -1,5 +1,18 @@
 <template>
   <div class="medium-12 columns">
+    <div  class="medium-12 columns">
+      <label :class="{ error: $v.selectedInboxId.$error }">
+        {{ $t('WHATSAPP_TEMPLATES.PICKER.IMBOX_TEMPLATES.LABEL') }}
+        <select placeholder="Select Inbox" :style="{padding: '5px 10px'}" @change="selectInbox" v-model="selectedInboxId">
+          <option v-for="inbox in listInbox" :key="inbox.id" :value="inbox.id">
+            <p>{{ inbox.name }}</p>
+          </option>
+        </select>
+        <span v-if="$v.selectedInboxId.$error" class="message">
+          {{ $t('WHATSAPP_TEMPLATES.PICKER.IMBOX_TEMPLATES.ERROR') }}
+        </span>
+      </label>
+    </div>
     <div class="templates__list-search">
       <fluent-icon icon="search" class="search-icon" size="16" />
       <input
@@ -54,6 +67,10 @@
 
 <script>
 import axios from 'axios';
+import inboxes from '../../../../api/inboxes';
+import { config } from '../../../../config/config'
+import { required, minLength } from 'vuelidate/lib/validators';
+
 // TODO: Remove this when we support all formats
 const formatsToRemove = ['DOCUMENT', 'IMAGE', 'VIDEO'];
 
@@ -67,8 +84,18 @@ export default {
   data() {
     return {
       query: '',
-      listAllTemplates: []
+      listAllTemplates: [],
+      idInbox: 1,
+      listInbox: [],
+      inboxSelected: {},
+      selectedInboxId: 0
     };
+  },
+  validations: {
+    selectedInboxId: {
+      required,
+      minLength: minLength(1),
+    },
   },
   computed: {
     async whatsAppTemplateMessages() {
@@ -90,7 +117,7 @@ export default {
   methods: {
     //Trae la lista de los templates desde el endpoint
     async getAllWhatsappTemplates(){
-      const listTemplates = await axios.get('https://core.xfiv.chat/accessconfig/info/account_plantillas/'+this.inboxId)
+      const listTemplates = await axios.get('https://core.xfiv.chat/accessconfig/info/account_plantillas/'+this.idInbox)
       const filtertemplates = listTemplates.data.data?.filter(template => template.status.toLowerCase() === 'approved')
         .filter(template => {
           return template.components.every(component => {
@@ -99,18 +126,63 @@ export default {
         });
       this.listAllTemplates = filtertemplates
     },
+    selectInbox(e){
+      this.idInbox = e.target.value
+      this.getAllTemplatesByInbox(e.target.value)
+    },
+    async getAllTemplatesByInbox(id){
+      const listTemplates = await axios({
+        method: 'get',
+        headers: { 
+          'api-info-xfiv': config.api_token
+        },
+        url: config.ENDPOINT_BACKEND + `accessconfig/api/v1/internal/account_plantillas/${this.inboxId}?inbox_id=${id}`,
+      })
+      const filtertemplates = listTemplates.data.data?.filter(template => template.status.toLowerCase() === 'approved')
+      .filter(template => {
+        return template.components.every(component => {
+          return !formatsToRemove.includes(component.format);
+        });
+      });
+      this.listAllTemplates = filtertemplates
+    },
+    async getAllInbox(){
+      const listInbox = await axios.get(config.ENDPOINT_BACKEND +`accessconfig/api/v1/inbox/${this.inboxId}`)
+      console.log(listInbox.data.data, "listInbox")
+      this.listInbox = listInbox.data.data
+    },
     getTemplatebody(template) {
       return template.components.find(component => component.type === 'BODY')
         .text;
     },
   },
   created(){
-    this.getAllWhatsappTemplates()
+    // this.getAllWhatsappTemplates()
+    this.getAllInbox()
   }
 };
 </script>
 
 <style scoped lang="scss">
+.list_inbox{
+  width: 100%;
+  height: auto;
+  display: flex;
+  border-radius: 5px;
+  justify-content: space-between;
+  scrollbar-width: 0;
+  overflow: auto;
+  &_name {
+    padding: 5px 10px;
+    margin: 0 4px;
+    border: .5px solid #007EF3;
+  }
+}
+.active {
+    padding: 5px 10px;
+    margin: 0 4px;
+    background-color: #b1d6f8;
+  }
 .flex-between {
   display: flex;
   justify-content: space-between;
@@ -125,7 +197,7 @@ export default {
   display: flex;
   margin-bottom: var(--space-one);
   padding: 0 var(--space-one);
-
+  margin-top: 20px;
   .search-icon {
     color: var(--s-400);
   }

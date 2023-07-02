@@ -19,6 +19,9 @@ import TeamForm from '../TeamForm';
 import router from '../../../../index';
 import PageHeader from '../../SettingsSubPageHeader';
 import alertMixin from 'shared/mixins/alertMixin';
+import { config } from '../../../../../config/config'
+
+import axios from 'axios'
 
 export default {
   components: {
@@ -34,15 +37,24 @@ export default {
   methods: {
     async createTeam(data) {
       try {
-        const team = await this.$store.dispatch('teams/create', {
-          ...data,
-        });
+        // const team = await this.$store.dispatch('teams/create', {
+        //   ...data,
+        // });
+        const team = await axios({
+          method: 'post',
+          url: config.ENDPOINT_BACKEND + 'accessconfig/api/v1/crear_team/'+this.$route.params.accountId,
+          data: {
+            "team_name": data.name,
+            "imbox_id": 0,
+            "msg_transfer": "ha sido transferido " + data.name.toUpperCase()
+          }
+        })
 
         router.replace({
           name: 'settings_teams_add_agents',
           params: {
             page: 'new',
-            teamId: team.id,
+            teamId: team.data.id,
           },
         });
       } catch (error) {

@@ -2,7 +2,6 @@
   <woot-modal
     :show="show"
     :on-close="onClose"
-    class="account-selector--modal"
   >
     <div class="column content-box">
       <woot-modal-header
@@ -43,9 +42,15 @@
             </span>
           </label>
         </div>
-        <div v-if="showToken" class="medium-12 columns">
+        <!-- WHATSAPP CLOUD API -->
+        <div v-if="showWaApiOptions" class="medium-12 columns">
           <label :class="{ error: $v.phoneNumber.$error }">
-            {{ $t('CREATE_BOT.FORM.PHONENUMBER.LABEL') }}
+            <div v-if="botChannel === 'whatsapp-cloud'">
+              {{ $t('CREATE_BOT.FORM.ID_NUMBER_CLOUD.LABEL') }}
+            </div>
+            <div v-else>
+              {{ $t('CREATE_BOT.FORM.PHONENUMBER.LABEL') }}
+            </div>
             <input
               v-model.trim="phoneNumber"
               type="text"
@@ -53,8 +58,15 @@
               @input="$v.phoneNumber.$touch"
             />
           </label>
-        </div>
-        <div v-if="showToken" class="medium-12 columns">
+          <label :class="{ error: $v.idApiWA.$error }">
+            {{ $t('CREATE_BOT.FORM.CLOUD_IDENTIFIER.LABEL') }}
+            <input
+              v-model.trim="idApiWA"
+              type="text"
+              :placeholder="$t('CREATE_BOT.FORM.CLOUD_IDENTIFIER.PLACEHOLDER')"
+              @input="$v.idApiWA.$touch"
+            />
+          </label>
           <label :class="{ error: $v.botAccessToken.$error }">
             {{ $t('CREATE_BOT.FORM.TOKEN.LABEL') }}
             <input
@@ -65,33 +77,67 @@
             />
           </label>
         </div>
-        <div v-if="showWhatsappId" class="medium-12 columns">
-          <label :class="{ error: $v.wappid.$error }">
-            WhatsApp Business ID
+        <!-- WHATSAPP CLOUD API -->
+        <!-- WHATSAPP 360 DIALOG -->
+        <div v-if="show360Options" class="medium-12 columns">
+          <label :class="{ error: $v.phoneNumber.$error }">
+            {{ $t('CREATE_BOT.FORM.PHONENUMBER.LABEL') }}
             <input
-              v-model.trim="wappid"
+              v-model.trim="phoneNumber"
               type="text"
-              placeholder="Id..."
-              @input="$v.wappid.$touch"
+              :placeholder="$t('CREATE_BOT.FORM.PHONENUMBER.PLACEHOLDER')"
+              @input="$v.phoneNumber.$touch"
+            />
+          </label>
+          <label :class="{ error: $v.botAccessToken.$error }">
+            {{ $t('CREATE_BOT.FORM.TOKEN.LABEL') }}
+            <input
+              v-model.trim="botAccessToken"
+              type="text"
+              :placeholder="$t('CREATE_BOT.FORM.TOKEN.PLACEHOLDER')"
+              @input="$v.botAccessToken.$touch"
             />
           </label>
         </div>
+        <!-- WHATSAPP CLOUD API -->
+        <div class="medium-12 columns">
+          <label >
+              {{ $t('CREATE_BOT.FORM.TEAMS_BOT.LABEL') }}
+              <multiselect
+                v-model="selectedAgents"
+                :options="listAgents"
+                track-by="id"
+                label="available_name"
+                :multiple="true"
+                :close-on-select="false"
+                :clear-on-select="false"
+                :hide-selected="true"
+                placeholder="Pick some"
+                selected-label
+                :select-label="$t('FORMS.MULTISELECT.ENTER_TO_SELECT')"
+                :deselect-label="$t('FORMS.MULTISELECT.ENTER_TO_REMOVE')"
+                @select="$v.selectedAgents.$touch"
+              />
+          </label>
+        </div>
+        
         <div class="modal-footer">
           <div class="medium-12 columns">
             <woot-submit-button
               :disabled="
                 $v.botName.$invalid ||
                 $v.botChannel.$invalid ||
-                  uiFlags.isCreating
+                  iscreating
               "
               :button-text="$t('CREATE_BOT.FORM.SUBMIT')"
-              :loading="uiFlags.isCreating"
+              :loading="iscreating"
             />
             <button class="button clear" @click.prevent="onClose">
               {{ $t('CREATE_BOT.FORM.CANCEL') }}
             </button>
           </div>
         </div>
+
       </form>
     </div>
   </woot-modal>
@@ -127,13 +173,19 @@ export default {
   data() {
     return {
       tokensChannels: ["whatsapp-360","whatsapp-cloud","telegram"],
+      iscreating: false,
       botName: '',
       botChannel: '',
       botAccessToken: '',
       phoneNumber: '',
       showToken: false,
       showWhatsappId: false,
-      channels: []
+      showWaApiOptions: false,
+      show360Options: false,
+      channels: [],
+      idApiWA: '',
+      listAgents: [],
+      selectedAgents: []
     };
   },
   validations: {
@@ -157,6 +209,14 @@ export default {
       required,
       minLength: minLength(1),
     },
+    idApiWA: {
+      required,
+      minLength: minLength(1),
+    },
+    selectedAgents: {
+      required
+    },
+    
   },
   computed: {
     ...mapGetters({
@@ -167,14 +227,34 @@ export default {
     },
   },
   methods: {
+    showAgents() {
+      console.log(this.selectedAgents)
+    },
     changeselect(e){
-      const validate = this.tokensChannels.includes(e.target.value)
-      this.showToken = validate
-      this.showWhatsappId = e.target.value === "whatsapp-cloud" && true
+      this.showWaApiOptions = ["instagram","messanger","whatsapp-cloud"].includes(e.target.value)
+      this.show360Options = ["telegram","whatsapp-qr","whatsapp-360"].includes(e.target.value)
     },
     async addBot() {
-      // try {
-      const createAccount = await axios({
+      const { data } = await axios({
+        method: 'post',
+        url: config.ENDPOINT_BACKEND + 'accessconfig/api/v1/inbox/'+this.idaccount,
+        data: {
+          "name": `${this.botChannel}-${this.phoneNumber.slice(-4)}`
+        }
+      })
+      const listid = this.selectedAgents.map(e => e.id)
+      console.log(listid, "listid")
+      // ASIGNACION DE LOS AGENTES A LOS INBOX
+      await axios({
+        method: 'post',
+        url: config.ENDPOINT_BACKEND + `accessconfig/api/v1/inbox/${this.idaccount}/${data.data.id}`,
+        data: {
+          "type": false,
+          "inbox_id": data.data.id,
+          "user_ids": listid
+        }
+      })
+      const createbot = await axios({
         method: 'post',
         url: config.ENDPOINT_BACKEND + 'accessconfig/info/account_bot_creatd/'+this.idaccount,
         data: {
@@ -183,26 +263,38 @@ export default {
                 "name": this.botName,
                 "phoneNumber": this.phoneNumber,
                 "channels": this.botChannel,
-                "access_token": this.botAccessToken
+                "access_token": this.botAccessToken,
+                "IdWhatsAppBusiness": this.idApiWA,
+                "inbox_id": data.data.id,
               }
           ]
         }
       })
-      console.log(createAccount)
+      console.log(createbot, "create bot")
       this.$emit('getbots', this.idaccount);
       this.showAlert(this.$t('CREATE_BOT.API.SUCCESS_MESSAGE'));
       this.onClose()
+      this.iscreating = true;
     },
-    async listChannels() {
+    async getListChannels() {
       const channels = await axios({
         method: 'get',
         url: config.ENDPOINT_BACKEND + 'accessconfig/api/v1/channelhost'
       })
       this.channels = channels.data;
+    },
+    async getListTeams() {
+      const teams = await axios({
+        method: 'get',
+        url: config.ENDPOINT_BACKEND + 'accessconfig/api/v1/agents/'+this.idaccount
+      })
+      console.log(teams.data)
+      this.listAgents = teams.data;
     }
   },
   created() {
-    this.listChannels()
+    this.getListChannels()
+    this.getListTeams()
   }
 };
 </script>

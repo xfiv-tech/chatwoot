@@ -48,6 +48,10 @@
             "TEMPLATE_SELECTED_SUBTITLE": "Process %{templateName}"
         },
         "PICKER": {
+            "IMBOX_TEMPLATES": {
+                "LABEL": "Select Imbox",
+                "ERROR": "Select imbox is required"
+            },
             "SEARCH_PLACEHOLDER": "Search Templates",
             "NO_TEMPLATES_FOUND": "No templates found for",
             "LABELS": {
