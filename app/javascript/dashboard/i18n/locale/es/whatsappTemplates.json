@@ -3,12 +3,12 @@
         "MODAL": {
             "TITLE": "Plantillas de Whatsapp",
             "SUBTITLE": "Seleccione la plantilla de Whatsapp que desea enviar",
-            "TEMPLATE_SELECTED_SUBTITLE": "Procesar %{templateName}"
+            "TEMPLATE_SELECTED_SUBTITLE": "Plantilla %{templateName}"
         },
         "PICKER": {
             "IMBOX_TEMPLATES": {
-                "LABEL": "Seleccionar imbox",
-                "ERROR": "Es necesario seleccionar un imbox"
+                "LABEL": "Seleccionar entrada",
+                "ERROR": "Es necesario seleccionar una entrada"
             },
             "SEARCH_PLACEHOLDER": "Buscar plantillas",
             "NO_TEMPLATES_FOUND": "No se encontraron plantillas para",

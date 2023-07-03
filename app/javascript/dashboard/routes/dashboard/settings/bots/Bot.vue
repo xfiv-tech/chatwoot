@@ -41,6 +41,9 @@
               <div v-if="bot.publishedTypebot !== null" class="online_state" @click="updateBot(bot, 'publishedTypebot')">
                 <p>{{$t('LIST_BOTS_OPTIONS.ONLINE_STATE')}}</p>
               </div>
+              <div @click="openUpdateBotModal">
+                <fluent-icon icon="settings" />
+              </div>
             </div>
           </div>
         </div>
@@ -137,7 +140,9 @@ export default {
     }
   },
   methods: {
-    
+    openUpdateBotModal(){
+      this.$emit('openEditModalUpdate');
+    },
     showInputEdit(){
         this.editName=true
     },
@@ -271,6 +276,7 @@ export default {
         }
         &_socialmedia {
           display: flex;
+          align-items: center;
           flex-direction: row;
           gap: 5px;
           &_img {

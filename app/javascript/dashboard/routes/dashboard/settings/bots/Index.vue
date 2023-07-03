@@ -23,6 +23,7 @@
             :bot="bot"
             :nameBot="nameBot"
             @goEditbot="(e)=>goEditbot(e)"
+            @openEditModalUpdate="openUpdateBotModal(bot)"
             @deleteBot="(e)=>deleteBot(e)"
             @cloneBot="(e)=>cloneBot(e)"
             @updateBot="updateBot"
@@ -40,7 +41,7 @@
         />
       </div>
     </div>
-    <!-- Add Agent -->
+    <!-- Add bot -->
     <woot-modal :show.sync="showAddPopup" :on-close="hideAddPopup">
       <add-bot-modal
         :idaccount="this.$route.params.accountId"
@@ -49,9 +50,16 @@
         @getbots="getAllbots"
       />
     </woot-modal>
-    <!-- Edit Agent -->
-    <woot-modal :show.sync="showEditPopup" :on-close="hideEditPopup">
 
+    <!-- Edit bot -->
+    <woot-modal :show.sync="showUpdateBot" :on-close="closeUpdateBotModal">
+      <update-bot-modal
+        :botDataEdit="botUpdateData"
+        :idaccount="this.$route.params.accountId"
+        :show="showUpdateBot"
+        :on-close="closeUpdateBotModal"
+        @getbots="getAllbots"
+      />
     </woot-modal>
 
     <!-- Delete Bot -->
@@ -76,6 +84,7 @@ import { mapGetters } from 'vuex';
 import globalConfigMixin from 'shared/mixins/globalConfigMixin';
 import axios from 'axios';
 import AddBotModal from './AddBotModal.vue';
+import UpdateBotModal from './UpdateBotModal.vue';
 import Bot from './Bot.vue';
 import { config } from '../../../../config/config'
 import Spinner from '../../../../../shared/components/Spinner.vue';
@@ -84,7 +93,8 @@ export default {
   components: {
     Spinner,
     AddBotModal,
-    Bot
+    Bot,
+    UpdateBotModal
   },
   mixins: [globalConfigMixin],
   data() {
@@ -94,6 +104,8 @@ export default {
       isLoading: true,
       botSelected: {},
       loading: {},
+      showUpdateBot: false,
+      botUpdateData: {},
       showAddPopup: false,
       showDeletePopup: false,
       showEditPopup: false,
@@ -149,8 +161,8 @@ export default {
   },
   methods: {
     async getAllbots(accountId) {
-      const bots = await axios.get(config.ENDPOINT_BACKEND + 'accessconfig/info/account_bot/'+accountId)
-      this.bots = bots.data.data
+      const bots = await axios.get(config.ENDPOINT_BACKEND + 'accessconfig/api/v1/bot_account/'+accountId)
+      this.bots = bots.data.bot
       this.isLoading = false
     },
     changeFormateDate(date) {
@@ -170,8 +182,13 @@ export default {
       const fechaFormateada = `${diaFormateado}/${mesFormateado}/${anio} ${horasFormateadas}:${minutosFormateados}`;
       return fechaFormateada
     },
-    generateSession(bot) {
-      // return
+    openUpdateBotModal(bot){
+      console.log(bot, 'botselect')
+      this.botUpdateData = bot;
+      this.showUpdateBot = true;
+    },
+    closeUpdateBotModal(){
+      this.showUpdateBot = false;
     },
     openAddPopup() {
       this.showAddPopup = true;

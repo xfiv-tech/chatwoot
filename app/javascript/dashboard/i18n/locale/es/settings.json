@@ -270,10 +270,17 @@
     },
     "NO_BILLING_USER": "Tu cuenta de facturación está siendo configurada. Por favor, actualiza la página e inténtalo de nuevo."
   },
+  "UPDATE_BOT": {
+    "TITLE": "Actualizar bot",
+    "SUBTITLE": "Actualizar los datos del bot"
+  },
   "CREATE_BOT": {
     "NEW_BOT": "Nuevo Bot",
     "SELECTOR_SUBTITLE": "Crear nuevo flujo de bot",
     "NO_BOTS_WARNING": "¡Oh oh! No hemos podido encontrar ningun Bot. Por favor, crea un nnuevo Bot.",
+    "UPDATE_API": {
+      "SUCCESS_MESSAGE": "Bot actualizado con éxito"
+    },
     "API": {
       "SUCCESS_MESSAGE": "Bot creada con éxito",
       "EXIST_MESSAGE": "Ya existe un bot con este nombre",
@@ -311,7 +318,8 @@
         "LABEL": "Número identificador"
       },
       "SUBMIT": "Enviar",
-      "CANCEL": "Cancelar"
+      "CANCEL": "Cancelar",
+      "UPDATE": "Actualizar"
     }
   },
   "LIST_BOTS_OPTIONS": {

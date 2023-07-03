@@ -129,6 +129,7 @@
       @close="hideWhatsappTemplatesModal"
       @on-send="onSendWhatsAppReply"
       @cancel="hideWhatsappTemplatesModal"
+      @change-inbox="changeInboxNumber"
     />
 
     <woot-confirm-modal
@@ -181,6 +182,8 @@ import wootConstants from 'dashboard/constants/globals';
 import { isEditorHotKeyEnabled } from 'dashboard/mixins/uiSettings';
 import { CONVERSATION_EVENTS } from '../../../helper/AnalyticsHelper/events';
 import rtlMixin from 'shared/mixins/rtlMixin';
+import { config } from '../../../config/config'
+
 
 const EmojiInput = () => import('shared/components/emoji/EmojiInput');
 
@@ -223,6 +226,7 @@ export default {
   data() {
     return {
       message: '',
+      idInboxDefined: 0,
       isFocused: false,
       showEmojiPicker: false,
       attachedFiles: [],
@@ -573,6 +577,9 @@ export default {
     document.removeEventListener('keydown', this.handleKeyEvents);
   },
   methods: {
+    changeInboxNumber(val) {
+      this.idInboxDefined = val;
+    },
     toggleRichContentEditor() {
       this.updateUISettings({
         display_rich_content_editor: !this.showRichContentEditor,
@@ -784,11 +791,54 @@ export default {
         this.showAlert(errorMessage);
       }
     },
+    parserPhoneNumer(phonenumber) {
+      return phonenumber.replace('+','')
+    },
     async onSendWhatsAppReply(messagePayload) {
+      console.log(messagePayload, 'messagePayload')
+      console.log(this.currentChat, 'currentChat')
+      console.log(this.currentUser, 'currentUser')
       this.sendMessage({
         conversationId: this.currentChat.id,
         ...messagePayload,
       });
+      const processedParams = [...Object.values(messagePayload.templateParams.processed_params)]
+      const params = processedParams.map(el => {
+        const objsend = {
+          "type": "text",
+          "text": el
+        }
+        return objsend
+      })
+
+      const hookData = {
+        "to": this.parserPhoneNumer(this.currentChat.meta.sender.phone_number),
+        "type": "template",
+        "template": {
+          "namespace": messagePayload.templateParams.namespace || "hola",
+          "language": {
+            "policy": "deterministic",
+            "code": messagePayload.templateParams.language
+          },
+          "name": messagePayload.templateParams.name,
+          "components": [
+            {
+              "type": "body",
+              "parameters": params
+            }
+          ]
+        },
+        "account_id": this.$route.params.accountId,
+        "inbox_id": this.currentChat.inbox_id,
+        "conversation_id": this.currentChat.messages[0].conversation_id,
+        "contact_id": String(this.currentChat.id)
+      }
+      console.log(hookData, 'hookData')
+      await axios({
+        data: hookData,
+        method: 'POST',
+        url: config.ENDPOINT_BACKEND + `exchange/api/v1/webhook/template`,
+      })
       this.hideWhatsappTemplatesModal();
     },
     replaceText(message) {

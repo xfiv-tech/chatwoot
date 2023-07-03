@@ -269,9 +269,16 @@
     },
     "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again."
   },
+  "UPDATE_BOT": {
+    "TITLE": "Update bot",
+    "SUBTITLE": "Update data for bot"
+  },
   "CREATE_BOT": {
     "NEW_BOT": "New Bot",
     "SELECTOR_SUBTITLE": "Create new bot",
+    "UPDATE_API": {
+      "SUCCESS_MESSAGE": "Bot updated successfully"
+    },
     "API": {
       "SUCCESS_MESSAGE": "Bot created successfully",
       "EXIST_MESSAGE": "Bot name already exists",
@@ -309,7 +316,8 @@
         "LABEL": "ID Number"
       },
       "SUBMIT": "Submit",
-      "CANCEL": "Cancel"
+      "CANCEL": "Cancel",
+      "UPDATE": "Update"
     }
   },
   "LIST_BOTS_OPTIONS": {

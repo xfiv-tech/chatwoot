@@ -44,7 +44,35 @@
         </div>
         <!-- WHATSAPP CLOUD API -->
         <div v-if="showWaApiOptions" class="medium-12 columns">
-          <label :class="{ error: $v.phoneNumber.$error }">
+
+          <div v-if="botChannel === 'whatsapp-360' || botChannel ===  'telegram'" >
+            <label
+              :class="{
+                error: isPhoneNumberNotValid,
+              }"
+            >
+              {{ $t('CONTACT_FORM.FORM.PHONE_NUMBER.LABEL') }}
+              <woot-phone-input
+                v-model="phoneNumber"
+                :value="phoneNumber"
+                :error="isPhoneNumberNotValid"
+                :placeholder="$t('CONTACT_FORM.FORM.PHONE_NUMBER.PLACEHOLDER')"
+                @input="onPhoneNumberInputChange"
+                @blur="$v.phoneNumber.$touch"
+                @setCode="setPhoneCode"
+              />
+              <span v-if="isPhoneNumberNotValid" class="message">
+                {{ phoneNumberError }}
+              </span>
+            </label>
+            <div
+              v-if="isPhoneNumberNotValid || !phoneNumber"
+              class="callout small warning"
+            >
+              {{ $t('CONTACT_FORM.FORM.PHONE_NUMBER.HELP') }}
+            </div>
+          </div>
+          <label v-else :class="{ error: $v.phoneNumber.$error }">
             <div v-if="botChannel === 'whatsapp-cloud'">
               {{ $t('CREATE_BOT.FORM.ID_NUMBER_CLOUD.LABEL') }}
             </div>
@@ -80,7 +108,35 @@
         <!-- WHATSAPP CLOUD API -->
         <!-- WHATSAPP 360 DIALOG -->
         <div v-if="show360Options" class="medium-12 columns">
-          <label :class="{ error: $v.phoneNumber.$error }">
+          <div v-if="botChannel === 'whatsapp-360' || botChannel ===  'telegram'" >
+            <label
+              :class="{
+                error: isPhoneNumberNotValid,
+              }"
+            >
+              {{ $t('CONTACT_FORM.FORM.PHONE_NUMBER.LABEL') }}
+              <woot-phone-input
+                v-model="phoneNumber"
+                :value="phoneNumber"
+                :error="isPhoneNumberNotValid"
+                :placeholder="$t('CONTACT_FORM.FORM.PHONE_NUMBER.PLACEHOLDER')"
+                @input="onPhoneNumberInputChange"
+                @blur="$v.phoneNumber.$touch"
+                @setCode="setPhoneCode"
+              />
+              <span v-if="isPhoneNumberNotValid" class="message">
+                {{ phoneNumberError }}
+              </span>
+            </label>
+            <div
+              v-if="isPhoneNumberNotValid || !phoneNumber"
+              class="callout small warning"
+            >
+              {{ $t('CONTACT_FORM.FORM.PHONE_NUMBER.HELP') }}
+            </div>
+          </div>
+
+          <label v-else :class="{ error: $v.phoneNumber.$error }">
             {{ $t('CREATE_BOT.FORM.PHONENUMBER.LABEL') }}
             <input
               v-model.trim="phoneNumber"
@@ -99,6 +155,8 @@
             />
           </label>
         </div>
+
+        
         <!-- WHATSAPP CLOUD API -->
         <div class="medium-12 columns">
           <label >
@@ -149,6 +207,8 @@ import { mapGetters } from 'vuex';
 import alertMixin from 'shared/mixins/alertMixin';
 import axios from 'axios';
 import { config } from '../../../../config/config'
+import { isPhoneNumberValid } from 'shared/helpers/Validators';
+import parsePhoneNumber from 'libphonenumber-js';
 
 export default {
   mixins: [alertMixin],
@@ -185,7 +245,8 @@ export default {
       channels: [],
       idApiWA: '',
       listAgents: [],
-      selectedAgents: []
+      selectedAgents: [],
+      activeDialCode: '',
     };
   },
   validations: {
@@ -201,10 +262,7 @@ export default {
       required,
       minLength: minLength(1),
     },
-    phoneNumber: {
-      required,
-      minLength: minLength(1),
-    },
+    phoneNumber: {},
     wappid: {
       required,
       minLength: minLength(1),
@@ -225,10 +283,48 @@ export default {
     vaidateTokenForChannels() {
       return this.tokensChannels.includes(this.channel)
     },
+    parsePhoneNumber() {
+      return parsePhoneNumber(this.phoneNumber);
+    },
+    isPhoneNumberNotValid() {
+      if (this.phoneNumber !== '') {
+        return (
+          !isPhoneNumberValid(this.phoneNumber, this.activeDialCode) ||
+          (this.phoneNumber !== '' ? this.activeDialCode === '' : false)
+        );
+      }
+      return false;
+    },
+    phoneNumberError() {
+      if (this.activeDialCode === '') {
+        return this.$t('CONTACT_FORM.FORM.PHONE_NUMBER.DIAL_CODE_ERROR');
+      }
+      if (!isPhoneNumberValid(this.phoneNumber, this.activeDialCode)) {
+        return this.$t('CONTACT_FORM.FORM.PHONE_NUMBER.ERROR');
+      }
+      return '';
+    },
   },
   methods: {
-    showAgents() {
-      console.log(this.selectedAgents)
+    // Numero de telefono con componente
+    setPhoneCode(code) {
+      if (this.phoneNumber !== '' && this.parsePhoneNumber) {
+        const dialCode = this.parsePhoneNumber.countryCallingCode;
+        if (dialCode === code) {
+          return;
+        }
+        this.activeDialCode = `+${dialCode}`;
+        const newPhoneNumber = this.phoneNumber.replace(
+          `+${dialCode}`,
+          `${code}`
+        );
+        this.phoneNumber = newPhoneNumber;
+      } else {
+        this.activeDialCode = code;
+      }
+    },
+    onPhoneNumberInputChange(value, code) {
+      this.activeDialCode = code;
     },
     changeselect(e){
       this.showWaApiOptions = ["instagram","messanger","whatsapp-cloud"].includes(e.target.value)
@@ -243,7 +339,6 @@ export default {
         }
       })
       const listid = this.selectedAgents.map(e => e.id)
-      console.log(listid, "listid")
       // ASIGNACION DE LOS AGENTES A LOS INBOX
       await axios({
         method: 'post',
@@ -283,18 +378,18 @@ export default {
       })
       this.channels = channels.data;
     },
-    async getListTeams() {
-      const teams = await axios({
+    async getAllAgents() {
+      const agents = await axios({
         method: 'get',
         url: config.ENDPOINT_BACKEND + 'accessconfig/api/v1/agents/'+this.idaccount
       })
-      console.log(teams.data)
-      this.listAgents = teams.data;
+      console.log(agents.data)
+      this.listAgents = agents.data;
     }
   },
   created() {
     this.getListChannels()
-    this.getListTeams()
+    this.getAllAgents()
   }
 };
 </script>

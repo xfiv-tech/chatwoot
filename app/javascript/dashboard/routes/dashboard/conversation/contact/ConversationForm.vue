@@ -283,6 +283,7 @@ export default {
       this.createConversation(this.emailMessagePayload);
     },
     async createConversation(payload) {
+      console.log(payload, 'creadno conversacion')
       try {
         const data = await this.onSubmit(payload);
         const action = {

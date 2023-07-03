@@ -45,12 +45,12 @@
         "MODAL": {
             "TITLE": "Whatsapp Templates",
             "SUBTITLE": "Select the whatsapp template you want to send",
-            "TEMPLATE_SELECTED_SUBTITLE": "Process %{templateName}"
+            "TEMPLATE_SELECTED_SUBTITLE": "Template %{templateName}"
         },
         "PICKER": {
             "IMBOX_TEMPLATES": {
-                "LABEL": "Select Imbox",
-                "ERROR": "Select imbox is required"
+                "LABEL": "Select Inbox",
+                "ERROR": "Select inbox is required"
             },
             "SEARCH_PLACEHOLDER": "Search Templates",
             "NO_TEMPLATES_FOUND": "No templates found for",

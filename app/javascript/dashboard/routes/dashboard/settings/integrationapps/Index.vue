@@ -41,6 +41,10 @@ export default {
       uiFlags: 'labels/getUIFlags',
       integrationsList: 'integrations/getAppIntegrations',
     }),
+    
+  },
+  created(){
+    console.log(this.integrationsList, 'integrationsList')
   },
   mounted() {
     this.$store.dispatch('integrations/get');

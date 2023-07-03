@@ -169,5 +169,8 @@ footer {
 }
 .template-input {
   background-color: var(--s-25);
+  font-size: 1.5rem;
+  padding: 4px;
+  min-height: 20rem;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="medium-12 columns">
-    <div  class="medium-12 columns">
+    <!-- <div  class="medium-12 columns">
       <label :class="{ error: $v.selectedInboxId.$error }">
         {{ $t('WHATSAPP_TEMPLATES.PICKER.IMBOX_TEMPLATES.LABEL') }}
         <select placeholder="Select Inbox" :style="{padding: '5px 10px'}" @change="selectInbox" v-model="selectedInboxId">
@@ -12,7 +12,7 @@
           {{ $t('WHATSAPP_TEMPLATES.PICKER.IMBOX_TEMPLATES.ERROR') }}
         </span>
       </label>
-    </div>
+    </div> -->
     <div class="templates__list-search">
       <fluent-icon icon="search" class="search-icon" size="16" />
       <input
@@ -88,7 +88,8 @@ export default {
       idInbox: 1,
       listInbox: [],
       inboxSelected: {},
-      selectedInboxId: 0
+      selectedInboxId: 0,
+      idAccount: 0,
     };
   },
   validations: {
@@ -117,7 +118,7 @@ export default {
   methods: {
     //Trae la lista de los templates desde el endpoint
     async getAllWhatsappTemplates(){
-      const listTemplates = await axios.get('https://core.xfiv.chat/accessconfig/info/account_plantillas/'+this.idInbox)
+      const listTemplates = await axios.get(config.ENDPOINT_BACKEND + 'accessconfig/info/account_plantillas/'+this.idAccount)
       const filtertemplates = listTemplates.data.data?.filter(template => template.status.toLowerCase() === 'approved')
         .filter(template => {
           return template.components.every(component => {
@@ -127,6 +128,7 @@ export default {
       this.listAllTemplates = filtertemplates
     },
     selectInbox(e){
+      this.$emit('change-inbox', e.target.value);
       this.idInbox = e.target.value
       this.getAllTemplatesByInbox(e.target.value)
     },
@@ -136,10 +138,11 @@ export default {
         headers: { 
           'api-info-xfiv': config.api_token
         },
-        url: config.ENDPOINT_BACKEND + `accessconfig/api/v1/internal/account_plantillas/${this.inboxId}?inbox_id=${id}`,
+        url: config.ENDPOINT_BACKEND + `accessconfig/api/v1/internal/account_plantillas/${this.idAccount}?inbox_id=${id}`,
       })
       const filtertemplates = listTemplates.data.data?.filter(template => template.status.toLowerCase() === 'approved')
-      .filter(template => {
+      
+      const filterdelfilter = filtertemplates.filter(template => {
         return template.components.every(component => {
           return !formatsToRemove.includes(component.format);
         });
@@ -147,8 +150,7 @@ export default {
       this.listAllTemplates = filtertemplates
     },
     async getAllInbox(){
-      const listInbox = await axios.get(config.ENDPOINT_BACKEND +`accessconfig/api/v1/inbox/${this.inboxId}`)
-      console.log(listInbox.data.data, "listInbox")
+      const listInbox = await axios.get(config.ENDPOINT_BACKEND +`accessconfig/api/v1/inbox/${this.idAccount}`)
       this.listInbox = listInbox.data.data
     },
     getTemplatebody(template) {
@@ -157,8 +159,9 @@ export default {
     },
   },
   created(){
-    // this.getAllWhatsappTemplates()
+    this.idAccount = this.$route.params.accountId
     this.getAllInbox()
+    this.getAllTemplatesByInbox(this.inboxId)
   }
 };
 </script>

@@ -9,6 +9,7 @@
         v-if="!selectedWaTemplate"
         :inbox-id="inboxId"
         @onSelect="pickTemplate"
+        @change-inbox="changeInboxNumber"
       />
       <template-parser
         v-else
@@ -61,6 +62,9 @@ export default {
     },
     onSendMessage(message) {
       this.$emit('on-send', message);
+    },
+    changeInboxNumber(val){
+      this.$emit('change-inbox', val);
     },
     onClose() {
       this.$emit('cancel');
