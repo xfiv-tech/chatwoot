@@ -323,7 +323,7 @@
   "LIST_BOTS_OPTIONS": {
     "LOADER_MESSAGE": "Loading bots",
     "BUTTON_DROP": "Delete",
-    "BUTTON_EDIT": "Edit",
+    "BUTTON_EDIT": "Bot Builder",
     "BUTTON_CLONE": "Clone",
     "LAST_UPDATE_DATE": "Updated At",
     "CHANNEL": "Channel",
