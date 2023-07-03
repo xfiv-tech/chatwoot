@@ -11,7 +11,7 @@
       <div class="small-12 columns integrations-wrap">
         <div class="row integrations">
           <div
-            v-for="item in integrationsList"
+            v-for="item in newListIntegrations"
             :key="item.id"
             class="small-12 columns integration"
           >
@@ -41,10 +41,9 @@ export default {
       uiFlags: 'labels/getUIFlags',
       integrationsList: 'integrations/getAppIntegrations',
     }),
-    
-  },
-  created(){
-    console.log(this.integrationsList, 'integrationsList')
+    newListIntegrations(){
+      return this.integrationsList.filter(el => el.id !== 'dialogflow')
+    }
   },
   mounted() {
     this.$store.dispatch('integrations/get');

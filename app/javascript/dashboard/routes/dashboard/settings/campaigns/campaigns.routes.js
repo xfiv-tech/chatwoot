@@ -41,37 +41,37 @@ export default {
         },
       ],
     },
-    {
-      path: frontendURL('accounts/:accountId/campaigns'),
-      component: SettingsContent,
-      props: {
-        headerTitle: 'CAMPAIGN.WHATSAPP_BUSINESS.HEADER',
-        icon: 'brand-whatsapp',
-      },
-      children: [
-        {
-          path: 'wbusiness',
-          name: 'wbusiness',
-          roles: ['administrator'],
-          component: { ...WhatsappBusiness },
-        },
-      ],
-    },
-    {
-      path: frontendURL('accounts/:accountId/campaigns'),
-      component: SettingsContent,
-      props: {
-        headerTitle: 'CAMPAIGN.WHATSAPP_BUSINESS.HEADER',
-        icon: 'settings',
-      },
-      children: [
-        {
-          path: 'wprofiles',
-          name: 'wprofiles',
-          roles: ['administrator'],
-          component: { ...WhatsappBusiness },
-        },
-      ],
-    },
+    // {
+    //   path: frontendURL('accounts/:accountId/campaigns'),
+    //   component: SettingsContent,
+    //   props: {
+    //     headerTitle: 'CAMPAIGN.WHATSAPP_BUSINESS.HEADER',
+    //     icon: 'brand-whatsapp',
+    //   },
+    //   children: [
+    //     {
+    //       path: 'wbusiness',
+    //       name: 'wbusiness',
+    //       roles: ['administrator'],
+    //       component: { ...WhatsappBusiness },
+    //     },
+    //   ],
+    // },
+    // {
+    //   path: frontendURL('accounts/:accountId/campaigns'),
+    //   component: SettingsContent,
+    //   props: {
+    //     headerTitle: 'CAMPAIGN.WHATSAPP_BUSINESS.HEADER',
+    //     icon: 'settings',
+    //   },
+    //   children: [
+    //     {
+    //       path: 'wprofiles',
+    //       name: 'wprofiles',
+    //       roles: ['administrator'],
+    //       component: { ...WhatsappBusiness },
+    //     },
+    //   ],
+    // },
   ],
 };
