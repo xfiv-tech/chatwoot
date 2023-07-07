@@ -324,7 +324,7 @@
   },
   "LIST_BOTS_OPTIONS": {
     "LOADER_MESSAGE": "Cargando lista de bots",
-    "BUTTON_DROP": "Desconectar",
+    "BUTTON_DROP": "Eliminar",
     "BUTTON_EDIT": "Constructor de bot",
     "BUTTON_CLONE": "Clonar",
     "LAST_UPDATE_DATE": "Última Actualización",

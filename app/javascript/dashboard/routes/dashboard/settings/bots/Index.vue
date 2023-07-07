@@ -48,6 +48,7 @@
         :show="showAddPopup"
         :on-close="hideAddPopup"
         @getbots="getAllbots"
+        @syncBots="syncBots"
       />
     </woot-modal>
 
@@ -63,6 +64,18 @@
     </woot-modal>
 
     <!-- Delete Bot -->
+    <woot-delete-modal
+      :show.sync="showDeletePopup"
+      :on-close="hideClosePopup"
+      :on-confirm="confirmDeletion"
+      :title="$t('DELETE_BOT.COFIRM.TITLE')"
+      :message="$t('DELETE_BOT.COFIRM.MESSAGE')"
+      :message-value="deleteMessage"
+      :confirm-text="deleteConfirmText"
+      :reject-text="deleteRejectText"
+    />
+
+    <!-- clone bot -->
     <woot-delete-modal
       :show.sync="showDeletePopup"
       :on-close="hideClosePopup"
@@ -109,6 +122,9 @@ export default {
       showAddPopup: false,
       showDeletePopup: false,
       showEditPopup: false,
+
+      // clonar bot
+      showModalClone: false,
       idUser:1,
       idUser: null,
       createdBot: true,
@@ -160,10 +176,17 @@ export default {
     }
   },
   methods: {
-    async getAllbots(accountId) {
-      const bots = await axios.get(config.ENDPOINT_BACKEND + 'accessconfig/api/v1/bot_account/'+accountId)
+    async getAllbots() {
+      const bots = await axios.get(config.ENDPOINT_BACKEND + 'accessconfig/api/v1/bot_account/'+this.$route.params.accountId)
       this.bots = bots.data.bot
       this.isLoading = false
+    },
+    async syncBots() {
+      const bots = await axios.get(config.ENDPOINT_BACKEND + 'accessconfig/api/v1/bot_async/'+this.$route.params.accountId)
+      this.bots = bots.data.data
+      console.log(bots)
+      // this.bots = bots.data.bot
+      // this.isLoading = false
     },
     changeFormateDate(date) {
       const dateTransform = new Date(date)
@@ -198,17 +221,21 @@ export default {
     },
     async cloneBot(bot) {
       const copybot = {...bot, idBot: bot.id}
-      const clonado = await axios.post(config.ENDPOINT_BACKEND + 'accessconfig/info/account_bot_clonar/'+this.idUser, copybot)
-      console.log(clonado)
-      this.getAllbots(this.idUser)
+      await axios.post(config.ENDPOINT_BACKEND + 'accessconfig/api/v1/clonar_bot/'+this.idUser, copybot)
+      this.syncBots()
+      this.getAllbots()
     },
     async deleteBot(bot) {
       this.showDeletePopup = true;
       this.botSelected = bot
     },
     async confirmDeletion() {
-      const bots = await axios.delete(config.ENDPOINT_BACKEND + 'accessconfig/info/account_bot_delete/'+this.idUser+'/'+this.botSelected.id)
-      this.getAllbots(this.idUser)
+      this.isLoading = true
+      console.log({user: this.idUser, id: this.botSelected.id, bot: this.botSelected})
+      // /api/v1/inbox/{this.idUser}/{this.botSelected.inbox_id}
+      await axios.delete(config.ENDPOINT_BACKEND + 'accessconfig/api/v1/account_bot_delete/'+this.idUser+'/'+this.botSelected.id)
+      this.syncBots()
+      this.getAllbots()
       this.hideClosePopup()
     },
     hideAddPopup() {
@@ -255,7 +282,7 @@ export default {
       }
       const update = await axios({
         method: 'put',
-        url: config.ENDPOINT_BACKEND + 'accessconfig/info/account_bot_update/'+this.idUser,
+        url: config.ENDPOINT_BACKEND + 'accessconfig/api/v1/update_bot/'+this.idUser,
         data: typeData
       })
       console.log(update)

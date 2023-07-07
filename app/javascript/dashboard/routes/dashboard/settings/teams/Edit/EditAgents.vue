@@ -39,6 +39,9 @@ import router from '../../../../index';
 import PageHeader from '../../SettingsSubPageHeader';
 import AgentSelector from '../AgentSelector';
 
+import { config } from '../../../../../config/config'
+import axios from 'axios'
+
 export default {
   components: {
     Spinner,
@@ -122,6 +125,7 @@ export default {
           teamId,
           agentsList: selectedAgents,
         });
+        await axios.get(config.ENDPOINT_BACKEND + 'accessconfig/api/v1/async_teams/'+this.$route.params.accountId)
         router.replace({
           name: 'settings_teams_edit_finish',
           params: {

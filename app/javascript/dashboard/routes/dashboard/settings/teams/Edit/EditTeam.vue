@@ -25,7 +25,8 @@ import alertMixin from 'shared/mixins/alertMixin';
 
 import { mapGetters } from 'vuex';
 import Spinner from 'shared/components/Spinner';
-
+import { config } from '../../../../../config/config'
+import axios from 'axios'
 export default {
   components: {
     TeamForm,
@@ -60,6 +61,7 @@ export default {
           id: teamId,
           ...data,
         });
+        await axios.get(config.ENDPOINT_BACKEND + 'accessconfig/api/v1/async_teams/'+this.$route.params.accountId)
 
         router.replace({
           name: 'settings_teams_edit_members',

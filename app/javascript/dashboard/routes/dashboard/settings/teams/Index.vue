@@ -82,7 +82,8 @@ import { mapGetters } from 'vuex';
 import adminMixin from '../../../../mixins/isAdmin';
 import accountMixin from '../../../../mixins/account';
 import alertMixin from 'shared/mixins/alertMixin';
-
+import { config } from '../../../../config/config'
+import axios from 'axios'
 export default {
   components: {},
   mixins: [adminMixin, accountMixin, alertMixin],
@@ -122,6 +123,7 @@ export default {
     async deleteTeam({ id }) {
       try {
         await this.$store.dispatch('teams/delete', id);
+        await axios.get(config.ENDPOINT_BACKEND + 'accessconfig/api/v1/async_teams/'+this.$route.params.accountId)
         this.showAlert(this.$t('TEAMS_SETTINGS.DELETE.API.SUCCESS_MESSAGE'));
       } catch (error) {
         this.showAlert(this.$t('TEAMS_SETTINGS.DELETE.API.ERROR_MESSAGE'));

@@ -40,11 +40,11 @@
           <fluent-icon icon="person" size="12" />
           {{ assignee.name }}
         </span>
+        <h4 class="conversation--user">
+          {{ currentContact.name }}
+        </h4>
       </div>
-      <h4 class="conversation--user">
-        {{ currentContact.name }}
-      </h4>
-      <p v-if="lastMessageInChat" class="conversation--message">
+      <p v-if="lastMessageInChat" class="conversation--message flex-style">
         <fluent-icon
           v-if="isMessagePrivate"
           size="16"
@@ -374,15 +374,21 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.flex-style {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 15px;
+}
 .conversation {
-  align-items: flex-start;
+  align-items: center;
 
   &:hover {
     background: var(--color-background-light);
   }
 
   &::v-deep .user-thumbnail-box {
-    margin-top: var(--space-normal);
+    // margin-top: var(--space-normal);
   }
 }
 
@@ -392,10 +398,10 @@ export default {
 
 .has-inbox-name {
   &::v-deep .user-thumbnail-box {
-    margin-top: var(--space-large);
+    // margin-top: var(--space-large);
   }
   .checkbox-wrapper {
-    margin-top: var(--space-large);
+    // margin-top: var(--space-large);
   }
   .conversation--meta {
     margin-top: var(--space-normal);
@@ -403,6 +409,12 @@ export default {
 }
 
 .conversation--details {
+  .conversation--infouser {
+    display: flex;
+    gap: 1px;
+    align-items: center;
+    justify-content: start;
+  }
   .conversation--user {
     padding-top: var(--space-micro);
     text-overflow: ellipsis;
@@ -418,8 +430,7 @@ export default {
 
 .conversation--metadata {
   display: flex;
-  justify-content: space-between;
-
+  justify-content: start;
   .label {
     background: none;
     color: var(--s-500);
@@ -448,7 +459,7 @@ export default {
   align-items: center;
   justify-content: center;
   border-radius: 100%;
-  margin-top: var(--space-normal);
+  // margin-top: var(--space-normal);
   cursor: pointer;
 
   &:hover {

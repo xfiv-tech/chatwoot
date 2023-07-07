@@ -201,7 +201,7 @@ export default {
       }
       const update = await axios({
         method: 'put',
-        url: config.ENDPOINT_BACKEND + 'accessconfig/info/account_bot_update/'+this.botData.account_id,
+        url: config.ENDPOINT_BACKEND + 'accessconfig/api/v1/update_bot/'+this.botData.account_id,
         data: data
       })
       this.$emit('getbots', this.idaccount);

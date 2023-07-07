@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="cont bot_cont_left_info_socialmedia" >
-              <div v-if="bot.publishedTypebot !== null" class="online_state" @click="updateBot(bot, 'publishedTypebot')">
+              <div v-if="bot.publishedTypebot !== null" class="online_state">
                 <p>{{$t('LIST_BOTS_OPTIONS.ONLINE_STATE')}}</p>
               </div>
               <div @click="openUpdateBotModal">

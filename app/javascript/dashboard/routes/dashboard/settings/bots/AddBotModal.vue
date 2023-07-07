@@ -366,6 +366,7 @@ export default {
         }
       })
       console.log(createbot, "create bot")
+      this.$emit('syncBots', this.idaccount);
       this.$emit('getbots', this.idaccount);
       this.showAlert(this.$t('CREATE_BOT.API.SUCCESS_MESSAGE'));
       this.onClose()
