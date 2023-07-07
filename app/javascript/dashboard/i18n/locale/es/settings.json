@@ -335,7 +335,7 @@
   "DELETE_BOT": {
     "COFIRM": {
       "TITLE": "Eliminar bot",
-      "MESSAGE": "Estas seguro de eliminar este Bot?",
+      "MESSAGE": "También se eliminaran las entradas asignadas a este bot. Estas seguro de eliminar este Bot?",
       "YES": "Si, eliminar ",
       "NO": "No, cancelar "
     }

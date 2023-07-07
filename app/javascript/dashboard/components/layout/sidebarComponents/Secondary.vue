@@ -78,10 +78,13 @@ export default {
       }
       const menuItemsFilteredByRole = this.menuConfig.menuItems.filter(
         menuItem =>
-          window.roleWiseRoutes[this.currentRole].indexOf(
-            menuItem.toStateName
+        window.roleWiseRoutes[this.currentRole].indexOf(
+          menuItem.toStateName
           ) > -1
-      );
+        );
+      console.log(this.currentRole, 'currentRole')
+      console.log(this.menuConfig.menuItems, 'menuItems')
+      console.log(menuItemsFilteredByRole, "menuItemsFilteredByRole")
       return menuItemsFilteredByRole.filter(item => {
         if (item.showOnlyOnCloud) {
           return this.isOnChatwootCloud;

@@ -17,7 +17,7 @@ export default {
           path: '',
           name: 'botTypebot',
           component: Index,
-          roles: ['administrator', 'agent'],
+          roles: ['administrator'],
         },
       ],
     },

@@ -231,9 +231,9 @@ export default {
     },
     async confirmDeletion() {
       this.isLoading = true
-      console.log({user: this.idUser, id: this.botSelected.id, bot: this.botSelected})
       // /api/v1/inbox/{this.idUser}/{this.botSelected.inbox_id}
-      await axios.delete(config.ENDPOINT_BACKEND + 'accessconfig/api/v1/account_bot_delete/'+this.idUser+'/'+this.botSelected.id)
+      await axios.delete(config.ENDPOINT_BACKEND + `accessconfig/api/v1/inbox/${this.idUser}/${this.botSelected.inbox_id}`)
+      await axios.post(config.ENDPOINT_BACKEND + `accessconfig/api/v1/eliminar_bot/${this.idUser}/${this.botSelected.id}`)
       this.syncBots()
       this.getAllbots()
       this.hideClosePopup()

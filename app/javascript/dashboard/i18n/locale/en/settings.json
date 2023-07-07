@@ -333,7 +333,7 @@
   "DELETE_BOT": {
     "COFIRM": {
       "TITLE": "Confirm Deletion",
-      "MESSAGE": "Are you sure to delete",
+      "MESSAGE": "The inbox associated with this bot will be removed. Are you sure to delete?",
       "YES": "Yes, Delete ",
       "NO": "No, Keep "
     }

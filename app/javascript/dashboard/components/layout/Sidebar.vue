@@ -128,7 +128,6 @@ export default {
     activeSecondaryMenu() {
       const { secondaryMenu } = this.sideMenuConfig;
       const { name: currentRoute } = this.$route;
-
       const activeSecondaryMenu = secondaryMenu.find(menuItem => menuItem.routes.includes(currentRoute)) || {};
 
       return activeSecondaryMenu;
