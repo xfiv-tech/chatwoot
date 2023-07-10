@@ -36,17 +36,6 @@ sudo apt install nginx -y
 
 sudo apt install certbot python3-certbot-nginx -y
 
-# pedir dominio y correo
-
-echo "Introduce el dominio:"
-
-read dominio
-
-echo "Introduce el correo:"
-
-read correo
-
-
 # pedir certificado
 
 sudo certbot --nginx -d cloud-dev.xfiv.chat -m dmarret@intelnexo.com --agree-tos --redirect
