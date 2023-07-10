@@ -60,3 +60,6 @@ sudo systemctl status certbot.timer
 sudo certbot renew --dry-run
 
 sudo systemctl restart nginx
+
+
+
