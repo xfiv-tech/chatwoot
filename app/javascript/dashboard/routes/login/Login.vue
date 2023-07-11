@@ -1,23 +1,22 @@
 <template>
   <main class="medium-12 column login">
     <section class="text-center medium-12 login__hero align-self-top space_logo">
-      <!-- <img
-
-        :src="https://xfiv-content.s3.amazonaws.com/xfiv-content/external-images/share_dir/Xfiv/20230519/Xfiv.jpeg"
-        :alt="globalConfig.installationName"
-        class="hero__logo"
-      /> -->
       <img
         :src="globalConfig.logo"
         :alt="globalConfig.installationName"
         :width="globalConfig.logoWidth"
         class="hero__logo"
       />
-      <h2 class="hero__title">
+      <p class="subtitle">
+        {{
+          useInstallationName($t('LOGIN.SUBTITLE'), globalConfig.installationName)
+        }}
+      </p>
+      <p class="title">
         {{
           useInstallationName($t('LOGIN.TITLE'), globalConfig.installationName)
         }}
-      </h2>
+      </p>
     </section>
     <section class="row align-center">
       <div v-if="!email" class="small-12 medium-4 column">
@@ -207,6 +206,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.title {
+  font-size: 2rem;
+}
+.subtitle {
+  font-size: 3rem;
+  margin: 15px 0;
+}
 .oauth-reverse {
   display: flex;
   flex-direction: column-reverse;

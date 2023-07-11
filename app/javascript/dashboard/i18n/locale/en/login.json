@@ -1,6 +1,7 @@
 {
   "LOGIN": {
-    "TITLE": "Login Xfiv",
+    "SUBTITLE": "Ready to start?",
+    "TITLE": "Login",
     "EMAIL": {
       "LABEL": "Email",
       "PLACEHOLDER": "Email eg: someone@example.com"

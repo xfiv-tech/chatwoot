@@ -17,9 +17,14 @@
             
           </div>
           <div class="container_qr_bot">
-            <!-- <h2>✌ Lee antes de escanear</h2> -->
-            <p>Para configurar debes ir a las configuraciones de tu teléfono</p>
-            <p>Encuéntralo en <b>Configuración Dispositivos Vinculados > Vincular un dispositivo</b></p>
+            <p class="container_qr_bot_title">✌ Lee antes de escanear</p>
+            <p class="container_qr_bot_subtitle">Debes ir a las configuraciones de tu teléfono</p>
+            <ol start="1" class="container_qr_bot_list">
+              <li>Toca Menú o Configuración.</li>
+              <li>Selecciona Dispositivos Vinculados.</li>
+              <li>Toca Vincular un dispositivo.</li>
+              <li>Apunta tu teléfono hacia esta pantalla para escanear el código Qr.</li>
+            </ol>
             <div class="button_container">
               <div v-if="status === 'Conectado'" @click="cleanSessionQRCode()" class="button_container_btn">
                 <p> Desconectar</p>
@@ -243,7 +248,17 @@ export default {
   }
   &_bot {
     margin-top: 30px;
-    p {
+    text-align: center;
+    &_title {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #1174FF;
+    }
+    &_subtitle {
+      font-size: 2rem;
+    }
+    &_list {
+      width: 100%;
       font-size: 1.5rem;
     }
   }

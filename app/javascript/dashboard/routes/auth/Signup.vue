@@ -1,11 +1,7 @@
 <template>
   <div class="h-full w-full">
     <div v-show="!isLoading" class="row h-full">
-      <div
-        :class="
-          `${showTestimonials ? 'large-6' : 'large-12'} signup-form--container`
-        "
-      >
+      <div class="large-6 signup-form--container" >
         <div class="signup-form--content">
           <div class="signup--hero">
             <img
@@ -13,10 +9,10 @@
               :alt="globalConfig.installationName"
               class="hero--logo"
             />
-            <h2 class="hero--title">
-              {{ $t('REGISTER.TRY_WOOT') }}
-            </h2>
           </div>
+          <p class="hero--title">
+            {{ $t('REGISTER.TRY_WOOT') }}
+          </p>
           <signup-form />
           <div class="auth-screen--footer">
             <span>{{ $t('REGISTER.HAVE_AN_ACCOUNT') }}</span>
@@ -31,11 +27,14 @@
           </div>
         </div>
       </div>
-      <testimonials
+      <div class="bg_experience large-6 ">
+        <img class="bg_experience_image" src="https://xfiv-content.s3.amazonaws.com/banner-onboarding.png" />
+      </div>
+      <!-- <testimonials
         v-if="isAChatwootInstance"
         class="medium-6 testimonial--container"
         @resize-containers="resizeContainers"
-      />
+      /> -->
     </div>
     <div v-show="isLoading" class="spinner--container">
       <spinner size="" />
@@ -47,14 +46,14 @@
 import { mapGetters } from 'vuex';
 import globalConfigMixin from 'shared/mixins/globalConfigMixin';
 import SignupForm from './components/Signup/Form.vue';
-import Testimonials from './components/Testimonials/Index.vue';
+// import Testimonials from './components/Testimonials/Index.vue';
 import Spinner from 'shared/components/Spinner.vue';
 
 export default {
   components: {
     SignupForm,
     Spinner,
-    Testimonials,
+    // Testimonials,
   },
   mixins: [globalConfigMixin],
   data() {
@@ -62,22 +61,41 @@ export default {
   },
   computed: {
     ...mapGetters({ globalConfig: 'globalConfig/get' }),
-    isAChatwootInstance() {
-      return this.globalConfig.installationName === 'Xfiv';
-    },
+    // isAChatwootInstance() {
+    //   return this.globalConfig.installationName === 'Xfiv';
+    // },
   },
   beforeMount() {
-    this.isLoading = this.isAChatwootInstance;
+    // this.isLoading = this.isAChatwootInstance;
   },
   methods: {
-    resizeContainers(hasTestimonials) {
-      this.showTestimonials = hasTestimonials;
-      this.isLoading = false;
-    },
+    // resizeContainers(hasTestimonials) {
+    //   this.showTestimonials = hasTestimonials;
+    //   this.isLoading = false;
+    // },
   },
 };
 </script>
 <style scoped lang="scss">
+.container-flex {
+  display: flex;
+}
+.bg_experience {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: end;
+  &_image {
+    height: 100%;
+    width: auto;
+  }
+}
+.bg_image {
+  height: 100%;
+  width: 100%;
+}
 .signup-form--container {
   display: flex;
   align-items: center;
@@ -95,15 +113,20 @@ export default {
 
 .signup--hero {
   margin-bottom: var(--space-normal);
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   .hero--logo {
     width: 160px;
   }
 
-  .hero--title {
-    margin-top: var(--space-medium);
-    font-weight: var(--font-weight-light);
-  }
+}
+.hero--title {
+  margin-top: var(--space-medium);
+  margin-bottom: 10px;
+  font-weight: var(--font-weight-light);
+  font-size: 2.5rem;
 }
 
 .auth-screen--footer {

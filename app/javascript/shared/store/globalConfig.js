@@ -37,7 +37,7 @@ const state = {
   gitSha,
   hCaptchaSiteKey,
   installationName,
-  logo: "https://xfiv-content.s3.amazonaws.com/xfiv-content/external-images/share_dir/Xfiv/20230519/Xfiv.jpeg",
+  logo: "https://xfiv-content.s3.amazonaws.com/logo-xfiv-.jpeg",
   logoWidth: '100px',
   logoThumbnail,
   privacyURL,

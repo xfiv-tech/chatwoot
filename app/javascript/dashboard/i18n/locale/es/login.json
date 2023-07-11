@@ -1,6 +1,7 @@
 {
   "LOGIN": {
-    "TITLE": "Iniciar sesión en Xfiv",
+    "SUBTITLE": "¿Listo para empezar?",
+    "TITLE": "Iniciar sesión",
     "EMAIL": {
       "LABEL": "E-mail",
       "PLACEHOLDER": "Email por ejemplo: alguien@ejemplo.com"
