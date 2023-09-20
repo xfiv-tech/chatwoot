@@ -495,7 +495,6 @@ export default {
           },
         ];
       }
-
       if (
         this.isFeatureEnabledonAccount(
           this.accountId,

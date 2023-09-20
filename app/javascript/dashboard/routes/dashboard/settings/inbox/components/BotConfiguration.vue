@@ -108,7 +108,6 @@ export default {
       const {data} = await axios.get(config.ENDPOINT_BACKEND + 'accessconfig/info/account_qr/' + this.userAccount);
       const session = await axios.get(data.data.host + data.data.path_qr_stado)
       this.status = session.data.message;
-      console.log(session.data.message)
       return session.data.message
     }, 
     async updateActiveAgentBot() {

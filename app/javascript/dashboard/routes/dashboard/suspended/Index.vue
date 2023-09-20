@@ -1,9 +1,9 @@
 <template>
   <div class="suspended-page">
-    <empty-state
+    <!-- <empty-state
       :title="$t('APP_GLOBAL.ACCOUNT_SUSPENDED.TITLE')"
       :message="$t('APP_GLOBAL.ACCOUNT_SUSPENDED.MESSAGE')"
-    />
+    /> -->
   </div>
 </template>
 <script>

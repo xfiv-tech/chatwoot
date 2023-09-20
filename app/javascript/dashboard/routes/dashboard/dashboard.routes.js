@@ -6,12 +6,20 @@ import { routes as contactRoutes } from './contacts/routes';
 import { routes as notificationRoutes } from './notifications/routes';
 import { frontendURL } from '../../helper/URLHelper';
 import helpcenterRoutes from './helpcenter/helpcenter.routes';
+import Billing from './billing/Billing.vue'
+import Suspend from './suspended/Index.vue'
 
 const Suspended = () => import('./suspended/Index');
 
 export default {
   routes: [
     ...helpcenterRoutes.routes,
+    {
+      path: frontendURL('accounts/:accountId/billing'),
+      name: 'billing',
+      roles: ['administrator', 'agent'],
+      component: Billing,
+    },
     {
       path: frontendURL('accounts/:account_id'),
       component: AppContainer,
