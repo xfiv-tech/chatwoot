@@ -271,4 +271,17 @@ export default {
   max-width: 20rem;
   min-width: 15.6rem;
 }
+
+.button.warning,
+.button.success { 
+  background-color: #0d125e !important; 
+  color: #fff !important; 
+  border: 1px #ffffff solid !important; 
+}
+
+.button.warning:hover,
+.button.success:hover {
+  color: #2f3b49 !important;
+  background: var(--s-50) !important;
+}
 </style>

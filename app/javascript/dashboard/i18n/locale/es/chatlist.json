@@ -20,16 +20,13 @@
     },
     "CHAT_STATUS_FILTER_ITEMS": {
       "open": {
-        "TEXT": "Abrir"
+        "TEXT": "Abriertas"
       },
       "resolved": {
         "TEXT": "Resueltas"
       },
       "pending": {
-        "TEXT": "Pendientes"
-      },
-      "snoozed": {
-        "TEXT": "Postpuestas"
+        "TEXT": "Chatbot"
       },
       "all": {
         "TEXT": "Todos"

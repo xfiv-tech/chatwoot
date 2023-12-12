@@ -173,7 +173,7 @@
     },
     "FILE_BUBBLE": {
       "DOWNLOAD": "Descargar",
-      "UPLOADING": "Subiendo...",
+      "UPLOADING": "Subiendo.",
       "INSTAGRAM_STORY_UNAVAILABLE": "Esta historia ya no está disponible."
     },
     "LOCATION_BUBBLE": {
@@ -183,7 +183,7 @@
       "SUBMIT": "Enviar"
     }
   },
-  "CONFIRM_EMAIL": "Verificando...",
+  "CONFIRM_EMAIL": "Verificando.",
   "SETTINGS": {
     "INBOXES": {
       "NEW_INBOX": "Añadir bandeja de entrada"
@@ -275,49 +275,49 @@
     "SUBTITLE": "Actualizar los datos del bot"
   },
   "CREATE_BOT": {
-    "NEW_BOT": "Nuevo Bot",
-    "SELECTOR_SUBTITLE": "Crear nuevo flujo de bot",
-    "NO_BOTS_WARNING": "¡Oh oh! No hemos podido encontrar ningun Bot. Por favor, crea un nnuevo Bot.",
+    "NEW_BOT": "Nuevo flujo de bot",
+    "SELECTOR_SUBTITLE": "Conecta tus canales y crea un nuevo flujo de atención.",
+    "NO_BOTS_WARNING": "¡Oh oh! No hemos podido encontrar ningun bot. Por favor crea un nuevo bot.",
     "UPDATE_API": {
-      "SUCCESS_MESSAGE": "Bot actualizado con éxito"
+      "SUCCESS_MESSAGE": "Flujo actualizado con éxito"
     },
     "API": {
-      "SUCCESS_MESSAGE": "Bot creada con éxito",
-      "EXIST_MESSAGE": "Ya existe un bot con este nombre",
+      "SUCCESS_MESSAGE": "Flujo de bot creado con éxito",
+      "EXIST_MESSAGE": "Ya existe un flujo bot con este nombre",
       "ERROR_MESSAGE": "No se pudo conectar al servidor, por favor inténtelo de nuevo más tarde"
     },
     "FORM": {
       "NAME": {
-        "LABEL": "Nombre de Bot",
-        "PLACEHOLDER": "Nombre.."
+        "LABEL": "Nombre del flujo de bot",
+        "PLACEHOLDER": "Nombre"
       },
       "CHANNEL": {
         "LABEL": "Seleccionar Canal",
-        "PLACEHOLDER": "Canal..",
+        "PLACEHOLDER": "Canal",
         "ERROR": "Es necesario seleccionar un canal"
       },
       "TOKEN": {
         "LABEL": "Token",
-        "PLACEHOLDER": "Vincular token..",
+        "PLACEHOLDER": "Vincular token",
         "ERROR": "Token es obligatorio"
       },
       "PHONENUMBER": {
-        "LABEL": "Número de celular",
-        "PLACEHOLDER": "Ingresar celular..",
-        "ERROR": "Celular es requerido"
+        "LABEL": "Número de teléfono",
+        "PLACEHOLDER": "Ingresar número (+593999999999)",
+        "ERROR": "Número es requerido"
       },
-      "CLOUD_API_IDENTIFIER":{
-        "LABEL": "Identificado de Cloud Api",
-        "PLACEHOLDER": "Identificador..",
+      "CLOUD_IDENTIFIER":{
+        "LABEL": "Identificador",
+        "PLACEHOLDER": "Identificador",
         "ERROR": "El identificador es requerido"
       },
       "TEAMS_BOT":{
         "LABEL": "Seleccionar agentes"
       },
       "ID_NUMBER_CLOUD":{
-        "LABEL": "Número identificador"
+        "LABEL": "Número"
       },
-      "SUBMIT": "Enviar",
+      "SUBMIT": "Crear",
       "CANCEL": "Cancelar",
       "UPDATE": "Actualizar"
     }

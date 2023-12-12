@@ -34,7 +34,7 @@
             {{ $t('CREATE_BOT.FORM.CHANNEL.LABEL') }}
             <select @change="changeselect" v-model="botChannel">
               <option v-for="channel in channels" :key="channel.channel" :value="channel.channel">
-                {{ channel.channel }}
+                {{ channel.channel | capitalize }}
               </option>
             </select>
             <span v-if="$v.botChannel.$error" class="message">
@@ -170,7 +170,7 @@
                 :close-on-select="false"
                 :clear-on-select="false"
                 :hide-selected="true"
-                placeholder="Pick some"
+                placeholder="Elige algunos"
                 selected-label
                 :select-label="$t('FORMS.MULTISELECT.ENTER_TO_SELECT')"
                 :deselect-label="$t('FORMS.MULTISELECT.ENTER_TO_REMOVE')"
@@ -262,7 +262,9 @@ export default {
       required,
       minLength: minLength(1),
     },
-    phoneNumber: {},
+    phoneNumber: {
+      required,
+    },
     wappid: {
       required,
       minLength: minLength(1),
@@ -391,6 +393,13 @@ export default {
   created() {
     this.getListChannels()
     this.getAllAgents()
+  },
+  filters: {
+    capitalize: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
   }
 };
 </script>
@@ -409,5 +418,14 @@ export default {
 .icon-wrap {
   margin-left: var(--space-smaller);
   margin-right: var(--space-slab);
+}
+
+select {
+  margin: 0 0 1.6rem;
+  padding: 0.8rem;
+}
+
+input {
+  font-size: 1.4rem;
 }
 </style>

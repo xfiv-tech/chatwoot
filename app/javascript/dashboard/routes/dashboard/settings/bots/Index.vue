@@ -180,6 +180,7 @@ export default {
       const bots = await axios.get(config.ENDPOINT_BACKEND + 'accessconfig/api/v1/bot_account/'+this.$route.params.accountId)
       this.bots = bots.data.bot
       this.isLoading = false
+      console.log('this.bots ', this.bots);
     },
     async syncBots() {
       const bots = await axios.get(config.ENDPOINT_BACKEND + 'accessconfig/api/v1/bot_async/'+this.$route.params.accountId)

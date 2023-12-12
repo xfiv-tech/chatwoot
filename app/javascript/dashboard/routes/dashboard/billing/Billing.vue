@@ -187,7 +187,7 @@ export default {
   }
 
   .title {
-    font-size: 2rem;
-    font-weight: bold;
+    font-size: 1.4rem;
+    // font-weight: bold;
   }
 </style>

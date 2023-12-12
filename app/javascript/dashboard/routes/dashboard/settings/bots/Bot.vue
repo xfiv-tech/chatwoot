@@ -193,7 +193,8 @@ export default {
     height: auto;
   }
   .button_edit {
-    background-color: #007EF3;
+    // background-color: #007EF3;
+    background: linear-gradient(0deg, #773282 0%, #AF3BB1 100%);
     color: #ffffff;
     display: flex;
     justify-content: center;
@@ -207,7 +208,8 @@ export default {
       padding: 0;
     }
     &:hover {
-      background-color: #0774da;
+      // background-color: #0774da;
+      background: linear-gradient(0deg, #562577 0%, #562577 100%);
     }
   }
   .online_state {

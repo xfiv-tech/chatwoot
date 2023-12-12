@@ -26,10 +26,7 @@
         "TEXT": "Resolved"
       },
       "pending": {
-        "TEXT": "Pending"
-      },
-      "snoozed": {
-        "TEXT": "Snoozed"
+        "TEXT": "Chatbot"
       },
       "all": {
         "TEXT": "All"

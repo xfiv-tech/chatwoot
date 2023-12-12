@@ -5,7 +5,7 @@
     class="app-wrapper app-root"
     :class="{ 'app-rtl--wrapper': isRTLView }"
   >
-    <update-banner :latest-chatwoot-version="latestChatwootVersion" />
+    <!-- <update-banner :latest-chatwoot-version="latestChatwootVersion" /> -->
     <transition name="fade" mode="out-in">
       <router-view />
     </transition>

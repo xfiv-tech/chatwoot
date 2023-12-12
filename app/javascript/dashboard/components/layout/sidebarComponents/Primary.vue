@@ -1,7 +1,7 @@
 <template>
   <div class="primary--sidebar">
     <logo
-      :source="'https://xfiv-content.s3.amazonaws.com/xfiv-content/external-images/share_dir/Xfiv/20230519/Xfiv.jpeg'"
+      :source="'https://tecnohub-ecuador.s3.us-east-2.amazonaws.com/TVCABLE/chatbot/xtrim-logo-isotipo.jpg'"
       :name="installationName"
       :account-id="accountId"
     />
@@ -23,7 +23,7 @@
         :open-in-new-page="true"
         :to="helpDocsURL"
       /> -->
-      <notification-bell @open-notification-panel="openNotificationPanel" />
+      <!--<notification-bell @open-notification-panel="openNotificationPanel" />-->
       <agent-details @toggle-menu="toggleOptions" />
       <options-menu
         :show="showOptionsMenu"

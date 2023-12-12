@@ -64,11 +64,11 @@
               {{ $t('LOGIN.FORGOT_PASSWORD') }}
             </router-link>
           </p>
-          <p v-if="showSignupLink()">
+          <!-- <p v-if="showSignupLink()">
             <router-link to="auth/signup">
               {{ $t('LOGIN.CREATE_NEW_ACCOUNT') }}
             </router-link>
-          </p>
+          </p> -->
         </div>
       </div>
       <woot-spinner v-else size="" />

@@ -704,4 +704,8 @@ li.right {
     }
   }
 }
+
+.conversation-panel > li .activity-wrap {
+  background: #dae4ff !important;
+}
 </style>

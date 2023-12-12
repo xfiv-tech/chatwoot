@@ -38,7 +38,7 @@
               />
             </accordion-item>
           </div>
-          <div
+          <!-- <div
             v-else-if="element.name === 'conversation_participants'"
             class="conversation--actions"
           >
@@ -55,7 +55,7 @@
                 :inbox-id="inboxId"
               />
             </accordion-item>
-          </div>
+          </div> -->
           <div v-else-if="element.name === 'conversation_info'">
             <accordion-item
               :title="$t('CONVERSATION_SIDEBAR.ACCORDION.CONVERSATION_INFO')"
@@ -110,7 +110,7 @@
               />
             </accordion-item>
           </div>
-          <woot-feature-toggle
+          <!-- <woot-feature-toggle
             v-else-if="element.name === 'macros'"
             feature-key="macros"
           >
@@ -122,7 +122,7 @@
             >
               <macros-list :conversation-id="conversationId" />
             </accordion-item>
-          </woot-feature-toggle>
+          </woot-feature-toggle> -->
         </div>
       </transition-group>
     </draggable>

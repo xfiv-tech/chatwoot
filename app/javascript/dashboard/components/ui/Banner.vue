@@ -107,7 +107,9 @@ export default {
   }
 
   &.alert {
-    background: var(--r-400);
+    // background: var(--r-400);
+    background: #fbe8e8;
+    color: #3c4858;
   }
 
   &.warning {

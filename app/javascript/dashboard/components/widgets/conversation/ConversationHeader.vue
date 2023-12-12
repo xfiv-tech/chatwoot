@@ -175,6 +175,7 @@ export default {
   @include breakpoint(medium up) {
     flex-direction: column;
   }
+  background: #0d125e !important;
 }
 
 .conversation-header--details {
@@ -233,5 +234,15 @@ export default {
 .hmac-warning__icon {
   color: var(--y-600);
   margin: 0 var(--space-micro);
+}
+
+h3.sub-block-title.user--name.text-truncate,
+button.button.user--profile__button.clear.link.small.primary {
+  color: #ffffff !important;
+}
+
+.button.clear:hover.secondary,
+.button.clear:hover {
+  background: none !important;
 }
 </style>

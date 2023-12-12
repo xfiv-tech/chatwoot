@@ -421,6 +421,7 @@ export default {
     overflow: hidden;
     white-space: nowrap;
     width: 60%;
+    color: #8b0be9;
   }
 }
 

@@ -58,12 +58,27 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-button:disabled {
+/*button:disabled {
   opacity: 1;
   background-color: var(--w-100);
 
   &:hover {
     background-color: var(--w-100);
+  }
+}*/
+
+button {
+  background: linear-gradient(0deg, #773282 0%, #AF3BB1 100%);
+
+  &:disabled {
+    opacity: 0.2;
+    &:hover {
+      background: linear-gradient(0deg, #773282 0%, #AF3BB1 100%);
+    }
+  }
+
+  &:hover {
+    background: linear-gradient(0deg, #562577 0%, #562577 100%);
   }
 }
 </style>

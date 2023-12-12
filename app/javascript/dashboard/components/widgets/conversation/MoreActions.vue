@@ -114,4 +114,12 @@ export default {
   margin-right: var(--space-smaller);
   min-width: var(--space-normal);
 }
+
+button.button.clear.secondary {
+  color: #ffffff !important;
+}
+
+button.button.clear:hover.secondary {
+  color: #2f3b49 !important;
+}
 </style>

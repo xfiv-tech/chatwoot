@@ -95,7 +95,7 @@
           <woot-code :script="getAccountId" />
         </div>
       </div>
-      <div class="current-version">
+      <!-- <div class="current-version">
         <div>{{ `v${globalConfig.appVersion}` }}</div>
         <div v-if="hasAnUpdateAvailable && globalConfig.displayManifest">
           {{
@@ -107,7 +107,7 @@
         <div class="build-id">
           <div>{{ `Build ${globalConfig.gitSha}` }}</div>
         </div>
-      </div>
+      </div> -->
 
       <woot-submit-button
         class="button nice success button--fixed-top"
